@@ -1,0 +1,435 @@
+/* ================= GLOBAL ================= */
+body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background-color: #f5f7fb;
+}
+
+/* HEADER SELALU NEMPEL DI ATAS (STICKY) */
+header {
+    position: sticky;
+    top: 0;
+    z-index: 1050;            /* di atas konten lain */
+    background-color: #ffffff;
+}
+
+/* ================= HEADER BAR ATAS ================= */
+.header-top {
+    background-color: #ffffff;
+    padding-block: 14px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.logo-wrap img {
+    height: 52px;
+}
+
+.logo-text-title {
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    font-size: 1.1rem;
+    color: #1f2937;
+}
+
+.logo-text-sub {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    color: #6b7280;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.contact-icon-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 999px;
+    background-color: #0f4c75;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.contact-icon-circle i {
+    color: #ffffff;
+    font-size: 1.2rem;
+}
+
+.contact-label {
+    font-size: 0.8rem;
+    color: #6b7280;
+    line-height: 1.1;
+}
+
+.contact-value {
+    font-weight: 600;
+    color: #111827;
+    font-size: 0.9rem;
+}
+
+.social-divider {
+    width: 1px;
+    height: 32px;
+    background-color: #e5e7eb;
+    margin-inline: 18px;
+}
+
+.social-list a {
+    font-size: 1.4rem;
+    margin-left: 8px;
+    text-decoration: none; /* hilangkan garis bawah icon sosmed header */
+}
+
+/* ================= NAVBAR ================= */
+.nav-main {
+    background-color: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.nav-main .nav-link {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: #111827;
+    padding-inline: 16px;
+    padding-block: 14px;
+}
+
+.nav-main .nav-link:hover,
+.nav-main .nav-link:focus,
+.nav-main .nav-link.active {
+    color: #0f4c75;
+}
+
+.nav-main .dropdown-toggle::after {
+    margin-left: 0.35rem;
+}
+
+@media (max-width: 991.98px) {
+    .header-top {
+        padding-block: 10px;
+    }
+    .contact-group {
+        margin-top: 10px;
+    }
+    .social-divider {
+        display: none;
+    }
+    .nav-main .nav-link {
+        padding-block: 8px;
+    }
+}
+
+/* ================= BAGIAN LAIN (HERO, CARD, FOOTER) ================= */
+.hero-section {
+    background: linear-gradient(135deg, #005b9f, #00a1e4);
+    color: #fff;
+    padding: 80px 0 40px;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-overlay-card {
+    background: #ffffff;
+    border-radius: 24px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+    margin-top: -60px;
+    position: relative;
+    z-index: 2;
+}
+
+.section-title {
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+}
+
+.section-subtitle {
+    color: #6c757d;
+}
+
+.card-soft {
+    border: none;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(15,23,42,0.08);
+}
+
+.card-soft img {
+    object-fit: cover;
+    width: 100%;
+    height: 220px;
+}
+/* Animasi hover untuk card informasi / card-soft */
+.card-soft {
+    position: relative;
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        background-color 0.25s ease;
+}
+
+/* Efek di layar desktop: geser kanan + agak naik + shadow lebih kuat */
+.card-soft:hover {
+    transform: translateX(8px) translateY(-6px);
+    box-shadow: 0 18px 45px rgba(15, 23, 42, 0.18);
+    background-color: #ffffff;
+}
+
+/* Biar gambar juga ikut “hidup” sedikit */
+.card-soft img {
+    object-fit: cover;
+    width: 100%;
+    height: 220px;
+    transition: transform 0.3s ease;
+}
+
+.card-soft:hover img {
+    transform: scale(1.03);
+}
+
+/* ================== RESPONSIVE: MOBILE ================== */
+@media (max-width: 576px) {
+    
+    .card-soft:hover {
+        transform: translateY(-4px) scale(1.01);
+        box-shadow: 0 12px 30px rgba(15, 23, 42, 0.16);
+    }
+}
+/* ==================== INFO SLIDER ==================== */
+.info-scroll {
+    display: flex;
+    gap: 24px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+    scroll-behavior: smooth;
+    scrollbar-width: none; /* Firefox hide */
+}
+
+.info-scroll::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
+}
+
+/* ITEM = 1 card */
+.info-item {
+    flex: 0 0 calc((100% - 48px) ); /* tampil 3 card di desktop */
+}
+
+@media (max-width: 992px) {
+    .info-item {
+        flex: 0 0 50%; /* tampil 2 card di tablet */
+    }
+}
+
+@media (max-width: 768px) {
+    .info-item {
+        flex: 0 0 80%; /* 1 besar di mobile */
+    }
+}
+
+/* ==================== HOVER ANIMASI ==================== */
+.info-card-hover {
+    transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.info-card-hover:hover {
+    transform: translateY(-6px) scale(1.03);
+    box-shadow: 0 18px 40px rgba(0,0,0,0.15);
+}
+/* ============= SCROLL HORIZONTAL INFORMASI ============= */
+.info-scroll {
+    display: flex;
+    gap: 24px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+    scroll-behavior: smooth;
+    scrollbar-width: thin; /* Firefox */
+}
+
+/* Scrollbar tipis (Chrome / Edge / Safari) */
+.info-scroll::-webkit-scrollbar {
+    height: 6px;
+}
+.info-scroll::-webkit-scrollbar-thumb {
+    background: rgba(150, 150, 150, 0.5);
+    border-radius: 10px;
+}
+
+/* Card lebar tetap */
+.info-item {
+    flex: 0 0 330px;   /* Lebar card (desktop) */
+}
+
+/* Efek hover */
+.info-card-hover {
+    transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.info-card-hover:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 32px rgba(0, 0, 0, 0.15);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .info-item {
+        flex: 0 0 85%;    /* HP = 1 card besar per slide */
+    }
+}
+
+/* ================= GURU SLIDER ================= */
+.guru-scroll {
+    display: flex;
+    gap: 24px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+    scroll-behavior: smooth;
+    scrollbar-width: none;          /* Firefox: sembunyikan scrollbar */
+}
+
+.guru-scroll::-webkit-scrollbar {
+    display: none;                  /* Chrome/Safari: sembunyikan scrollbar */
+}
+
+/* 5 kartu di desktop */
+.guru-item {
+    flex: 0 0 calc((100% - 4 * 24px) / 5);   /* 5 card + 4 gap (24px) */
+}
+
+/* Tablet: 3 kartu */
+@media (max-width: 992px) {
+    .guru-item {
+        flex: 0 0 calc((100% - 2 * 24px) / 3);
+    }
+}
+
+/* HP: 1 kartu besar */
+@media (max-width: 768px) {
+    .guru-item {
+        flex: 0 0 75%;
+    }
+}
+
+/* Card guru lebih tinggi */
+.guru-card {
+    min-height: 360px;
+    display: flex;
+    flex-direction: column;
+}
+
+.guru-card img {
+    height: 280px;         
+    object-fit: cover;
+    width: 100%;
+}
+
+.guru-card .card-body {
+    padding: 0.75rem 1rem 1rem;
+}
+.guru-photo-wrapper {
+    width: 100%;
+    max-width: 280px;
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    background: #f2f2f2;
+}
+
+.guru-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+.badge-stat {
+    font-size: 0.9rem;
+    letter-spacing: 0.15em;
+    color: #94a3b8;
+}
+
+.stat-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+/* ================= FOOTER ================= */
+.footer-main {
+    background: #003c66;
+    color: #e5eef9;
+    padding: 60px 0 40px;
+}
+
+.footer-main a {
+    color: #e5eef9;
+    text-decoration: none;
+}
+
+.footer-main a:hover {
+    color: #ffffff;
+}
+
+.footer-bottom {
+    background: #012239;
+    color: #cbd5f5;
+    padding: 12px 0;
+    font-size: 0.85rem;
+}
+
+.social-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.7);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 8px;
+}
+
+.hero-slider img {
+    border-radius: 24px;
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+}
+
+.btn-pill {
+    border-radius: 999px;
+    padding-inline: 24px;
+}
+
+/* ============= EKSTRAKURIKULER SLIDER (1 BARIS) ============= */
+.ekskul-scroll {
+    display: flex;
+    gap: 24px;
+    overflow-x: auto;     /* tetap bisa discroll, tapi scrollbar disembunyikan */
+    padding-bottom: 8px;
+    scroll-behavior: smooth;
+    scrollbar-width: none; /* HIDE scrollbar di Firefox */
+}
+
+/* HIDE scrollbar di Chrome/Safari/Edge */
+.ekskul-scroll::-webkit-scrollbar {
+    display: none;
+}
+
+/* track & thumb tidak perlu lagi, boleh dihapus
+.ekskul-scroll::-webkit-scrollbar-track { ... }
+.ekskul-scroll::-webkit-scrollbar-thumb { ... }
+*/
+
+/* Tiap kartu ekskul = 1/3 lebar container */
+.ekskul-item {
+    flex: 0 0 calc((100% - 48px) / 3);  /* 3 kartu + 2 gap (2*24px) */
+}
+
+@media (max-width: 768px) {
+    .ekskul-item {
+        flex: 0 0 80%; /* di HP: 1 kartu besar, slide kiri-kanan */
+    }
+}
+
