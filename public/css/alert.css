@@ -1,0 +1,37 @@
+
+.toast-notif {
+    position: fixed;
+    top: 60px;
+    right: 20px;
+    min-width: 260px;
+    padding: 14px 18px;
+    border-radius: 8px;
+    color: #fff;
+    font-weight: 600;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
+    z-index: 9999;
+    opacity: 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transform: translateX(100%);
+    transition: all 0.5s ease;
+    font-size: 15px;
+}
+
+.toast-success {
+    background-color: #63ed7a;
+}
+
+.toast-error {
+    background-color: #dc3545;
+}
+
+.toast-icon {
+    font-size: 20px;
+}
+
+.toast-show {
+    opacity: 1 !important;
+    transform: translateX(0%) !important;
+}
