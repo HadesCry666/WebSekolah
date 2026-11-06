@@ -297,7 +297,7 @@
 </section>
 
 {{-- KONSULTASI / CTA --}}
-<section class="py-5 bg-navy text-white text-center" style="background: linear-gradient(135deg, #0b2239 0%, #0f4c75 100%);">
+<section class="py-5 bg-navy text-white text-center" style="background: linear-gradient(135deg, #052e1c 0%, #0d5c3a 100%);">
     <div class="container py-4">
         <h2 class="fw-bold mb-3">Ingin Mengetahui Lebih Lanjut Tentang Kurikulum Kami?</h2>
         <p class="lead opacity-90 mx-auto mb-4" style="max-width: 650px;">

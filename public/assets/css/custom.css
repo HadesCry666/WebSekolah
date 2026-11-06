@@ -1,15 +1,15 @@
 /**
  * Admin Theme Override - SMP Sains Al-Qur'an Klakah
- * Tema disesuaikan dengan Landing Page (Navy Blue #0f4c75)
+ * Tema disesuaikan dengan Warna Logo (Islamic Emerald Green #0d5c3a)
  */
 
 /* ================= CSS VARIABLES ================= */
 :root {
-    --brand-primary:       #0f4c75;
-    --brand-primary-dark:  #003c66;
-    --brand-primary-light: #1976d2;
-    --brand-accent:        #e8f4fd;
-    --brand-gradient:      linear-gradient(135deg, #003c66 0%, #0f4c75 60%, #1976d2 100%);
+    --brand-primary:       #0d5c3a;
+    --brand-primary-dark:  #083d26;
+    --brand-primary-light: #16a34a;
+    --brand-accent:        #e8f5e9;
+    --brand-gradient:      linear-gradient(135deg, #083d26 0%, #0d5c3a 60%, #16a34a 100%);
 }
 
 /* ================= FONT ================= */
@@ -23,7 +23,7 @@ h1, h2, h3, h4, h5, h6, p, span, div, a, td, th, label, input, select, textarea,
 /* ================= SIDEBAR ================= */
 .main-sidebar {
     background: var(--brand-gradient) !important;
-    box-shadow: 4px 0 20px rgba(0, 60, 102, 0.3) !important;
+    box-shadow: 4px 0 20px rgba(8, 61, 38, 0.3) !important;
 }
 
 .main-sidebar aside,

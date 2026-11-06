@@ -29,7 +29,7 @@ header {
     font-weight: 700;
     letter-spacing: 0.04em;
     font-size: 1.1rem;
-    color: #0f4c75;
+    color: #0d5c3a;
     white-space: nowrap;
 }
 
@@ -50,7 +50,7 @@ header {
     width: 40px;
     height: 40px;
     border-radius: 999px;
-    background: linear-gradient(135deg, #0f4c75, #1976d2);
+    background: linear-gradient(135deg, #0d5c3a, #16a34a);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -111,7 +111,7 @@ header {
 .nav-main .nav-link:hover,
 .nav-main .nav-link:focus,
 .nav-main .nav-link.active {
-    color: #0f4c75;
+    color: #0d5c3a;
 }
 
 .nav-main .nav-link.active::after {
@@ -121,7 +121,7 @@ header {
     left: 16px;
     right: 16px;
     height: 3px;
-    background: linear-gradient(90deg, #0f4c75, #1976d2);
+    background: linear-gradient(90deg, #0d5c3a, #16a34a);
     border-radius: 3px;
 }
 
@@ -144,8 +144,8 @@ header {
 }
 
 .nav-main .dropdown-item:hover {
-    background: #e8f4fd;
-    color: #0f4c75;
+    background: #e8f5e9;
+    color: #0d5c3a;
 }
 
 /* ── LOGIN BUTTON (SIMPLE & ELEGAN) ── */
@@ -154,16 +154,16 @@ header {
     align-items: center;
     gap: 7px;
     padding: 7px 18px;
-    background-color: #0f4c75;
+    background-color: #0d5c3a;
     color: #ffffff !important;
     font-size: 0.84rem;
     font-weight: 600;
     letter-spacing: 0.02em;
     border-radius: 999px;
-    border: 1px solid rgba(15, 76, 117, 0.15);
+    border: 1px solid rgba(13, 92, 58, 0.15);
     text-decoration: none;
     transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-    box-shadow: 0 2px 8px rgba(15, 76, 117, 0.16);
+    box-shadow: 0 2px 8px rgba(13, 92, 58, 0.16);
     white-space: nowrap;
 }
 
@@ -173,10 +173,10 @@ header {
 }
 
 .nav-login-btn:hover {
-    background-color: #093350;
+    background-color: #06311e;
     color: #ffffff !important;
     transform: translateY(-1.5px);
-    box-shadow: 0 4px 14px rgba(15, 76, 117, 0.26);
+    box-shadow: 0 4px 14px rgba(13, 92, 58, 0.26);
 }
 
 .nav-login-btn:hover i {
@@ -185,7 +185,7 @@ header {
 
 .nav-login-btn:active {
     transform: translateY(0);
-    box-shadow: 0 2px 4px rgba(15, 76, 117, 0.2);
+    box-shadow: 0 2px 4px rgba(13, 92, 58, 0.2);
 }
 
 @media (max-width: 991.98px) {
@@ -217,7 +217,7 @@ header {
 /* ================= HERO SECTION ================= */
 .hero-section {
     position: relative;
-    background-color: #0b2239;
+    background-color: #052e1c;
     padding: 0;
     overflow: hidden;
 }
@@ -280,32 +280,32 @@ header {
 }
 
 .bg-primary-soft {
-    background: linear-gradient(135deg, #e8f4fd 0%, #dbeafe 100%);
+    background: linear-gradient(135deg, #e8f5e9 0%, #d1fae5 100%);
 }
 
 /* ================= VISI & MISI ================= */
 .text-navy {
-    color: #0f4c75 !important;
+    color: #0d5c3a !important;
 }
 
 .visi-misi-card {
     background: #ffffff;
-    border: 1px solid rgba(15, 76, 117, 0.08);
+    border: 1px solid rgba(13, 92, 58, 0.08);
     border-radius: 20px;
     transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-    box-shadow: 0 4px 20px rgba(15, 76, 117, 0.06);
+    box-shadow: 0 4px 20px rgba(13, 92, 58, 0.06);
 }
 
 .visi-misi-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 14px 34px rgba(15, 76, 117, 0.12);
-    border-color: rgba(15, 76, 117, 0.22);
+    box-shadow: 0 14px 34px rgba(13, 92, 58, 0.12);
+    border-color: rgba(13, 92, 58, 0.22);
 }
 
 .visi-icon {
     width: 52px;
     height: 52px;
-    background: linear-gradient(135deg, #0f4c75, #1976d2);
+    background: linear-gradient(135deg, #0d5c3a, #16a34a);
     color: #ffffff;
     font-size: 1.35rem;
     border-radius: 14px;
@@ -313,13 +313,13 @@ header {
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    box-shadow: 0 4px 12px rgba(15, 76, 117, 0.25);
+    box-shadow: 0 4px 12px rgba(13, 92, 58, 0.25);
 }
 
 .misi-icon {
     width: 52px;
     height: 52px;
-    background: linear-gradient(135deg, #1565c0, #0f4c75);
+    background: linear-gradient(135deg, #0b4d30, #0d5c3a);
     color: #ffffff;
     font-size: 1.35rem;
     border-radius: 14px;
@@ -327,15 +327,15 @@ header {
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    box-shadow: 0 4px 12px rgba(21, 101, 192, 0.25);
+    box-shadow: 0 4px 12px rgba(11, 77, 48, 0.25);
 }
 
 .misi-bullet-icon {
     width: 22px;
     height: 22px;
     border-radius: 50%;
-    background: rgba(15, 76, 117, 0.08);
-    color: #0f4c75;
+    background: rgba(13, 92, 58, 0.08);
+    color: #0d5c3a;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -344,14 +344,14 @@ header {
 }
 
 .visi-misi-card:hover .misi-bullet-icon {
-    background: #0f4c75;
+    background: #0d5c3a;
     color: #ffffff;
     transform: scale(1.08);
 }
 
 .visi-content {
-    background-color: #f8fbfe !important;
-    border-left: 4px solid #0f4c75 !important;
+    background-color: #f6faf7 !important;
+    border-left: 4px solid #0d5c3a !important;
     line-height: 1.7;
 }
 
@@ -362,7 +362,7 @@ header {
 }
 
 .program-card:hover {
-    border-bottom-color: #0f4c75;
+    border-bottom-color: #0d5c3a;
     transform: translateY(-6px);
     box-shadow: 0 16px 40px rgba(15,23,42,0.15);
 }
@@ -477,12 +477,12 @@ header {
 .stat-value {
     font-size: 2rem;
     font-weight: 800;
-    color: #0f4c75;
+    color: #0d5c3a;
 }
 
 /* ================= AGENDA DATE BOX ================= */
 .agenda-date-box {
-    background: linear-gradient(135deg, #e8f4fd 0%, #dbeafe 100%);
+    background: linear-gradient(135deg, #e8f5e9 0%, #d1fae5 100%);
     border-radius: 12px;
     padding: 10px 15px;
     min-width: 70px;
@@ -491,7 +491,7 @@ header {
 /* ================= KURIKULUM / CTA SECTION ================= */
 .kurikulum-section,
 .spmb-section {
-    background: linear-gradient(135deg, #003c66 0%, #0f4c75 50%, #1a6baa 100%);
+    background: linear-gradient(135deg, #083d26 0%, #0d5c3a 50%, #15803d 100%);
     position: relative;
     overflow: hidden;
 }
@@ -537,13 +537,13 @@ header {
 
 /* ================= FOOTER ================= */
 .footer-main {
-    background: linear-gradient(180deg, #003c66 0%, #012a4a 100%);
-    color: #e5eef9;
+    background: linear-gradient(180deg, #083d26 0%, #052e1c 100%);
+    color: #e2f2e9;
     padding: 60px 0 40px;
 }
 
 .footer-main a {
-    color: #e5eef9;
+    color: #e2f2e9;
     text-decoration: none;
     transition: color 0.2s ease;
 }
@@ -557,7 +557,7 @@ header {
 }
 
 .footer-bottom {
-    background: #012239;
+    background: #032114;
     color: #cbd5f5;
     padding: 12px 0;
     font-size: 0.85rem;
@@ -590,7 +590,7 @@ header {
 .hero-slider .carousel-item {
     position: relative;
     height: 520px;
-    background-color: #0a192f;
+    background-color: #042617;
 }
 
 .hero-slider .carousel-item::after {
@@ -647,7 +647,7 @@ header {
     gap: 10px;
     padding: 11px 26px;
     background: #ffffff;
-    color: #0f4c75 !important;
+    color: #0d5c3a !important;
     font-size: 0.92rem;
     font-weight: 700;
     border-radius: 999px;
@@ -657,7 +657,7 @@ header {
 }
 
 .hero-cta-btn:hover {
-    background: #0f4c75;
+    background: #0d5c3a;
     color: #ffffff !important;
     border: 1px solid rgba(255, 255, 255, 0.3);
     transform: translateY(-2px);
@@ -692,7 +692,7 @@ header {
 .hero-slider .carousel-control-prev:hover,
 .hero-slider .carousel-control-next:hover {
     background: #ffffff;
-    color: #0f4c75;
+    color: #0d5c3a;
     opacity: 1;
     transform: translateY(-50%) scale(1.08);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
@@ -729,8 +729,8 @@ header {
 .hero-overlay-card {
     background: #ffffff;
     border-radius: 24px;
-    box-shadow: 0 16px 45px rgba(15, 76, 117, 0.1);
-    border: 1px solid rgba(15, 76, 117, 0.08);
+    box-shadow: 0 16px 45px rgba(13, 92, 58, 0.1);
+    border: 1px solid rgba(13, 92, 58, 0.08);
     margin-top: -65px;
     position: relative;
     z-index: 20;
@@ -749,8 +749,8 @@ header {
     border-radius: 50%;
     object-fit: cover;
     border: 4px solid #ffffff;
-    box-shadow: 0 8px 24px rgba(15, 76, 117, 0.16);
-    outline: 2px solid rgba(15, 76, 117, 0.2);
+    box-shadow: 0 8px 24px rgba(13, 92, 58, 0.16);
+    outline: 2px solid rgba(13, 92, 58, 0.2);
 }
 
 .kepsek-icon-badge {
@@ -760,7 +760,7 @@ header {
     width: 32px;
     height: 32px;
     border-radius: 50%;
-    background: #0f4c75;
+    background: #0d5c3a;
     color: #ffffff;
     display: flex;
     align-items: center;
@@ -783,13 +783,13 @@ header {
     gap: 6px;
     font-size: 0.88rem;
     font-weight: 600;
-    color: #0f4c75;
+    color: #0d5c3a;
     text-decoration: none;
     transition: all 0.2s ease;
 }
 
 .btn-link-kepsek:hover {
-    color: #1976d2;
+    color: #16a34a;
     transform: translateX(3px);
 }
 
@@ -797,10 +797,10 @@ header {
     display: flex;
     flex-direction: column;
     gap: 12px;
-    background: #f8fbfe;
+    background: #f6faf7;
     padding: 16px;
     border-radius: 18px;
-    border: 1px solid rgba(15, 76, 117, 0.06);
+    border: 1px solid rgba(13, 92, 58, 0.06);
 }
 
 .stat-item-box {
@@ -810,14 +810,14 @@ header {
     background: #ffffff;
     padding: 14px 18px;
     border-radius: 14px;
-    box-shadow: 0 2px 8px rgba(15, 76, 117, 0.04);
-    border: 1px solid rgba(15, 76, 117, 0.05);
+    box-shadow: 0 2px 8px rgba(13, 92, 58, 0.04);
+    border: 1px solid rgba(13, 92, 58, 0.05);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .stat-item-box:hover {
     transform: translateX(3px);
-    box-shadow: 0 4px 14px rgba(15, 76, 117, 0.08);
+    box-shadow: 0 4px 14px rgba(13, 92, 58, 0.08);
 }
 
 .stat-icon-circle {
@@ -832,19 +832,19 @@ header {
 }
 
 .bg-navy-soft {
-    background: rgba(15, 76, 117, 0.1);
-    color: #0f4c75;
+    background: rgba(13, 92, 58, 0.1);
+    color: #0d5c3a;
 }
 
 .bg-blue-soft {
-    background: rgba(25, 118, 210, 0.1);
-    color: #1976d2;
+    background: rgba(22, 163, 74, 0.1);
+    color: #16a34a;
 }
 
 .stat-number {
     font-size: 1.65rem;
     font-weight: 800;
-    color: #0f4c75;
+    color: #0d5c3a;
     line-height: 1.1;
     letter-spacing: -0.01em;
 }
@@ -933,7 +933,7 @@ header {
 
 /* ================= PROFIL SEKOLAH PAGE ================= */
 .profil-section h4 {
-    color: #0f4c75;
+    color: #0d5c3a;
 }
 
 /* ================= BREADCRUMB ================= */
@@ -943,7 +943,7 @@ header {
 }
 
 .breadcrumb-item a {
-    color: #0f4c75;
+    color: #0d5c3a;
     text-decoration: none;
 }
 
@@ -989,7 +989,7 @@ header {
     font-weight: 800;
     font-size: 0.92rem;
     line-height: 1.15;
-    color: #0f4c75;
+    color: #0d5c3a;
     letter-spacing: -0.2px;
 }
 
@@ -1010,8 +1010,8 @@ header {
 }
 
 .navbar-toggler:focus {
-    box-shadow: 0 0 0 3px rgba(15, 76, 117, 0.15);
-    border-color: #0f4c75;
+    box-shadow: 0 0 0 3px rgba(13, 92, 58, 0.15);
+    border-color: #0d5c3a;
 }
 
 .navbar-toggler-icon {
@@ -1023,8 +1023,8 @@ header {
     width: 26px;
     height: 26px;
     border-radius: 50%;
-    background: #e8f4fd;
-    color: #0f4c75;
+    background: #e8f5e9;
+    color: #0d5c3a;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -1044,7 +1044,7 @@ header {
         border-radius: 14px;
         padding: 16px 18px;
         margin-top: 10px;
-        box-shadow: 0 12px 36px rgba(15, 76, 117, 0.12);
+        box-shadow: 0 12px 36px rgba(13, 92, 58, 0.12);
         border: 1px solid #e2e8f0;
     }
     .nav-main .nav-link {
@@ -1054,8 +1054,8 @@ header {
     }
     .nav-main .nav-link:hover, 
     .nav-main .nav-link.active {
-        background: #f0f7ff;
-        color: #0f4c75;
+        background: #ecfdf5;
+        color: #0d5c3a;
     }
     .nav-main .nav-link.active::after {
         display: none;

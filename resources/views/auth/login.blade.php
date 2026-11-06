@@ -24,10 +24,10 @@
 
     <style>
         :root {
-            --primary: #0f4c75;
-            --primary-dark: #003c66;
-            --primary-light: #1976d2;
-            --accent: #e8f4fd;
+            --primary: #0d5c3a;
+            --primary-dark: #083d26;
+            --primary-light: #16a34a;
+            --accent: #e8f5e9;
         }
 
         * {
@@ -40,7 +40,7 @@
             font-family: 'Inter', system-ui, -apple-system, sans-serif;
             min-height: 100vh;
             display: flex;
-            background: linear-gradient(135deg, #003c66 0%, #0f4c75 40%, #1976d2 100%);
+            background: linear-gradient(135deg, #083d26 0%, #0d5c3a 40%, #16a34a 100%);
             position: relative;
             overflow: hidden;
         }
@@ -214,7 +214,7 @@
             width: 64px;
             height: 64px;
             border-radius: 18px;
-            background: linear-gradient(135deg, #0f4c75, #1976d2);
+            background: linear-gradient(135deg, #0d5c3a, #16a34a);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -279,14 +279,14 @@
         }
 
         .form-control-custom:focus {
-            border-color: #0f4c75;
+            border-color: #0d5c3a;
             background: #fff;
-            box-shadow: 0 0 0 4px rgba(15, 76, 117, 0.1);
+            box-shadow: 0 0 0 4px rgba(13, 92, 58, 0.1);
         }
 
         .form-control-custom:focus ~ .input-icon,
         .input-wrapper:focus-within .input-icon {
-            color: #0f4c75;
+            color: #0d5c3a;
         }
 
         .toggle-pw {
@@ -301,7 +301,7 @@
         }
 
         .toggle-pw:hover {
-            color: #0f4c75;
+            color: #0d5c3a;
         }
 
         .error-msg {
@@ -329,7 +329,7 @@
         .btn-login {
             width: 100%;
             padding: 13px;
-            background: linear-gradient(135deg, #0f4c75 0%, #1976d2 100%);
+            background: linear-gradient(135deg, #0d5c3a 0%, #16a34a 100%);
             color: #fff;
             border: none;
             border-radius: 12px;
