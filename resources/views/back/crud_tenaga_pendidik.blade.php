@@ -40,7 +40,7 @@
 </div>
 @endif
 
-@if($errors->any())
+@if(isset($errors) && $errors->any())
 <div class="alert alert-danger mb-3">
     <div class="d-flex align-items-center mb-1">
         <i class="bi bi-exclamation-circle-fill" style="font-size: 1.1rem; margin-right: 8px;"></i>
@@ -55,7 +55,7 @@
 @endif
 
 {{-- Stat Cards --}}
-<div class="stat-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+<div class="stat-grid" style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));">
     <div class="stat-card">
         <div class="stat-card-top">
             <span class="stat-card-label">Total Tenaga Pendidik</span>
@@ -63,6 +63,14 @@
         </div>
         <div class="stat-card-value">{{ $stats['total'] ?? $data->total() }}</div>
         <span class="stat-card-link">Total keseluruhan data</span>
+    </div>
+    <div class="stat-card">
+        <div class="stat-card-top">
+            <span class="stat-card-label">Kepala Sekolah</span>
+            <div class="stat-card-icon" style="background: rgba(16, 185, 129, 0.15); color: #059669;"><i class="bi bi-person-badge-fill"></i></div>
+        </div>
+        <div class="stat-card-value">{{ $stats['kepala_sekolah'] ?? 0 }}</div>
+        <span class="stat-card-link">Pimpinan Sekolah</span>
     </div>
     <div class="stat-card">
         <div class="stat-card-top">
@@ -106,8 +114,9 @@
                 <input type="text" name="search" value="{{ request('search') }}" class="af-input" placeholder="Cari nama, NIP, mapel..." 
                        style="padding-left: 30px; height: 36px; font-size: 0.82rem; min-width: 200px;">
             </div>
-            <select name="jabatan" class="af-select" onchange="this.form.submit()" style="height: 36px; font-size: 0.82rem; min-width: 130px;">
+            <select name="jabatan" class="af-select" onchange="this.form.submit()" style="height: 36px; font-size: 0.82rem; min-width: 140px;">
                 <option value="">Semua Jabatan</option>
+                <option value="Kepala Sekolah" {{ in_array(request('jabatan'), ['Kepala Sekolah', 'kepala_sekolah']) ? 'selected' : '' }}>Kepala Sekolah</option>
                 <option value="Guru" {{ request('jabatan') == 'Guru' ? 'selected' : '' }}>Guru</option>
                 <option value="Tata usaha" {{ in_array(request('jabatan'), ['Tata usaha', 'Tata Usaha', 'tata_usaha']) ? 'selected' : '' }}>Tata Usaha</option>
                 <option value="Ustadz" {{ request('jabatan') == 'Ustadz' ? 'selected' : '' }}>Ustadz</option>
@@ -176,15 +185,29 @@
                         </td>
                         <td>
                             @php
-                                $badgeClass = match(strtolower(str_replace([' ', '_'], '', $row->jabatan))) {
-                                    'guru' => 'badge-primary',
-                                    'ustadz' => 'badge-success',
-                                    'tatausaha' => 'badge-warning',
-                                    default => 'badge-secondary'
-                                };
+                                $rawJ = strtolower(str_replace([' ', '_'], '', $row->jabatan));
+                                if (str_contains($rawJ, 'kepala')) {
+                                    $badgeClass = 'badge-primary';
+                                    $labelJabatan = 'Kepala Sekolah';
+                                } elseif ($rawJ === 'ustadz') {
+                                    $badgeClass = 'badge-success';
+                                    $labelJabatan = 'Ustadz';
+                                } elseif (str_contains($rawJ, 'tata')) {
+                                    $badgeClass = 'badge-warning';
+                                    $labelJabatan = 'Tata Usaha';
+                                } elseif ($rawJ === 'guru') {
+                                    $badgeClass = 'badge-info';
+                                    $labelJabatan = 'Guru';
+                                } else {
+                                    $badgeClass = 'badge-secondary';
+                                    $labelJabatan = $row->jabatan;
+                                }
                             @endphp
                             <span class="badge {{ $badgeClass }}" style="font-size: 0.75rem; font-weight: 600; padding: 4px 10px; border-radius: 6px;">
-                                {{ strcasecmp($row->jabatan, 'tata_usaha') === 0 || strcasecmp($row->jabatan, 'tata usaha') === 0 ? 'Tata Usaha' : $row->jabatan }}
+                                @if(str_contains($rawJ, 'kepala'))
+                                    <i class="bi bi-person-badge me-1"></i>
+                                @endif
+                                {{ $labelJabatan }}
                             </span>
                         </td>
                         <td>
@@ -277,6 +300,7 @@
                         <label class="af-label">Jabatan <span class="req">*</span></label>
                         <select name="jabatan" class="af-select" required>
                             <option value="">-- Pilih Jabatan --</option>
+                            <option value="Kepala Sekolah">Kepala Sekolah</option>
                             <option value="Guru">Guru</option>
                             <option value="Tata usaha">Tata Usaha</option>
                             <option value="Ustadz">Ustadz</option>
@@ -379,6 +403,7 @@
                     <div class="af-group">
                         <label class="af-label">Jabatan <span class="req">*</span></label>
                         <select name="jabatan" id="edit_jabatan" class="af-select" required>
+                            <option value="Kepala Sekolah">Kepala Sekolah</option>
                             <option value="Guru">Guru</option>
                             <option value="Tata usaha">Tata Usaha</option>
                             <option value="Ustadz">Ustadz</option>
@@ -500,7 +525,9 @@
         // Handle Jabatan case-insensitively / space
         const jabatanSelect = document.getElementById('edit_jabatan');
         const rawJabatan = (row.jabatan || 'Guru').trim();
-        if (/tata.*usaha/i.test(rawJabatan)) {
+        if (/kepala.*sekolah/i.test(rawJabatan)) {
+            jabatanSelect.value = 'Kepala Sekolah';
+        } else if (/tata.*usaha/i.test(rawJabatan)) {
             jabatanSelect.value = 'Tata usaha';
         } else if (/ustadz/i.test(rawJabatan)) {
             jabatanSelect.value = 'Ustadz';

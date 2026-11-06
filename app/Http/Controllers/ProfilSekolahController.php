@@ -11,7 +11,8 @@ class ProfilSekolahController extends Controller
     public function front()
     {
         $profil = ProfilSekolah::first();
-        return view('front.profil_sekolah', compact('profil'));
+        $kepsek = \App\Models\Tenaga_pendidik::where('jabatan', 'like', '%kepala%sekolah%')->first();
+        return view('front.profil_sekolah', compact('profil', 'kepsek'));
     }
 
     // ADMIN – form edit profil
@@ -80,6 +81,10 @@ class ProfilSekolahController extends Controller
             } else {
                 unset($validated[$field]);
             }
+        }
+
+        if (!$request->filled('nama_kepsek')) {
+            unset($validated['nama_kepsek']);
         }
 
         $profil->update($validated);

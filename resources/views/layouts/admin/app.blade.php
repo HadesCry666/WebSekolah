@@ -145,6 +145,13 @@
                 </a>
             </div>
             <div class="sidebar-item">
+                <a href="{{ route('admin.kurikulum.index') }}"
+                   class="sidebar-link {{ request()->routeIs('admin.kurikulum*') ? 'active' : '' }}">
+                    <i class="bi bi-book-half"></i>
+                    <span>Kurikulum</span>
+                </a>
+            </div>
+            <div class="sidebar-item">
                 <a href="{{ route('admin.fasilitas.index') }}"
                    class="sidebar-link {{ request()->routeIs('admin.fasilitas*') ? 'active' : '' }}">
                     <i class="bi bi-building"></i>

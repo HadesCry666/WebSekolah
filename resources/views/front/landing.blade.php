@@ -114,17 +114,28 @@
                     {{-- Sambutan Kiri --}}
                     <div class="col-lg-7 col-xl-8">
                         <div class="d-flex flex-column flex-sm-row align-items-sm-center gap-4">
+                            @php
+                                $fotoKepsekUrl = null;
+                                if (isset($kepsek) && $kepsek && $kepsek->foto) {
+                                    $fotoKepsekUrl = asset('storage/'.$kepsek->foto);
+                                } elseif ($profil && $profil->foto_kepsek) {
+                                    $fotoKepsekUrl = asset('storage/'.$profil->foto_kepsek);
+                                } else {
+                                    $fotoKepsekUrl = asset('assets/img/dummy/kepsek.png');
+                                }
+                                $namaKepsek = (isset($kepsek) && $kepsek && $kepsek->nama) ? $kepsek->nama : ($profil->nama_kepsek ?? 'Kepala Sekolah');
+                            @endphp
                             <div class="kepsek-avatar-wrap flex-shrink-0">
-                                <img src="{{ ($profil && $profil->foto_kepsek) ? asset('storage/'.$profil->foto_kepsek) : asset('assets/img/dummy/kepsek.png') }}"
+                                <img src="{{ $fotoKepsekUrl }}"
                                      class="kepsek-img shadow-sm"
-                                     alt="Kepala Sekolah"
+                                     alt="{{ $namaKepsek }}"
                                      onerror="this.onerror=null;this.src='{{ asset('assets/img/dummy/guru-pria.png') }}';">
                                 <div class="kepsek-icon-badge" title="Kepala Sekolah">
                                     <i class="bi bi-mortarboard-fill"></i>
                                 </div>
                             </div>
                             <div>
-                                <h3 class="fw-bold mb-2 text-navy fs-4">{{ $profil->nama_kepsek ?? 'Kepala Sekolah' }}</h3>
+                                <h3 class="fw-bold mb-2 text-navy fs-4">{{ $namaKepsek }}</h3>
                                 <p class="text-secondary mb-3 kepsek-quote">
                                     "{{ Str::limit($profil->sambutan_kepsek ?? 'Assalamu\'alaikum Warahmatullahi Wabarakatuh. Selamat datang di website resmi SMP Sains Al-Qur\'an Klakah. Kami berkomitmen mencetak generasi yang cerdas, berkarakter, dan berjiwa Qur\'ani.', 220) }}"
                                 </p>

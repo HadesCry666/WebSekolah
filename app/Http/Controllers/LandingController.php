@@ -18,8 +18,9 @@ class LandingController extends Controller
 {
     public function index()
     {
-        // Profil Sekolah
+        // Profil Sekolah & Kepala Sekolah
         $profil = ProfilSekolah::first();
+        $kepsek = Tenaga_pendidik::where('jabatan', 'like', '%kepala%sekolah%')->first();
 
         // Hero Sliders (from database, fallback to hardcoded if empty)
         $sliders = HeroSlider::active()->ordered()->get();
@@ -73,6 +74,7 @@ class LandingController extends Controller
 
         return view('front.landing', compact(
             'profil',
+            'kepsek',
             'sliders',
             'artikel',
             'guru',

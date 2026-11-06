@@ -42,7 +42,7 @@
 </div>
 @endif
 
-@if($errors->any())
+@if(isset($errors) && $errors->any())
 <div class="alert alert-danger mb-3">
     <div class="d-flex align-items-center mb-1">
         <i class="bi bi-exclamation-circle-fill" style="font-size: 1.1rem; margin-right: 8px;"></i>
@@ -131,32 +131,45 @@
         </div>
     </div>
 
-    {{-- CARD 3: KEPALA SEKOLAH --}}
+    {{-- CARD 3: SAMBUTAN KEPALA SEKOLAH --}}
+    @php
+        $kepsekData = \App\Models\Tenaga_pendidik::where('jabatan', 'like', '%kepala%sekolah%')->first();
+    @endphp
     <div class="ac mb-4">
         <div class="ac-header">
             <span class="ac-title">
-                <i class="bi bi-person-badge-fill"></i> Kepala Sekolah & Sambutan
+                <i class="bi bi-chat-quote-fill"></i> Sambutan Kepala Sekolah
             </span>
         </div>
         <div class="ac-body">
+            {{-- Info Banner Kepala Sekolah dari Guru & Staf --}}
+            <div class="p-3 mb-3 rounded-3 d-flex align-items-center justify-content-between flex-wrap gap-3" style="background: rgba(13, 92, 58, 0.06); border: 1px solid rgba(13, 92, 58, 0.2);">
+                <div class="d-flex align-items-center gap-3">
+                    <div style="width: 48px; height: 48px; border-radius: 50%; overflow: hidden; background: #ffffff; border: 2px solid #0d5c3a; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                        @if($kepsekData && $kepsekData->foto)
+                            <img src="{{ asset('storage/'.$kepsekData->foto) }}" style="width:100%; height:100%; object-fit:cover;">
+                        @else
+                            <i class="bi bi-person-fill fs-3 text-secondary"></i>
+                        @endif
+                    </div>
+                    <div>
+                        <div class="small text-muted" style="font-size: 0.78rem;">Kepala Sekolah saat ini (diatur di menu Guru & Staf):</div>
+                        <div class="fw-bold text-dark fs-6">{{ $kepsekData ? $kepsekData->nama : 'Belum diatur' }}</div>
+                        @if($kepsekData && $kepsekData->NIP)
+                            <div class="small text-muted" style="font-size: 0.75rem;">NIP: {{ $kepsekData->NIP }}</div>
+                        @endif
+                    </div>
+                </div>
+                <a href="{{ route('admin.tenaga-pendidik.index', ['jabatan' => 'Kepala Sekolah']) }}" class="ab ab-sm ab-outline" style="font-size: 0.8rem; border-color: #0d5c3a; color: #0d5c3a;">
+                    <i class="bi bi-person-gear"></i> Kelola di Guru & Staf
+                </a>
+            </div>
+
             <div class="row g-3">
-                <div class="col-md-6 mb-3">
-                    <label class="af-label">Nama Kepala Sekolah</label>
-                    <input type="text" name="nama_kepsek" class="af-input" value="{{ old('nama_kepsek', $profil->nama_kepsek) }}">
-                </div>
-                <div class="col-md-6 mb-3">
-                    <label class="af-label">Foto Kepala Sekolah</label>
-                    @if($profil->foto_kepsek)
-                        <div class="d-flex align-items-center gap-2 mb-2" style="background: #f9fafb; padding: 6px 12px; border-radius: 8px; border: 1px solid var(--border);">
-                            <img src="{{ asset('storage/'.$profil->foto_kepsek) }}" height="40" class="rounded">
-                            <span style="font-size: 0.78rem; color: var(--text-muted);">Foto saat ini terpasang</span>
-                        </div>
-                    @endif
-                    <input type="file" name="foto_kepsek" class="af-file" accept="image/*">
-                </div>
                 <div class="col-12 mb-2">
-                    <label class="af-label">Kata Sambutan Kepala Sekolah</label>
-                    <textarea name="sambutan_kepsek" rows="4" class="af-textarea">{{ old('sambutan_kepsek', $profil->sambutan_kepsek) }}</textarea>
+                    <label class="af-label">Teks Kata Sambutan Kepala Sekolah <span class="req">*</span></label>
+                    <textarea name="sambutan_kepsek" rows="5" class="af-textarea" placeholder="Tuliskan kata sambutan kepala sekolah untuk ditampilkan di halaman depan dan profil sekolah..." required>{{ old('sambutan_kepsek', $profil->sambutan_kepsek) }}</textarea>
+                    <small class="text-muted">Teks ini akan otomatis ditampilkan di kartu sambutan landing page utama dan halaman Profil Sekolah.</small>
                 </div>
             </div>
         </div>

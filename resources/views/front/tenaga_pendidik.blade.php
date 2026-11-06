@@ -13,6 +13,31 @@
             </p>
         </div>
 
+      {{-- ================== BAGIAN KEPALA SEKOLAH ================== --}}
+@if(isset($kepalaSekolah) && $kepalaSekolah->isNotEmpty())
+    <div class="mb-3 text-center">
+        <h4 class="fw-semibold">Kepala Sekolah</h4>
+    </div>
+
+    <div class="row justify-content-center g-4 mb-5">
+        @foreach($kepalaSekolah as $g)
+            <div class="col-10 col-sm-6 col-md-4 col-lg-3">
+                <div class="card card-soft guru-card h-100 text-center border-success border-opacity-25 shadow-sm">
+                    <a href="{{ route('tenaga-pendidik.detail', $g->id) }}" class="stretched-link"></a>
+                    <img src="{{ $g->foto ? asset('storage/'.$g->foto) : ($g->jenis_kelamin == 'Perempuan' ? asset('assets/img/dummy/guru-wanita.png') : asset('assets/img/dummy/guru-pria.png')) }}"
+                         onerror="this.onerror=null;this.src='{{ asset('assets/img/dummy/guru-pria.png') }}';"
+                         alt="{{ $g->nama }}">
+                    <div class="card-body">
+                        <span class="badge bg-success bg-opacity-10 text-success mb-2 px-2 py-1" style="font-size: 0.72rem; font-weight: 600;">Kepala Sekolah</span>
+                        <div class="fw-semibold">{{ $g->nama }}</div>
+                        <div class="small text-muted">{{ $g->pendidikan_terakhir ?? ($g->NIP ? 'NIP. ' . $g->NIP : 'Pimpinan Sekolah') }}</div>
+                    </div>
+                </div>
+            </div>
+        @endforeach
+    </div>
+@endif
+
       {{-- ================== BAGIAN GURU ================== --}}
 @if($guru->isNotEmpty())
     <div class="mb-3 text-center">
@@ -94,7 +119,7 @@
 @endif
 
 {{-- Kalau semua kosong --}}
-@if($guru->isEmpty() && $tataUsaha->isEmpty() && $ustadz->isEmpty())
+@if((!isset($kepalaSekolah) || $kepalaSekolah->isEmpty()) && $guru->isEmpty() && $tataUsaha->isEmpty() && $ustadz->isEmpty())
     <div class="col-12 text-center text-muted">
         Belum ada data tenaga pendidik yang ditampilkan.
     </div>

@@ -6,11 +6,11 @@
 <section class="py-5 bg-light border-bottom">
     <div class="container text-center py-4">
         <span class="badge bg-primary-subtle text-primary px-3 py-2 rounded-pill fw-semibold mb-3">
-            <i class="bi bi-book-half me-1"></i> Sistem Pendidikan Terpadu
+            <i class="bi {{ $pengantar->ikon ?? 'bi-book-half' }} me-1"></i> {{ $pengantar->poin_poin ?? 'Sistem Pendidikan Terpadu' }}
         </span>
-        <h1 class="display-5 fw-bold text-navy mb-3">Kurikulum & Pembelajaran</h1>
+        <h1 class="display-5 fw-bold text-navy mb-3">{{ $pengantar->judul ?? 'Kurikulum & Pembelajaran' }}</h1>
         <p class="lead text-secondary mx-auto mb-0" style="max-width: 760px;">
-            SMP Sains Al-Qur'an Klakah menerapkan kurikulum terintegrasi yang mengharmoniskan standar <strong>Kurikulum Merdeka</strong> dengan pendalaman <strong>Sains Modern Berbasis Riset</strong> serta keagungan <strong>Tahfidz Al-Qur'an</strong>.
+            {{ $pengantar->deskripsi ?? "SMP Sains Al-Qur'an Klakah menerapkan kurikulum terintegrasi yang mengharmoniskan standar Kurikulum Merdeka dengan pendalaman Sains Modern Berbasis Riset serta keagungan Tahfidz Al-Qur'an." }}
         </p>
     </div>
 </section>
@@ -24,59 +24,30 @@
         </div>
 
         <div class="row g-4">
-            {{-- Pilar 1 --}}
-            <div class="col-lg-4">
-                <div class="card card-soft h-100 p-4 p-md-5 border-top border-4 border-primary">
-                    <div class="icon-circle bg-navy-soft mb-4">
-                        <i class="bi bi-mortarboard-fill fs-3 text-navy"></i>
+            @forelse($pilars as $index => $pilar)
+                <div class="col-lg-4">
+                    <div class="card card-soft h-100 p-4 p-md-5 border-top border-4 {{ $index == 0 ? 'border-primary' : ($index == 1 ? 'border-info' : 'border-success') }}">
+                        <div class="icon-circle {{ $index == 1 ? 'bg-blue-soft' : 'bg-navy-soft' }} mb-4">
+                            <i class="bi {{ $pilar->ikon ?: 'bi-mortarboard-fill' }} fs-3 text-navy"></i>
+                        </div>
+                        <h3 class="h4 fw-bold text-navy mb-3">{{ $pilar->judul }}</h3>
+                        <p class="text-secondary mb-4">
+                            {{ $pilar->deskripsi }}
+                        </p>
+                        @if(count($pilar->poin_list) > 0)
+                        <ul class="list-unstyled mb-0 d-flex flex-column gap-2 text-secondary small">
+                            @foreach($pilar->poin_list as $point)
+                            <li class="d-flex align-items-center gap-2">
+                                <i class="bi bi-check2 text-primary fw-bold"></i> {{ $point }}
+                            </li>
+                            @endforeach
+                        </ul>
+                        @endif
                     </div>
-                    <h3 class="h4 fw-bold text-navy mb-3">Kurikulum Merdeka</h3>
-                    <p class="text-secondary mb-4">
-                        Menerapkan standar nasional Kemendikbudristek dengan pendekatan pembelajaran berdiferensiasi, berbasis proyek (P5), serta berfokus pada penguatan nalar kritis, literasi, dan numerasi.
-                    </p>
-                    <ul class="list-unstyled mb-0 d-flex flex-column gap-2 text-secondary small">
-                        <li class="d-flex align-items-center gap-2"><i class="bi bi-check2 text-primary fw-bold"></i> Pembelajaran Berbasis Proyek (P5)</li>
-                        <li class="d-flex align-items-center gap-2"><i class="bi bi-check2 text-primary fw-bold"></i> Asesmen Kompetensi & Bakat Siswa</li>
-                        <li class="d-flex align-items-center gap-2"><i class="bi bi-check2 text-primary fw-bold"></i> Fleksibilitas Eksplorasi Minat Belajar</li>
-                    </ul>
                 </div>
-            </div>
-
-            {{-- Pilar 2 --}}
-            <div class="col-lg-4">
-                <div class="card card-soft h-100 p-4 p-md-5 border-top border-4 border-info">
-                    <div class="icon-circle bg-blue-soft mb-4">
-                        <i class="bi bi-cpu fs-3 text-primary"></i>
-                    </div>
-                    <h3 class="h4 fw-bold text-navy mb-3">Sains & Riset Terapan</h3>
-                    <p class="text-secondary mb-4">
-                        Mengasah cara berpikir ilmiah santri melalui pembelajaran kontekstual, praktikum sains di laboratorium, pemanfaatan teknologi informatika, dan pembinaan olimpiade sains (OSN).
-                    </p>
-                    <ul class="list-unstyled mb-0 d-flex flex-column gap-2 text-secondary small">
-                        <li class="d-flex align-items-center gap-2"><i class="bi bi-check2 text-primary fw-bold"></i> Praktikum Laboratorium Sains Rutin</li>
-                        <li class="d-flex align-items-center gap-2"><i class="bi bi-check2 text-primary fw-bold"></i> Bimbingan Riset & Karya Ilmiah Santri</li>
-                        <li class="d-flex align-items-center gap-2"><i class="bi bi-check2 text-primary fw-bold"></i> Pembinaan Olimpiade Sains & Matematika</li>
-                    </ul>
-                </div>
-            </div>
-
-            {{-- Pilar 3 --}}
-            <div class="col-lg-4">
-                <div class="card card-soft h-100 p-4 p-md-5 border-top border-4 border-success">
-                    <div class="icon-circle bg-navy-soft mb-4">
-                        <i class="bi bi-book-half fs-3 text-navy"></i>
-                    </div>
-                    <h3 class="h4 fw-bold text-navy mb-3">Tahfidz & Diniyah</h3>
-                    <p class="text-secondary mb-4">
-                        Program intensif hafalan Al-Qur'an dengan bimbingan ustadz berpengalaman, metode talaqqi & muroja'ah bersanad, serta penanaman adab islami dan pemahaman fiqih ibadah sehari-hari.
-                    </p>
-                    <ul class="list-unstyled mb-0 d-flex flex-column gap-2 text-secondary small">
-                        <li class="d-flex align-items-center gap-2"><i class="bi bi-check2 text-primary fw-bold"></i> Target Hafalan Terukur & Berkala</li>
-                        <li class="d-flex align-items-center gap-2"><i class="bi bi-check2 text-primary fw-bold"></i> Tahsin Makharijul Huruf & Tajwid</li>
-                        <li class="d-flex align-items-center gap-2"><i class="bi bi-check2 text-primary fw-bold"></i> Pembiasaan Ibadah & Karakter Qur'ani</li>
-                    </ul>
-                </div>
-            </div>
+            @empty
+                <div class="col-12 text-center text-muted py-4">Data pilar kurikulum sedang disiapkan.</div>
+            @endforelse
         </div>
     </div>
 </section>
@@ -118,42 +89,16 @@
                                 Pembelajaran reguler sesuai kurikulum nasional dengan penekanan pada literasi konseptual, penalaran logis, dan kolaborasi aktif siswa:
                             </p>
                             <div class="row g-3">
+                                @forelse($mapelUmum as $mu)
                                 <div class="col-md-6">
                                     <div class="p-3 rounded-3 bg-light border d-flex align-items-center gap-3">
-                                        <i class="bi bi-calculator fs-4 text-primary"></i>
-                                        <div><strong>Matematika</strong> <div class="text-muted small">Penalaran logis & numerasi terapan</div></div>
+                                        <i class="bi {{ $mu->ikon ?: 'bi-calculator' }} fs-4 text-primary"></i>
+                                        <div><strong>{{ $mu->judul }}</strong> <div class="text-muted small">{{ $mu->deskripsi ?: '-' }}</div></div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="p-3 rounded-3 bg-light border d-flex align-items-center gap-3">
-                                        <i class="bi bi-flower1 fs-4 text-primary"></i>
-                                        <div><strong>Ilmu Pengetahuan Alam (IPA)</strong> <div class="text-muted small">Fisika, Biologi, Kimia Dasar terintegrasi</div></div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="p-3 rounded-3 bg-light border d-flex align-items-center gap-3">
-                                        <i class="bi bi-chat-left-text fs-4 text-primary"></i>
-                                        <div><strong>Bahasa Indonesia</strong> <div class="text-muted small">Kemampuan literasi, retorika, & penulisan</div></div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="p-3 rounded-3 bg-light border d-flex align-items-center gap-3">
-                                        <i class="bi bi-translate fs-4 text-primary"></i>
-                                        <div><strong>Bahasa Inggris</strong> <div class="text-muted small">Komunikasi global & tata bahasa aktif</div></div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="p-3 rounded-3 bg-light border d-flex align-items-center gap-3">
-                                        <i class="bi bi-globe fs-4 text-primary"></i>
-                                        <div><strong>Ilmu Pengetahuan Sosial (IPS)</strong> <div class="text-muted small">Geografi, sejarah, sosiologi, & ekonomi</div></div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="p-3 rounded-3 bg-light border d-flex align-items-center gap-3">
-                                        <i class="bi bi-shield-check fs-4 text-primary"></i>
-                                        <div><strong>Pendidikan Pancasila (PPKn)</strong> <div class="text-muted small">Kewarganegaraan, hukum, & kebangsaan</div></div>
-                                    </div>
-                                </div>
+                                @empty
+                                <div class="col-12 text-center text-muted">Belum ada mata pelajaran umum.</div>
+                                @endforelse
                             </div>
                         </div>
                     </div>
@@ -166,42 +111,16 @@
                                 Membekali santri dengan ilmu keislaman yang kokoh, hafalan Al-Qur'an mutqin, serta penanaman adab mulia dalam keseharian:
                             </p>
                             <div class="row g-3">
+                                @forelse($mapelIslam as $mi)
                                 <div class="col-md-6">
                                     <div class="p-3 rounded-3 bg-light border d-flex align-items-center gap-3">
-                                        <i class="bi bi-book fs-4 text-success"></i>
-                                        <div><strong>Tahfidzul Qur'an</strong> <div class="text-muted small">Halaqah setoran ziyadah & muroja'ah harian</div></div>
+                                        <i class="bi {{ $mi->ikon ?: 'bi-book' }} fs-4 text-success"></i>
+                                        <div><strong>{{ $mi->judul }}</strong> <div class="text-muted small">{{ $mi->deskripsi ?: '-' }}</div></div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="p-3 rounded-3 bg-light border d-flex align-items-center gap-3">
-                                        <i class="bi bi-mic fs-4 text-success"></i>
-                                        <div><strong>Tahsin & Ilmu Tajwid</strong> <div class="text-muted small">Standarisasi makharijul huruf & hukum bacaan</div></div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="p-3 rounded-3 bg-light border d-flex align-items-center gap-3">
-                                        <i class="bi bi-fonts fs-4 text-success"></i>
-                                        <div><strong>Bahasa Arab</strong> <div class="text-muted small">Kosakata, percakapan, & kaidah dasar bahasa Qur'an</div></div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="p-3 rounded-3 bg-light border d-flex align-items-center gap-3">
-                                        <i class="bi bi-heart-pulse fs-4 text-success"></i>
-                                        <div><strong>Aqidah & Akhlak</strong> <div class="text-muted small">Penguatan tauhid & pembinaan budi pekerti luhur</div></div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="p-3 rounded-3 bg-light border d-flex align-items-center gap-3">
-                                        <i class="bi bi-water fs-4 text-success"></i>
-                                        <div><strong>Fiqih Ibadah</strong> <div class="text-muted small">Tata cara bersuci, sholat, puasa, & adab islami</div></div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="p-3 rounded-3 bg-light border d-flex align-items-center gap-3">
-                                        <i class="bi bi-hourglass-split fs-4 text-success"></i>
-                                        <div><strong>Sejarah Kebudayaan Islam (SKI)</strong> <div class="text-muted small">Teladan Rasulullah SAW, sahabat, & peradaban Islam</div></div>
-                                    </div>
-                                </div>
+                                @empty
+                                <div class="col-12 text-center text-muted">Belum ada muatan keislaman.</div>
+                                @endforelse
                             </div>
                         </div>
                     </div>
@@ -214,30 +133,16 @@
                                 Wadah akselerasi minat dan bakat khusus santri dalam bidang sains, riset, teknologi, serta kepemimpinan:
                             </p>
                             <div class="row g-3">
+                                @forelse($mapelSains as $ms)
                                 <div class="col-md-6">
                                     <div class="p-3 rounded-3 bg-light border d-flex align-items-center gap-3">
-                                        <i class="bi bi-laptop fs-4 text-primary"></i>
-                                        <div><strong>Informatika & Komputer</strong> <div class="text-muted small">Literasi digital, komputasi nalar, & aplikasi dasar</div></div>
+                                        <i class="bi {{ $ms->ikon ?: 'bi-laptop' }} fs-4 text-primary"></i>
+                                        <div><strong>{{ $ms->judul }}</strong> <div class="text-muted small">{{ $ms->deskripsi ?: '-' }}</div></div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="p-3 rounded-3 bg-light border d-flex align-items-center gap-3">
-                                        <i class="bi bi-eyedropper fs-4 text-primary"></i>
-                                        <div><strong>Karya Ilmiah Remaja (KIR)</strong> <div class="text-muted small">Metodologi riset sederhana & eksperimen sains</div></div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="p-3 rounded-3 bg-light border d-flex align-items-center gap-3">
-                                        <i class="bi bi-trophy fs-4 text-primary"></i>
-                                        <div><strong>Klub Olimpiade Sains (OSN)</strong> <div class="text-muted small">Intensif pemantapan IPA & Matematika kompetisi</div></div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="p-3 rounded-3 bg-light border d-flex align-items-center gap-3">
-                                        <i class="bi bi-palette fs-4 text-primary"></i>
-                                        <div><strong>Seni & Ragam Ekstrakurikuler</strong> <div class="text-muted small">Pramuka, kaligrafi, bela diri, olahraga, & bahasa</div></div>
-                                    </div>
-                                </div>
+                                @empty
+                                <div class="col-12 text-center text-muted">Belum ada muatan sains terapan.</div>
+                                @endforelse
                             </div>
                         </div>
                     </div>
@@ -256,42 +161,19 @@
         </div>
 
         <div class="row g-4">
+            @forelse($capaians as $index => $c)
             <div class="col-md-6 col-lg-3">
                 <div class="card card-soft text-center p-4 h-100">
-                    <div class="icon-circle bg-navy-soft mx-auto mb-3">
-                        <i class="bi bi-book-half fs-4 text-navy"></i>
+                    <div class="icon-circle {{ $index % 2 == 0 ? 'bg-navy-soft' : 'bg-blue-soft' }} mx-auto mb-3">
+                        <i class="bi {{ $c->ikon ?: 'bi-award' }} fs-4 text-navy"></i>
                     </div>
-                    <h5 class="fw-bold text-navy mb-2">Hafal Al-Qur'an</h5>
-                    <p class="text-secondary small mb-0">Memiliki hafalan Al-Qur'an mutqin dengan bacaan tajwid yang tertib dan berstandar.</p>
+                    <h5 class="fw-bold text-navy mb-2">{{ $c->judul }}</h5>
+                    <p class="text-secondary small mb-0">{{ $c->deskripsi ?: '-' }}</p>
                 </div>
             </div>
-            <div class="col-md-6 col-lg-3">
-                <div class="card card-soft text-center p-4 h-100">
-                    <div class="icon-circle bg-blue-soft mx-auto mb-3">
-                        <i class="bi bi-lightbulb-fill fs-4 text-primary"></i>
-                    </div>
-                    <h5 class="fw-bold text-navy mb-2">Unggul dalam Sains</h5>
-                    <p class="text-secondary small mb-0">Mampu berpikir logis, analitis, dan memiliki keterampilan riset ilmiah dasar yang kuat.</p>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-3">
-                <div class="card card-soft text-center p-4 h-100">
-                    <div class="icon-circle bg-navy-soft mx-auto mb-3">
-                        <i class="bi bi-shield-check fs-4 text-navy"></i>
-                    </div>
-                    <h5 class="fw-bold text-navy mb-2">Berakhlak Qur'ani</h5>
-                    <p class="text-secondary small mb-0">Meneladani akhlak Rasulullah SAW, disiplin ibadah, santun, dan mandiri dalam keseharian.</p>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-3">
-                <div class="card card-soft text-center p-4 h-100">
-                    <div class="icon-circle bg-blue-soft mx-auto mb-3">
-                        <i class="bi bi-compass-fill fs-4 text-primary"></i>
-                    </div>
-                    <h5 class="fw-bold text-navy mb-2">Siap Melanjutkan</h5>
-                    <p class="text-secondary small mb-0">Memiliki bekal kompetensi akademik yang prima untuk bersaing di jenjang SLTA/MA unggulan.</p>
-                </div>
-            </div>
+            @empty
+            <div class="col-12 text-center text-muted">Belum ada target capaian lulusan.</div>
+            @endforelse
         </div>
     </div>
 </section>

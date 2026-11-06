@@ -129,16 +129,27 @@
 
         {{-- SAMBUTAN KEPALA SEKOLAH --}}
         @if($profil && $profil->sambutan_kepsek)
+        @php
+            $fotoKepsekUrl = null;
+            if (isset($kepsek) && $kepsek && $kepsek->foto) {
+                $fotoKepsekUrl = asset('storage/'.$kepsek->foto);
+            } elseif ($profil && $profil->foto_kepsek) {
+                $fotoKepsekUrl = asset('storage/'.$profil->foto_kepsek);
+            } else {
+                $fotoKepsekUrl = asset('assets/img/dummy/guru-pria.png');
+            }
+            $namaKepsek = (isset($kepsek) && $kepsek && $kepsek->nama) ? $kepsek->nama : ($profil->nama_kepsek ?? 'Kepala Sekolah');
+        @endphp
         <div class="card card-soft p-4 mb-4">
             <h2 class="h5 fw-bold mb-4"><i class="bi bi-person-badge text-primary me-2"></i>Sambutan Kepala Sekolah</h2>
             <div class="row align-items-center g-4">
                 <div class="col-md-3 text-center">
-                    <img src="{{ ($profil->foto_kepsek) ? asset('storage/'.$profil->foto_kepsek) : asset('assets/img/dummy/guru-pria.png') }}"
+                    <img src="{{ $fotoKepsekUrl }}"
                          onerror="this.onerror=null;this.src='{{ asset('assets/img/dummy/guru-pria.png') }}';"
-                         alt="{{ $profil->nama_kepsek }}"
+                         alt="{{ $namaKepsek }}"
                          class="rounded-circle shadow mb-2"
                          style="width:120px;height:120px;object-fit:cover;border:4px solid #e0f2fe;">
-                    <div class="fw-semibold">{{ $profil->nama_kepsek ?? 'Kepala Sekolah' }}</div>
+                    <div class="fw-semibold">{{ $namaKepsek }}</div>
                     <small class="text-muted">Kepala Sekolah</small>
                 </div>
                 <div class="col-md-9">

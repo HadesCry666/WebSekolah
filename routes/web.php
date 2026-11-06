@@ -179,6 +179,20 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
     Route::delete('program-unggulan/{id}', [ProgramUnggulanController::class, 'destroy'])
         ->name('program-unggulan.destroy');
 
+    // Kurikulum
+    Route::get('kurikulum', [KurikulumController::class, 'adminIndex'])
+        ->name('kurikulum.index');
+    Route::post('kurikulum', [KurikulumController::class, 'store'])
+        ->name('kurikulum.store');
+    Route::put('kurikulum/{id}', [KurikulumController::class, 'update'])
+        ->name('kurikulum.update');
+    Route::delete('kurikulum/{id}', [KurikulumController::class, 'destroy'])
+        ->name('kurikulum.destroy');
+    Route::post('kurikulum/{id}/toggle', [KurikulumController::class, 'toggleActive'])
+        ->name('kurikulum.toggle');
+    Route::post('kurikulum/pengantar', [KurikulumController::class, 'updatePengantar'])
+        ->name('kurikulum.update-pengantar');
+
     // Fasilitas
     Route::get('fasilitas', [FasilitasController::class, 'index'])
         ->name('fasilitas.index');
