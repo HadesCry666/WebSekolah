@@ -3,13 +3,13 @@
     $profil = \App\Models\ProfilSekolah::first();
 @endphp
         <header>
-            {{-- TOP HEADER --}}
-            <div class="header-top">
+            {{-- TOP HEADER (Hanya tampil di desktop layar besar) --}}
+            <div class="header-top d-none d-lg-block">
                 <div class="container d-flex flex-wrap justify-content-between align-items-center">
                     {{-- Logo kiri --}}
                     <div class="logo-wrap d-flex align-items-center gap-2">
                         <img src="{{ ($profil && $profil->logo) ? asset('storage/'.$profil->logo) : asset('storage/mentahan-logo.jpg') }}" alt="Logo SMP" onerror="this.onerror=null;this.src='{{ asset('assets/img/stisla-fill.svg') }}';">
-                        <div class="d-none d-md-block">
+                        <div>
                             <div class="logo-text-title">SMP SAINS AL-QUR'AN</div>
                             <div class="logo-text-title">KLAKAH</div>
                         </div>
@@ -66,8 +66,19 @@
             {{-- NAVBAR --}}
             <nav class="navbar navbar-expand-lg navbar-light nav-main">
                 <div class="container">
-                    <a class="navbar-brand d-lg-none" href="{{ route('landing') }}">SMP SAINS AL-QUR'AN</a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
+                    {{-- Logo + Nama Sekolah di Mobile --}}
+                    <a class="navbar-brand d-lg-none d-flex align-items-center gap-2 py-1" href="{{ route('landing') }}">
+                        <img src="{{ ($profil && $profil->logo) ? asset('storage/'.$profil->logo) : asset('storage/mentahan-logo.jpg') }}" 
+                             alt="Logo SMP" 
+                             style="width: 38px; height: 38px; object-fit: contain;" 
+                             onerror="this.onerror=null;this.src='{{ asset('assets/img/stisla-fill.svg') }}';">
+                        <div class="d-flex flex-column justify-content-center">
+                            <span class="mobile-logo-title">SMP SAINS AL-QUR'AN</span>
+                            <span class="mobile-logo-sub">KLAKAH - LUMAJANG</span>
+                        </div>
+                    </a>
+
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
 
@@ -124,22 +135,58 @@
                         <div class="d-flex align-items-center ms-lg-3 mt-2 mt-lg-0">
                             @auth
                                 @if(auth()->user()->role === 'siswa')
-                                    <a href="{{ route('siswa.raport.index') }}" class="nav-login-btn">
+                                    <a href="{{ route('siswa.raport.index') }}" class="nav-login-btn w-100 justify-content-center justify-content-lg-start">
                                         <i class="bi bi-file-earmark-pdf-fill"></i>
                                         <span>Portal Raport</span>
                                     </a>
                                 @else
-                                    <a href="{{ route('admin.dashboard') }}" class="nav-login-btn">
+                                    <a href="{{ route('admin.dashboard') }}" class="nav-login-btn w-100 justify-content-center justify-content-lg-start">
                                         <i class="bi bi-speedometer2"></i>
                                         <span>Panel Admin</span>
                                     </a>
                                 @endif
                             @else
-                                <a href="{{ route('login.index') }}" class="nav-login-btn">
+                                <a href="{{ route('login.index') }}" class="nav-login-btn w-100 justify-content-center justify-content-lg-start">
                                     <i class="bi bi-box-arrow-in-right"></i>
                                     <span>Masuk</span>
                                 </a>
                             @endauth
+                        </div>
+
+                        {{-- KONTAK DI MENU MOBILE --}}
+                        <div class="d-lg-none mt-3 pt-3 border-top">
+                            <div class="d-flex flex-column gap-2 small">
+                                @if($profil && $profil->telepon)
+                                <a href="tel:{{ $profil->telepon }}" class="text-decoration-none text-muted d-flex align-items-center gap-2 py-1">
+                                    <div class="contact-icon-mini"><i class="bi bi-telephone-fill"></i></div>
+                                    <span>{{ $profil->telepon }}</span>
+                                </a>
+                                @endif
+                                @if($profil && $profil->email)
+                                <a href="mailto:{{ $profil->email }}" class="text-decoration-none text-muted d-flex align-items-center gap-2 py-1">
+                                    <div class="contact-icon-mini"><i class="bi bi-envelope-fill"></i></div>
+                                    <span>{{ $profil->email }}</span>
+                                </a>
+                                @endif
+                                <div class="d-flex align-items-center gap-3 pt-2">
+                                    <span class="text-muted small fw-semibold">Ikuti Kami:</span>
+                                    @if($profil && $profil->whatsapp)
+                                    <a href="https://wa.me/{{ $profil->whatsapp }}" target="_blank" class="text-success fs-5">
+                                        <i class="bi bi-whatsapp"></i>
+                                    </a>
+                                    @endif
+                                    @if($profil && $profil->instagram)
+                                    <a href="{{ $profil->instagram }}" target="_blank" class="text-danger fs-5">
+                                        <i class="bi bi-instagram"></i>
+                                    </a>
+                                    @endif
+                                    @if($profil && $profil->youtube)
+                                    <a href="{{ $profil->youtube }}" target="_blank" class="text-danger fs-5">
+                                        <i class="bi bi-youtube"></i>
+                                    </a>
+                                    @endif
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

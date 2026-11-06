@@ -257,12 +257,12 @@
     {{-- ================= INFORMASI / BERITA ================= --}}
     <section class="py-5 bg-light">
         <div class="container">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <div>
-                    <h2 class="section-title">Informasi, Berita & Prestasi</h2>
-                    <p class="section-subtitle mb-0">Informasi, berita & prestasi siswa</p>
+            <div class="d-flex justify-content-between align-items-center gap-2 mb-3">
+                <div style="min-width: 0; flex: 1;">
+                    <h2 class="section-title mb-1">Informasi, Berita & Prestasi</h2>
+                    <p class="section-subtitle mb-0 text-truncate">Informasi, berita & prestasi siswa</p>
                 </div>
-                <a href="{{ route('informasi.index') }}" class="btn btn-outline-primary btn-pill">
+                <a href="{{ route('informasi.index') }}" class="btn btn-outline-primary btn-pill flex-shrink-0">
                     Selengkapnya <i class="bi bi-arrow-right ms-1"></i>
                 </a>
             </div>
@@ -353,12 +353,12 @@
     {{-- ================= TENAGA PENDIDIK ================= --}}
     <section class="py-5 bg-white">
         <div class="container">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <div>
-                    <h2 class="section-title">Tenaga Pendidik</h2>
-                    <p class="section-subtitle mb-0">Guru dan staf SMP Sains Al-Qur'an Klakah</p>
+            <div class="d-flex justify-content-between align-items-center gap-2 mb-3">
+                <div style="min-width: 0; flex: 1;">
+                    <h2 class="section-title mb-1">Tenaga Pendidik</h2>
+                    <p class="section-subtitle mb-0 text-truncate">Guru dan staf SMP Sains Al-Qur'an Klakah</p>
                 </div>
-                <a href="{{ route('tenaga-pendidik.index') }}" class="btn btn-outline-primary btn-pill">
+                <a href="{{ route('tenaga-pendidik.index') }}" class="btn btn-outline-primary btn-pill flex-shrink-0">
                     Selengkapnya <i class="bi bi-arrow-right ms-1"></i>
                 </a>
             </div>
@@ -458,12 +458,12 @@
     @if($galeri->count())
     <section class="py-5" id="galeri">
         <div class="container">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <div>
-                    <h2 class="section-title">Galeri</h2>
-                    <p class="section-subtitle mb-0">Dokumentasi kegiatan sekolah</p>
+            <div class="d-flex justify-content-between align-items-center gap-2 mb-3">
+                <div style="min-width: 0; flex: 1;">
+                    <h2 class="section-title mb-1">Galeri</h2>
+                    <p class="section-subtitle mb-0 text-truncate">Dokumentasi kegiatan sekolah</p>
                 </div>
-                <a href="{{ route('galeri.index') }}" class="btn btn-outline-primary btn-pill">
+                <a href="{{ route('galeri.index') }}" class="btn btn-outline-primary btn-pill flex-shrink-0">
                     Lihat Semua <i class="bi bi-arrow-right ms-1"></i>
                 </a>
             </div>
@@ -567,12 +567,12 @@
     {{-- ================= EKSTRAKURIKULER ================= --}}
     <section class="py-5" id="section-ekskul">
         <div class="container">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <div>
-                    <h2 class="section-title">Ekstrakurikuler</h2>
-                    <p class="section-subtitle mb-0">Kegiatan pengembangan bakat siswa</p>
+            <div class="d-flex justify-content-between align-items-center gap-2 mb-3">
+                <div style="min-width: 0; flex: 1;">
+                    <h2 class="section-title mb-1">Ekstrakurikuler</h2>
+                    <p class="section-subtitle mb-0 text-truncate">Kegiatan pengembangan bakat siswa</p>
                 </div>
-                <div class="d-flex gap-2">
+                <div class="d-flex gap-2 flex-shrink-0">
                     <button class="btn btn-outline-secondary btn-sm rounded-circle btn-ekskul-prev"><i class="bi bi-arrow-left"></i></button>
                     <button class="btn btn-outline-secondary btn-sm rounded-circle btn-ekskul-next"><i class="bi bi-arrow-right"></i></button>
                 </div>
