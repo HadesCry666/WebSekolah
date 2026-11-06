@@ -1,8 +1,518 @@
 /**
- *
- * You can write your CSS code here, DO NOT touch the default JavaScript file
- * because it will make it harder for you to update.
- * 
+ * Admin Theme Override - SMP Sains Al-Qur'an Klakah
+ * Tema disesuaikan dengan Landing Page (Navy Blue #0f4c75)
  */
 
-/*# sourceMappingURL=custom.css.map */
+/* ================= CSS VARIABLES ================= */
+:root {
+    --brand-primary:       #0f4c75;
+    --brand-primary-dark:  #003c66;
+    --brand-primary-light: #1976d2;
+    --brand-accent:        #e8f4fd;
+    --brand-gradient:      linear-gradient(135deg, #003c66 0%, #0f4c75 60%, #1976d2 100%);
+}
+
+/* ================= FONT ================= */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+body, .main-sidebar, .main-navbar, .navbar,
+h1, h2, h3, h4, h5, h6, p, span, div, a, td, th, label, input, select, textarea, button {
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+}
+
+/* ================= SIDEBAR ================= */
+.main-sidebar {
+    background: var(--brand-gradient) !important;
+    box-shadow: 4px 0 20px rgba(0, 60, 102, 0.3) !important;
+}
+
+.main-sidebar aside,
+#sidebar-wrapper {
+    background: transparent !important;
+}
+
+/* Sidebar brand */
+.sidebar-brand {
+    background: rgba(0, 0, 0, 0.15) !important;
+    border-bottom: 1px solid rgba(255,255,255,0.1) !important;
+}
+
+.sidebar-brand a {
+    color: #ffffff !important;
+    font-weight: 800 !important;
+    font-size: 1.1rem !important;
+    letter-spacing: 0.03em !important;
+}
+
+.sidebar-brand a span {
+    color: #ffffff !important;
+}
+
+/* Menu headers */
+.sidebar-menu .menu-header {
+    color: rgba(255, 255, 255, 0.5) !important;
+    font-size: 0.7rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.15em !important;
+    text-transform: uppercase !important;
+    padding: 12px 20px 4px !important;
+    margin-top: 4px !important;
+}
+
+/* Sidebar menu items */
+.sidebar-menu > li > a {
+    color: rgba(255, 255, 255, 0.82) !important;
+    font-size: 0.88rem !important;
+    font-weight: 500 !important;
+    padding: 10px 20px !important;
+    border-radius: 10px !important;
+    margin: 2px 10px !important;
+    transition: background 0.2s ease, color 0.2s ease !important;
+    width: auto !important;
+}
+
+.sidebar-menu > li > a:hover {
+    background: rgba(255, 255, 255, 0.12) !important;
+    color: #ffffff !important;
+}
+
+.sidebar-menu > li.active > a,
+.sidebar-menu > li > a.active {
+    background: rgba(255, 255, 255, 0.18) !important;
+    color: #ffffff !important;
+    font-weight: 700 !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
+}
+
+.sidebar-menu > li > a i {
+    color: rgba(255,255,255,0.85) !important;
+    width: 22px !important;
+    text-align: center !important;
+}
+
+.sidebar-menu > li.active > a i,
+.sidebar-menu > li > a:hover i {
+    color: #ffffff !important;
+}
+
+/* Active indicator bar */
+.sidebar-menu > li.active > a::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: #ffffff;
+    border-radius: 0 3px 3px 0;
+}
+
+/* ================= NAVBAR (TOP BAR) ================= */
+/* Override Stisla's purple navbar-bg */
+.navbar-bg {
+    background: #ffffff !important;
+    height: 70px !important;
+    z-index: 889 !important;
+}
+
+/* Override Stisla's purple navbar */
+.main-navbar,
+.navbar {
+    background: #ffffff !important;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.07) !important;
+    border-bottom: 1px solid #e5e7eb !important;
+}
+
+.main-navbar .nav-link,
+.main-navbar .nav-link-lg,
+.navbar .nav-link,
+.navbar .nav-link-lg {
+    color: #374151 !important;
+    transition: color 0.2s !important;
+}
+
+.main-navbar .nav-link:hover,
+.main-navbar .nav-link-lg:hover,
+.navbar .nav-link:hover {
+    color: var(--brand-primary) !important;
+}
+
+/* Override purple nav-link-user */
+.navbar .nav-link.nav-link-user {
+    color: #374151 !important;
+}
+
+/* Override active navbar state */
+.navbar.active {
+    background-color: #ffffff !important;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.07) !important;
+}
+
+.main-navbar .dropdown-menu {
+    border: none !important;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.12) !important;
+    border-radius: 14px !important;
+    padding: 8px !important;
+}
+
+.main-navbar .dropdown-item {
+    border-radius: 8px !important;
+    font-size: 0.875rem !important;
+    color: #374151 !important;
+    padding: 8px 14px !important;
+}
+
+.main-navbar .dropdown-item:hover {
+    background: var(--brand-accent) !important;
+    color: var(--brand-primary) !important;
+}
+
+.main-navbar .dropdown-item.text-danger:hover {
+    background: #fef2f2 !important;
+    color: #dc2626 !important;
+}
+
+/* ================= CONTENT AREA ================= */
+body {
+    background: #f5f7fb !important;
+}
+
+.main-content {
+    background: #f5f7fb !important;
+}
+
+/* ================= SECTION HEADER ================= */
+.section-header {
+    background: #ffffff !important;
+    border-bottom: 2px solid var(--brand-accent) !important;
+    border-radius: 0 !important;
+    padding: 20px 30px !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04) !important;
+}
+
+.section-header h1 {
+    font-weight: 800 !important;
+    color: #0f172a !important;
+    font-size: 1.4rem !important;
+    letter-spacing: -0.02em !important;
+}
+
+/* ================= CARDS ================= */
+.card {
+    border: none !important;
+    border-radius: 16px !important;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06) !important;
+    overflow: hidden !important;
+}
+
+.card .card-header {
+    background: #ffffff !important;
+    border-bottom: 1px solid #f3f4f6 !important;
+    padding: 16px 24px !important;
+    font-weight: 700 !important;
+    color: #0f172a !important;
+}
+
+.card .card-header h4 {
+    font-size: 0.95rem !important;
+    font-weight: 700 !important;
+    color: #0f172a !important;
+    margin: 0 !important;
+}
+
+.card .card-body {
+    padding: 20px 24px !important;
+}
+
+/* Statistic card */
+.card.card-statistic-1 {
+    border-radius: 16px !important;
+}
+
+.card.card-statistic-1 .card-icon {
+    border-radius: 0 16px 0 16px !important;
+}
+
+.card-statistic-1 .card-icon.bg-primary {
+    background: var(--brand-gradient) !important;
+}
+
+/* ================= BUTTONS ================= */
+.btn-primary {
+    background: var(--brand-gradient) !important;
+    border-color: var(--brand-primary) !important;
+    border-radius: 10px !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.01em !important;
+    transition: transform 0.2s, box-shadow 0.2s !important;
+}
+
+.btn-primary:hover {
+    transform: translateY(-1px) !important;
+    box-shadow: 0 6px 18px rgba(15,76,117,0.35) !important;
+    border-color: var(--brand-primary-dark) !important;
+}
+
+.btn-secondary, .btn-default {
+    border-radius: 10px !important;
+    font-weight: 600 !important;
+}
+
+.btn-danger {
+    border-radius: 10px !important;
+    font-weight: 600 !important;
+}
+
+.btn-success {
+    border-radius: 10px !important;
+    font-weight: 600 !important;
+}
+
+.btn-warning {
+    border-radius: 10px !important;
+    font-weight: 600 !important;
+}
+
+.btn-info {
+    border-radius: 10px !important;
+    font-weight: 600 !important;
+}
+
+.btn-sm {
+    font-size: 0.8rem !important;
+    padding: 5px 14px !important;
+}
+
+/* ================= FORMS ================= */
+.form-control {
+    border-radius: 10px !important;
+    border: 1.5px solid #e5e7eb !important;
+    font-size: 0.875rem !important;
+    padding: 10px 14px !important;
+    color: #111827 !important;
+    background: #f9fafb !important;
+    transition: border-color 0.2s, box-shadow 0.2s !important;
+}
+
+.form-control:focus {
+    border-color: var(--brand-primary) !important;
+    box-shadow: 0 0 0 4px rgba(15,76,117,0.1) !important;
+    background: #fff !important;
+}
+
+.form-group label {
+    font-size: 0.875rem !important;
+    font-weight: 600 !important;
+    color: #374151 !important;
+    margin-bottom: 6px !important;
+}
+
+select.form-control {
+    cursor: pointer !important;
+}
+
+textarea.form-control {
+    resize: vertical !important;
+}
+
+/* ================= TABLES ================= */
+.table th {
+    font-size: 0.78rem !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.08em !important;
+    color: #6b7280 !important;
+    border-bottom: 2px solid #f3f4f6 !important;
+    padding: 12px 16px !important;
+    background: #fafafa !important;
+}
+
+.table td {
+    font-size: 0.875rem !important;
+    color: #374151 !important;
+    padding: 12px 16px !important;
+    vertical-align: middle !important;
+    border-bottom: 1px solid #f3f4f6 !important;
+}
+
+.table tr:last-child td {
+    border-bottom: none !important;
+}
+
+.table-hover tbody tr:hover {
+    background: var(--brand-accent) !important;
+}
+
+/* ================= BADGES ================= */
+.badge-primary { background: var(--brand-primary) !important; }
+.badge-info    { background: #0ea5e9 !important; }
+.badge-success { background: #16a34a !important; }
+.badge-warning { background: #d97706 !important; }
+.badge-danger  { background: #dc2626 !important; }
+
+/* ================= ALERTS ================= */
+.alert {
+    border-radius: 12px !important;
+    border: none !important;
+    font-size: 0.875rem !important;
+}
+
+.alert-success {
+    background: #f0fdf4 !important;
+    border-left: 4px solid #16a34a !important;
+    color: #166534 !important;
+}
+
+.alert-danger {
+    background: #fef2f2 !important;
+    border-left: 4px solid #dc2626 !important;
+    color: #991b1b !important;
+}
+
+.alert-warning {
+    background: #fffbeb !important;
+    border-left: 4px solid #d97706 !important;
+    color: #92400e !important;
+}
+
+.alert-info {
+    background: #eff6ff !important;
+    border-left: 4px solid #3b82f6 !important;
+    color: #1e40af !important;
+}
+
+/* ================= PAGE HEADER / BREADCRUMB ================= */
+.breadcrumb {
+    background: transparent !important;
+}
+
+.breadcrumb-item a {
+    color: var(--brand-primary) !important;
+    text-decoration: none !important;
+    font-weight: 500 !important;
+}
+
+.breadcrumb-item.active {
+    color: #6b7280 !important;
+}
+
+/* ================= PAGINATION ================= */
+.page-item.active .page-link {
+    background: var(--brand-gradient) !important;
+    border-color: var(--brand-primary) !important;
+}
+
+.page-link {
+    color: var(--brand-primary) !important;
+    border-radius: 8px !important;
+    margin: 0 2px !important;
+}
+
+.page-link:hover {
+    color: var(--brand-primary-dark) !important;
+    background: var(--brand-accent) !important;
+}
+
+/* ================= MODAL ================= */
+.modal-content {
+    border: none !important;
+    border-radius: 20px !important;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.2) !important;
+}
+
+.modal-header {
+    background: var(--brand-gradient) !important;
+    color: #fff !important;
+    border-radius: 20px 20px 0 0 !important;
+    border-bottom: none !important;
+    padding: 18px 24px !important;
+}
+
+.modal-header .modal-title {
+    font-weight: 700 !important;
+    font-size: 1rem !important;
+    color: #fff !important;
+}
+
+.modal-header .close,
+.modal-header .btn-close {
+    color: #fff !important;
+    opacity: 0.85 !important;
+}
+
+.modal-header .btn-close {
+    filter: brightness(0) invert(1) !important;
+}
+
+.modal-footer {
+    border-top: 1px solid #f3f4f6 !important;
+    padding: 16px 24px !important;
+}
+
+/* ================= IMAGE PREVIEW ================= */
+.img-preview-wrap {
+    border-radius: 14px;
+    overflow: hidden;
+    border: 2px dashed #e5e7eb;
+    background: #f9fafb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 160px;
+}
+
+/* ================= SIDEBAR MINI ADJUSTMENTS ================= */
+body.sidebar-mini .sidebar-menu > li > a {
+    margin: 2px 6px !important;
+    justify-content: center !important;
+}
+
+/* ================= SCROLL BAR ================= */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+    background: rgba(15, 76, 117, 0.3);
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(15, 76, 117, 0.55);
+}
+
+/* ================= NICESCROLL OVERRIDE ================= */
+.main-sidebar::-webkit-scrollbar {
+    width: 4px;
+}
+.main-sidebar::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.2);
+}
+
+/* ================= SECTION BODY PADDING ================= */
+.section-body {
+    padding: 24px 30px !important;
+}
+
+/* ================= INPUT FILE ================= */
+input[type="file"].form-control {
+    padding: 8px 12px !important;
+    cursor: pointer !important;
+}
+
+/* ================= LOGOUT LINK ================= */
+.dropdown-item.text-danger {
+    color: #dc2626 !important;
+}
+
+/* ================= RESPONSIVE ADJUSTMENTS ================= */
+@media (max-width: 991.98px) {
+    .section-body {
+        padding: 16px !important;
+    }
+    .section-header {
+        padding: 14px 16px !important;
+    }
+}

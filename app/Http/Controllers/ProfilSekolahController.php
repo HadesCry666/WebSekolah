@@ -10,7 +10,7 @@ class ProfilSekolahController extends Controller
     // FRONT – Profil Sekolah
     public function front()
     {
-        $profil = ProfilSekolah::first();   // hanya 1 baris
+        $profil = ProfilSekolah::first();
         return view('front.profil_sekolah', compact('profil'));
     }
 
@@ -19,9 +19,10 @@ class ProfilSekolahController extends Controller
     {
         $profil = ProfilSekolah::first();
 
-        // kalau belum ada record, buat kosong dulu
         if (!$profil) {
-            $profil = ProfilSekolah::create([]);
+            $profil = ProfilSekolah::create([
+                'nama_sekolah' => 'SMP Sains Al-Qur\'an Klakah',
+            ]);
         }
 
         return view('back.crud_profil_sekolah', compact('profil'));
@@ -33,23 +34,52 @@ class ProfilSekolahController extends Controller
         $profil = ProfilSekolah::firstOrFail();
 
         $validated = $request->validate([
-            'nama_sekolah' => 'nullable|string|max:255',
-            'tagline'      => 'nullable|string|max:255',
-            'deskripsi'    => 'nullable|string',
-            'visi'         => 'nullable|string',
-            'misi'         => 'nullable|string',
-            'alamat'       => 'nullable|string|max:255',
-            'telepon'      => 'nullable|string|max:50',
-            'email'        => 'nullable|email|max:100',
-            'gambar'       => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'nama_sekolah'      => 'nullable|string|max:255',
+            'npsn'              => 'nullable|string|max:50',
+            'akreditasi'        => 'nullable|string|max:10',
+            'tahun_berdiri'     => 'nullable|integer|min:1900|max:2100',
+            'jumlah_siswa'      => 'nullable|integer|min:0',
+            'tagline'           => 'nullable|string|max:255',
+            'deskripsi'         => 'nullable|string',
+            'sejarah'           => 'nullable|string',
+            'visi'              => 'nullable|string',
+            'misi'              => 'nullable|string',
+            'nama_kepsek'       => 'nullable|string|max:255',
+            'sambutan_kepsek'   => 'nullable|string',
+            'alamat'            => 'nullable|string|max:255',
+            'telepon'           => 'nullable|string|max:50',
+            'email'             => 'nullable|email|max:100',
+            'whatsapp'          => 'nullable|string|max:50',
+            'instagram'         => 'nullable|string|max:255',
+            'youtube'           => 'nullable|string|max:255',
+            'facebook'          => 'nullable|string|max:255',
+            'maps_embed'        => 'nullable|string',
+            'meta_description'  => 'nullable|string|max:160',
+            'gambar'            => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'logo'              => 'nullable|image|mimes:jpg,jpeg,png,webp,svg|max:2048',
+            'favicon'           => 'nullable|image|mimes:jpg,jpeg,png,ico,svg|max:1024',
+            'foto_kepsek'       => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
 
-        if ($request->hasFile('gambar')) {
-            if ($profil->gambar && Storage::disk('public')->exists($profil->gambar)) {
-                Storage::disk('public')->delete($profil->gambar);
-            }
+        // Handle file uploads
+        $imageFields = ['gambar', 'logo', 'favicon', 'foto_kepsek'];
+        $storeFolders = [
+            'gambar'      => 'profil_sekolah',
+            'logo'        => 'profil_sekolah',
+            'favicon'     => 'profil_sekolah',
+            'foto_kepsek' => 'profil_sekolah',
+        ];
 
-            $validated['gambar'] = $request->file('gambar')->store('profil_sekolah', 'public');
+        foreach ($imageFields as $field) {
+            if ($request->hasFile($field)) {
+                // Delete old file
+                if ($profil->$field && Storage::disk('public')->exists($profil->$field)) {
+                    Storage::disk('public')->delete($profil->$field);
+                }
+                $validated[$field] = $request->file($field)->store($storeFolders[$field], 'public');
+            } else {
+                unset($validated[$field]);
+            }
         }
 
         $profil->update($validated);

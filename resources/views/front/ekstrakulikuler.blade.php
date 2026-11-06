@@ -36,7 +36,8 @@
                         <div class="ratio ratio-4x3">
                             <img
                                 src="{{ $item->gambar ? asset('storage/'.$item->gambar)
-                                                       : 'https://via.placeholder.com/800x600?text=Ekstrakurikuler' }}"
+                                                       : asset('assets/img/dummy/ekskul-dummy.png') }}"
+                                onerror="this.onerror=null;this.src='{{ asset('assets/img/dummy/ekskul-dummy.png') }}';"
                                 alt="{{ $item->judul }}"
                                 class="w-100 h-100 object-fit-cover"
                             >

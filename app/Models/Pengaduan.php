@@ -15,5 +15,6 @@ class Pengaduan extends Model
         'no_hp',
         'judul',
         'isi',
+        'status',
     ];
 }

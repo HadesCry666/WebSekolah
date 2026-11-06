@@ -20,7 +20,8 @@
                         <img
                             src="{{ $guru->foto 
                                 ? asset('storage/'.$guru->foto) 
-                                : 'https://via.placeholder.com/400x600?text=Foto+Guru' }}"
+                                : ($guru->jenis_kelamin == 'Perempuan' ? asset('assets/img/dummy/guru-wanita.png') : asset('assets/img/dummy/guru-pria.png')) }}"
+                            onerror="this.onerror=null;this.src='{{ asset('assets/img/dummy/guru-pria.png') }}';"
                             alt="{{ $guru->nama }}"
                             class="guru-photo">
                     </div>

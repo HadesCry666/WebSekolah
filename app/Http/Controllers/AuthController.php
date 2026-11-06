@@ -15,40 +15,73 @@ class AuthController extends Controller
         return view('auth.login'); 
     }
 
-    // Proses login (email + password saja)
+    // Proses login (Email/NISN + Password/NIK)
     public function login(Request $request)
     {
         // VALIDASI INPUT
         $request->validate([
-            'email'    => 'required|email',
+            'email'    => 'required|string',
             'password' => 'required|string',
         ], [
-            'email.required'    => 'Email wajib diisi.',
-            'email.email'       => 'Format email tidak valid.',
-            'password.required' => 'Password wajib diisi.',
+            'email.required'    => 'Email atau NISN wajib diisi.',
+            'password.required' => 'Password atau NIK wajib diisi.',
         ]);
 
-        // CARI USER BERDASARKAN EMAIL
-        $user = User::where('email', $request->email)->first();
+        $loginInput = trim($request->input('email'));
+        $passwordInput = $request->input('password');
 
-        // CEK PASSWORD
-        if ($user && Hash::check($request->password, $user->password)) {
+        // CARI USER:
+        // 1. Berdasarkan email (admin atau siswa)
+        // 2. Berdasarkan username (NISN / NIS)
+        $user = User::where('email', $loginInput)
+            ->orWhere('username', $loginInput)
+            ->first();
+
+        // 3. Jika belum ketemu, cari data Siswa berdasarkan NISN atau NIS
+        if (!$user) {
+            $siswa = \App\Models\Siswa::where('nisn', $loginInput)
+                ->orWhere('nis', $loginInput)
+                ->first();
+
+            if ($siswa && $siswa->user) {
+                $user = $siswa->user;
+            }
+        }
+
+        // CEK KECOCOKAN PASSWORD / NIK
+        $passwordMatches = false;
+        if ($user) {
+            if (Hash::check($passwordInput, $user->password)) {
+                $passwordMatches = true;
+            } elseif ($user->role === 'siswa' && $user->siswa && $user->siswa->nik && $user->siswa->nik === $passwordInput) {
+                // Sinkronkan hash password jika NIK siswa cocok
+                $user->update(['password' => Hash::make($passwordInput)]);
+                $passwordMatches = true;
+            }
+        }
+
+        if ($user && $passwordMatches) {
             // Login user
             Auth::login($user, $request->boolean('remember'));
 
-            // Simpan nama ke session (pakai name, kalau null pakai email)
-            $nama = $user->name ?? $user->email;
+            // Simpan nama ke session
+            $nama = $user->name ?? $user->username ?? $user->email;
             session(['nama' => $nama]);
 
-            // Redirect ke satu halaman saja (dashboard)
-            return redirect('/admin/tenaga-pendidik')    // ganti kalau route kamu beda
+            // Redirect berdasarkan role
+            if ($user->role === 'siswa') {
+                return redirect()->route('siswa.raport.index')
+                    ->with('success', 'Selamat datang, ' . $nama);
+            }
+
+            return redirect()->route('admin.dashboard')
                 ->with('success', 'Berhasil login');
         }
 
         // JIKA GAGAL
         return back()
             ->withInput($request->only('email'))
-            ->with('error', 'Email atau password salah');
+            ->with('error', 'Kredensial salah. Pastikan NISN dan NIK (atau Email dan Password) sudah sesuai.');
     }
 
     // Logout

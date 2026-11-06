@@ -25,7 +25,9 @@
                 <div class="card card-soft guru-card h-100 text-center">
                        <a href="{{ route('tenaga-pendidik.detail', $g->id) }}" class="stretched-link"></a>
 
-                    <img src="{{ $g->foto ? asset('storage/'.$g->foto) : 'https://via.placeholder.com/400x260?text=Guru' }}" alt="{{ $g->nama }}">
+                    <img src="{{ $g->foto ? asset('storage/'.$g->foto) : ($g->jenis_kelamin == 'Perempuan' ? asset('assets/img/dummy/guru-wanita.png') : asset('assets/img/dummy/guru-pria.png')) }}"
+                         onerror="this.onerror=null;this.src='{{ asset('assets/img/dummy/guru-pria.png') }}';"
+                         alt="{{ $g->nama }}">
                     <div class="card-body">
                         <div class="fw-semibold">{{ $g->nama }}</div>
                         <div class="small text-muted">{{ $g->mata_pelajaran ?? '-' }}</div>
@@ -48,7 +50,9 @@
                 <div class="card card-soft guru-card h-100 text-center">
                        <a href="{{ route('tenaga-pendidik.detail', $g->id) }}" class="stretched-link"></a>
 
-                    <img src="{{ $g->foto ? asset('storage/'.$g->foto) : 'https://via.placeholder.com/400x260?text=Guru' }}" alt="{{ $g->nama }}">
+                    <img src="{{ $g->foto ? asset('storage/'.$g->foto) : ($g->jenis_kelamin == 'Perempuan' ? asset('assets/img/dummy/guru-wanita.png') : asset('assets/img/dummy/guru-pria.png')) }}"
+                         onerror="this.onerror=null;this.src='{{ asset('assets/img/dummy/guru-pria.png') }}';"
+                         alt="{{ $g->nama }}">
                     <div class="card-body">
                         <div class="fw-semibold">{{ $g->nama }}</div>
                         <div class="small text-muted">{{ $g->mata_pelajaran ?? '-' }}</div>
@@ -73,7 +77,9 @@
             <div class="col-6 col-md-3">
                 <div class="card card-soft guru-card h-100 text-center">
                        <a href="{{ route('tenaga-pendidik.detail', $g->id) }}" class="stretched-link"></a>
-                    <img src="{{ $g->foto ? asset('storage/'.$g->foto) : 'https://via.placeholder.com/400x260?text=Guru' }}" alt="{{ $g->nama }}">
+                    <img src="{{ $g->foto ? asset('storage/'.$g->foto) : ($g->jenis_kelamin == 'Perempuan' ? asset('assets/img/dummy/guru-wanita.png') : asset('assets/img/dummy/guru-pria.png')) }}"
+                         onerror="this.onerror=null;this.src='{{ asset('assets/img/dummy/guru-pria.png') }}';"
+                         alt="{{ $g->nama }}">
                     <div class="card-body">
                         <div class="fw-semibold">{{ $g->nama }}</div>
                         <div class="small text-muted">{{ $g->mata_pelajaran ?? '-' }}</div>

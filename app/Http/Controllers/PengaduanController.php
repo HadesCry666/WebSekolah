@@ -24,6 +24,7 @@ class PengaduanController extends Controller
             'isi'    => 'required|string',
         ]);
 
+        $validated['status'] = 'baru';
         Pengaduan::create($validated);
 
         return back()->with('success', 'Pengaduan berhasil dikirim. Terima kasih.');
@@ -43,5 +44,19 @@ class PengaduanController extends Controller
         $item->delete();
 
         return back()->with('success', 'Pengaduan berhasil dihapus.');
+    }
+
+    // ADMIN – update status pengaduan
+    public function updateStatus(Request $request, $id)
+    {
+        $item = Pengaduan::findOrFail($id);
+
+        $request->validate([
+            'status' => 'required|in:baru,proses,selesai',
+        ]);
+
+        $item->update(['status' => $request->status]);
+
+        return back()->with('success', 'Status pengaduan berhasil diperbarui.');
     }
 }

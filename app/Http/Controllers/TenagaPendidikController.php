@@ -17,7 +17,11 @@ class TenagaPendidikController extends Controller
         ->get();
 
     // tata usaha
-    $tataUsaha = Tenaga_pendidik::where('jabatan', 'tata_usaha')
+    $tataUsaha = Tenaga_pendidik::where(function($q) {
+            $q->where('jabatan', 'tata_usaha')
+              ->orWhere('jabatan', 'Tata usaha')
+              ->orWhere('jabatan', 'Tata Usaha');
+        })
         ->orderBy('nama')
         ->get();
 
@@ -31,11 +35,45 @@ class TenagaPendidikController extends Controller
 
 
     // =============== ADMIN: HALAMAN CRUD GURU ===============
-   public function adminIndex()
-{
-    $data = Tenaga_pendidik::latest()->get();
-    return view('back.crud_tenaga_pendidik', compact('data'));
-}
+    public function adminIndex(Request $request)
+    {
+        $query = Tenaga_pendidik::query();
+
+        // Filter pencarian
+        if ($search = $request->input('search')) {
+            $query->where(function ($q) use ($search) {
+                $q->where('nama', 'like', "%{$search}%")
+                  ->orWhere('NIP', 'like', "%{$search}%")
+                  ->orWhere('mata_pelajaran', 'like', "%{$search}%");
+            });
+        }
+
+        // Filter jabatan
+        if ($jabatan = $request->input('jabatan')) {
+            if (in_array(strtolower(str_replace(' ', '_', $jabatan)), ['tata_usaha', 'tatausaha'])) {
+                $query->where(function($q) {
+                    $q->where('jabatan', 'like', '%tata%');
+                });
+            } else {
+                $query->where('jabatan', $jabatan);
+            }
+        }
+
+        $perPage = (int) $request->input('per_page', 15);
+        $data = $query->latest()->paginate($perPage)->withQueryString();
+
+        // Stats menyeluruh
+        $stats = [
+            'total'      => Tenaga_pendidik::count(),
+            'guru'       => Tenaga_pendidik::where('jabatan', 'Guru')->count(),
+            'tata_usaha' => Tenaga_pendidik::where(function($q) {
+                $q->where('jabatan', 'like', '%tata%');
+            })->count(),
+            'ustadz'     => Tenaga_pendidik::where('jabatan', 'Ustadz')->count(),
+        ];
+
+        return view('back.crud_tenaga_pendidik', compact('data', 'stats'));
+    }
 
     // SIMPAN DATA BARU
 public function store(Request $request)
@@ -43,7 +81,7 @@ public function store(Request $request)
     // VALIDASI
     $validated = $request->validate([
         'nama'          => 'required|string|max:255',
-        'jabatan'       => 'required|in:Guru,Tata usaha,Ustadz',   // enum
+        'jabatan'       => 'required|in:Guru,Tata usaha,Tata Usaha,tata_usaha,Ustadz',
         'mata_pelajaran'         => 'nullable|string|max:255',
         'NIP'           => 'nullable|string|max:100',
         'pendidikan_terakhir'    => 'nullable|string|max:100',
@@ -55,6 +93,12 @@ public function store(Request $request)
         'foto'          => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
     ]);
 
+    // NORMALISASI JABATAN
+    $jabatan = $validated['jabatan'];
+    if (in_array(strtolower(str_replace(' ', '_', $jabatan)), ['tata_usaha', 'tatausaha'])) {
+        $jabatan = 'Tata usaha';
+    }
+
     // HANDLE FOTO (JIKA ADA)
     $fotoPath = null;
     if ($request->hasFile('foto')) {
@@ -64,7 +108,7 @@ public function store(Request $request)
     // SIMPAN KE DATABASE (SESUAI NAMA KOLOM TABEL)
     Tenaga_pendidik::create([
         'nama'                  => $validated['nama'],
-        'jabatan'               => $validated['jabatan'],          // enum sudah aman
+        'jabatan'               => $jabatan,
         'mata_pelajaran'        => $validated['mata_pelajaran'] ?? null,
         'NIP'                   => $validated['NIP'] ?? null,
         'pendidikan_terakhir'  => $validated['pendidikan_terakhir'] ?? null,
@@ -86,9 +130,9 @@ public function update(Request $request, $id)
 {
     $guru = Tenaga_pendidik::findOrFail($id);
 
-    $request->validate([
+    $validated = $request->validate([
         'nama'          => 'required|string|max:255',
-        'jabatan'       => 'required|in:Guru,Tata usaha,Ustadz', 
+        'jabatan'       => 'required|in:Guru,Tata usaha,Tata Usaha,tata_usaha,Ustadz', 
         'mata_pelajaran'         => 'nullable|string|max:255',
         'NIP'           => 'nullable|string|max:100',
         'pendidikan_terakhir'    => 'nullable|string|max:100',
@@ -100,9 +144,14 @@ public function update(Request $request, $id)
         'foto'          => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
     ]);
 
+    $jabatan = $validated['jabatan'];
+    if (in_array(strtolower(str_replace(' ', '_', $jabatan)), ['tata_usaha', 'tatausaha'])) {
+        $jabatan = 'Tata usaha';
+    }
+
         $dataUpdate = [
             'nama'                  => $request->nama,
-            'jabatan'               => $request->jabatan,
+            'jabatan'               => $jabatan,
             'mata_pelajaran'        => $request->mata_pelajaran,
             'NIP'                   => $request->NIP,
             'pendidikan_terakhir'  => $request->pendidikan_terakhir,
