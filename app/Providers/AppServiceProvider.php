@@ -30,7 +30,7 @@ class AppServiceProvider extends ServiceProvider
             env('APP_ENV') === 'production' ||
             (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') ||
             (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ||
-            str_contains(request()->url(), 'vercel.app')
+            (!app()->runningInConsole() && str_contains(request()->url(), 'vercel.app'))
         ) {
             URL::forceScheme('https');
         }
