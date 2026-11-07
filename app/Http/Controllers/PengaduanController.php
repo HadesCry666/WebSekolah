@@ -10,12 +10,7 @@ class PengaduanController extends Controller
     // FRONT – Form pengaduan
     public function front()
     {
-        try {
-            $view = view()->exists('front.pengaduan') ? view('front.pengaduan') : view('front.Pengaduan');
-            return response($view->render());
-        } catch (\Throwable $e) {
-            return response("ERROR_DEBUG: " . $e->getMessage() . " in " . $e->getFile() . ":" . $e->getLine() . "\n" . $e->getTraceAsString(), 200);
-        }
+        return view('front.pengaduan');
     }
 
     // Simpan pengaduan dari front
