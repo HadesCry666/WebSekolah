@@ -79,11 +79,16 @@ class ProfilSekolahController extends Controller
 
         foreach ($imageFields as $field) {
             if ($request->hasFile($field)) {
-                // Delete old file
-                if ($profil->$field && Storage::disk('public')->exists($profil->$field)) {
-                    Storage::disk('public')->delete($profil->$field);
+                try {
+                    // Delete old file
+                    if ($profil->$field && Storage::disk('public')->exists($profil->$field)) {
+                        Storage::disk('public')->delete($profil->$field);
+                    }
+                    $validated[$field] = $request->file($field)->store($storeFolders[$field], 'public');
+                } catch (\Throwable $e) {
+                    \Log::warning("Upload {$field} gagal: " . $e->getMessage());
+                    unset($validated[$field]);
                 }
-                $validated[$field] = $request->file($field)->store($storeFolders[$field], 'public');
             } else {
                 unset($validated[$field]);
             }

@@ -113,7 +113,12 @@ class TenagaPendidikController extends Controller
         // HANDLE FOTO (JIKA ADA)
         $fotoPath = null;
         if ($request->hasFile('foto')) {
-            $fotoPath = $request->file('foto')->store('guru', 'public');
+            try {
+                $fotoPath = $request->file('foto')->store('guru', 'public');
+            } catch (\Throwable $e) {
+                \Log::warning('Upload foto guru gagal: ' . $e->getMessage());
+                $fotoPath = null;
+            }
         }
 
         // SIMPAN KE DATABASE
@@ -127,7 +132,7 @@ class TenagaPendidikController extends Controller
             'alamat'                => $validated['alamat'] ?? null,
             'tempat_lahir'          => $validated['tempat_lahir'] ?? null,
             'tanggal_lahir'         => $validated['tanggal_lahir'] ?? null,
-            'jenis_kelamin'         => $validated['jenis_kelamin'] ?? null,
+            'jenis_kelamin'         => $validated['jenis_kelamin'] ?? 'Laki-laki',
             'foto'                  => $fotoPath,
         ]);
 
@@ -174,10 +179,14 @@ class TenagaPendidikController extends Controller
         ];
 
         if ($request->hasFile('foto')) {
-            if ($guru->foto && Storage::disk('public')->exists($guru->foto)) {
-                Storage::disk('public')->delete($guru->foto);
+            try {
+                if ($guru->foto && Storage::disk('public')->exists($guru->foto)) {
+                    Storage::disk('public')->delete($guru->foto);
+                }
+                $dataUpdate['foto'] = $request->file('foto')->store('guru', 'public');
+            } catch (\Throwable $e) {
+                \Log::warning('Update foto guru gagal: ' . $e->getMessage());
             }
-            $dataUpdate['foto'] = $request->file('foto')->store('guru', 'public');
         }
 
         $guru->update($dataUpdate);
@@ -190,8 +199,12 @@ class TenagaPendidikController extends Controller
     {
         $guru = Tenaga_pendidik::findOrFail($id);
 
-        if ($guru->foto && Storage::disk('public')->exists($guru->foto)) {
-            Storage::disk('public')->delete($guru->foto);
+        try {
+            if ($guru->foto && Storage::disk('public')->exists($guru->foto)) {
+                Storage::disk('public')->delete($guru->foto);
+            }
+        } catch (\Throwable $e) {
+            \Log::warning('Hapus foto guru gagal: ' . $e->getMessage());
         }
 
         $guru->delete();
