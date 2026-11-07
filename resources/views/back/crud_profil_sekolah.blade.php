@@ -91,6 +91,7 @@
                 <div class="col-md-3 mb-3">
                     <label class="af-label">Jumlah Siswa</label>
                     <input type="number" name="jumlah_siswa" class="af-input" value="{{ old('jumlah_siswa', $profil->jumlah_siswa) }}">
+                    <p class="af-hint">Otomatis sinkron dengan Manajemen Siswa ({{ \App\Models\Siswa::where('status', 'aktif')->count() }} siswa aktif).</p>
                 </div>
                 <div class="col-12 mb-3">
                     <label class="af-label">Deskripsi Singkat Sekolah</label>

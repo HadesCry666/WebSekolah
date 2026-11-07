@@ -13,6 +13,7 @@ use App\Models\Galeri;
 use App\Models\Agenda;
 use App\Models\Pengumuman;
 use App\Models\Prestasi;
+use App\Models\Siswa;
 
 class LandingController extends Controller
 {
@@ -66,10 +67,17 @@ class LandingController extends Controller
         // Prestasi
         $prestasi = Prestasi::active()->latest()->take(6)->get();
 
+        // Hitung total siswa aktif dari Manajemen Siswa (fallback ke profil jika tabel siswa kosong)
+        $totalSiswaReal = Siswa::where('status', 'aktif')->count();
+        if ($totalSiswaReal === 0 && Siswa::count() > 0) {
+            $totalSiswaReal = Siswa::count();
+        }
+        $jumlahSiswa = ($totalSiswaReal > 0) ? $totalSiswaReal : ($profil->jumlah_siswa ?? 0);
+
         // Statistik sekolah
         $statsSekolah = (object)[
             'guru'  => Tenaga_pendidik::count(),
-            'siswa' => $profil->jumlah_siswa ?? 0,
+            'siswa' => $jumlahSiswa,
         ];
 
         return view('front.landing', compact(

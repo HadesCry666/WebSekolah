@@ -40,11 +40,14 @@
                         </div>
                     </div>
                     @endif
-                    @if($profil && $profil->jumlah_siswa)
+                    @php
+                        $displaySiswa = (isset($totalSiswa) && $totalSiswa > 0) ? $totalSiswa : ($profil->jumlah_siswa ?? 0);
+                    @endphp
+                    @if($displaySiswa > 0)
                     <div class="col-6 col-md-3">
                         <div class="card card-soft text-center p-3">
-                            <div class="fw-bold text-primary small">Siswa</div>
-                            <div class="fw-semibold">{{ number_format($profil->jumlah_siswa, 0, ',', '.') }}</div>
+                            <div class="fw-bold text-primary small">Siswa Aktif</div>
+                            <div class="fw-semibold">{{ number_format($displaySiswa, 0, ',', '.') }}</div>
                         </div>
                     </div>
                     @endif

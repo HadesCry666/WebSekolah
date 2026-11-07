@@ -12,7 +12,13 @@ class ProfilSekolahController extends Controller
     {
         $profil = ProfilSekolah::first();
         $kepsek = \App\Models\Tenaga_pendidik::where('jabatan', 'like', '%kepala%sekolah%')->first();
-        return view('front.profil_sekolah', compact('profil', 'kepsek'));
+        
+        $totalSiswa = \App\Models\Siswa::where('status', 'aktif')->count();
+        if ($totalSiswa === 0 && \App\Models\Siswa::count() > 0) {
+            $totalSiswa = \App\Models\Siswa::count();
+        }
+        
+        return view('front.profil_sekolah', compact('profil', 'kepsek', 'totalSiswa'));
     }
 
     // ADMIN – form edit profil
