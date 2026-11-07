@@ -93,6 +93,10 @@ Route::get('/pengumuman/{id}', [PengumumanController::class, 'frontDetail'])
 Route::get('/kurikulum', [KurikulumController::class, 'index'])
     ->name('kurikulum.index');
 
+// Panduan & Edukasi Raport
+Route::get('/raport', [RaportController::class, 'panduan'])
+    ->name('raport.panduan');
+
 
 /* =======================================================
 |  ADMIN AREA
@@ -247,6 +251,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
     Route::get('raport/{id}/download', [RaportController::class, 'download'])->name('raport.download');
     Route::get('raport/{id}/preview', [RaportController::class, 'preview'])->name('raport.preview');
     Route::post('raport/generate-akun', [RaportController::class, 'generateAkunSiswa'])->name('raport.generateAkun');
+    Route::post('raport/panduan', [RaportController::class, 'updatePanduan'])->name('raport.panduan.update');
 });
 
 /* =======================================================

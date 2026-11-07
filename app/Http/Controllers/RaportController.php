@@ -17,6 +17,9 @@ class RaportController extends Controller
      */
     public function index(Request $request)
     {
+        $tab = $request->input('tab', 'kelola');
+        $panduanSettings = self::getPanduanSettings();
+
         $currentYear = date('Y');
         $prevYear    = $currentYear - 1;
         $nextYear    = $currentYear + 1;
@@ -89,7 +92,9 @@ class RaportController extends Controller
             'semesterAktif',
             'kelasAktif',
             'search',
-            'stats'
+            'stats',
+            'tab',
+            'panduanSettings'
         ));
     }
 
@@ -279,5 +284,112 @@ class RaportController extends Controller
         }
 
         return redirect()->back()->with('success', "Selesai! Akun siswa berhasil disinkronisasi ({$created} baru, {$skipped} diperbarui). Username: NISN, Password: NIK.");
+    }
+
+    /**
+     * Ambil pengaturan halaman panduan raport dengan default bawaan
+     */
+    public static function getPanduanSettings(): array
+    {
+        $defaults = [
+            'raport_hero_badge'       => 'Layanan E-Raport Digital',
+            'raport_hero_judul'       => 'Panduan & Akses Raport Digital Siswa',
+            'raport_hero_subjudul'    => 'Layanan resmi informasi tata cara dan pengunduhan dokumen raport hasil belajar peserta didik SMP Sains Al-Qur\'an Klakah secara mudah, cepat, dan transparan.',
+            'raport_btn_login_text'   => 'Login Siswa & Unduh Raport',
+            'raport_jadwal_title'     => 'Jadwal Rilis & Pembagian Raport Semester',
+            'raport_jadwal_desc'      => 'Raport digital dapat diakses dan diunduh secara mandiri oleh siswa dan wali santri 24 jam non-stop setelah resmi dipublikasikan oleh pihak sekolah.',
+            'raport_jadwal_status'    => 'Aktif / Dapat Diakses',
+            'raport_langkah_1_judul'  => 'Siapkan NISN & NIK Siswa',
+            'raport_langkah_1_desc'   => 'Pastikan Anda mengetahui Nomor Induk Siswa Nasional (NISN) dan Nomor Induk Kependudukan (NIK) siswa yang terdaftar resmi.',
+            'raport_langkah_2_judul'  => 'Klik Tombol Login Siswa',
+            'raport_langkah_2_desc'   => 'Buka halaman login siswa. Masukkan NISN pada kolom ID Pengguna dan NIK pada kolom Kata Sandi (Password).',
+            'raport_langkah_3_judul'  => 'Masuk ke Portal E-Raport',
+            'raport_langkah_3_desc'   => 'Setelah berhasil login, Anda akan diarahkan ke Portal Raport Siswa yang menampilkan biodata siswa dan daftar riwayat raport.',
+            'raport_langkah_4_judul'  => 'Pratinjau & Unduh Dokumen PDF',
+            'raport_langkah_4_desc'   => 'Pilih semester yang diinginkan, klik "Download PDF" untuk menyimpan file raport atau klik "Pratinjau" untuk membaca langsung.',
+            'raport_syarat'           => "1. Siswa terdaftar aktif pada tahun ajaran yang bersangkutan.\n2. Telah menuntaskan administrasi sekolah dan pengembalian buku perpustakaan.\n3. Dokumen raport PDF yang diunduh merupakan dokumen resmi yang dilengkapi verifikasi madrasah.\n4. Simpan dokumen PDF raport dengan aman sebagai arsip digital pribadi.",
+            'raport_faq_1_q'          => 'Siapa saja yang berhak mengakses dan mengunduh raport digital?',
+            'raport_faq_1_a'          => 'Siswa yang berstatus aktif dan wali murid yang memiliki kredensial NISN serta NIK yang terdaftar resmi di basis data sekolah.',
+            'raport_faq_2_q'          => 'Bagaimana jika lupa NISN atau NIK siswa?',
+            'raport_faq_2_a'          => 'Silakan periksa Kartu Keluarga (KK) atau buku rapor semester sebelumnya. Anda juga dapat menghubungi Admin Tata Usaha atau Wali Kelas masing-masing.',
+            'raport_faq_3_q'          => 'Apakah raport digital ini resmi dan bisa dicetak sendiri?',
+            'raport_faq_3_a'          => 'Ya, dokumen berformat PDF standar A4 resmi yang dapat dicetak sewaktu-waktu untuk keperluan beasiswa, arsip, atau pendaftaran jenjang berikutnya.',
+            'raport_faq_4_q'          => 'Mengapa raport belum muncul atau belum bisa didownload?',
+            'raport_faq_4_a'          => 'Raport hanya dapat diunduh jika statusnya telah "Diterbitkan" (Published) oleh pihak sekolah sesuai dengan jadwal rilis resmi.',
+            'raport_kontak_wa'        => '6287612346453',
+            'raport_kontak_nama'      => 'Admin Layanan Akademik & Tata Usaha',
+        ];
+
+        $keys = array_keys($defaults);
+        $saved = \App\Models\PengaturanWebsite::whereIn('key', $keys)->pluck('value', 'key')->toArray();
+
+        return array_merge($defaults, $saved);
+    }
+
+    /**
+     * FRONTEND: Halaman Edukasi & Panduan Download Raport Siswa
+     */
+    public function panduan()
+    {
+        $settings = self::getPanduanSettings();
+        $profil = \App\Models\ProfilSekolah::first();
+        
+        // Ambil info periode terbaru yang dipublish
+        $periodeTerbaru = Raport::where('is_published', true)
+            ->orderBy('tahun_ajaran', 'desc')
+            ->orderBy('semester', 'desc')
+            ->first();
+
+        // Status user login
+        $isSiswa = auth()->check() && auth()->user()->role === 'siswa';
+
+        return view('front.raport.panduan', compact('settings', 'profil', 'periodeTerbaru', 'isSiswa'));
+    }
+
+    /**
+     * ADMIN: Simpan Pengaturan Halaman Panduan Raport
+     */
+    public function updatePanduan(Request $request)
+    {
+        $keys = [
+            'raport_hero_badge',
+            'raport_hero_judul',
+            'raport_hero_subjudul',
+            'raport_btn_login_text',
+            'raport_jadwal_title',
+            'raport_jadwal_desc',
+            'raport_jadwal_status',
+            'raport_langkah_1_judul',
+            'raport_langkah_1_desc',
+            'raport_langkah_2_judul',
+            'raport_langkah_2_desc',
+            'raport_langkah_3_judul',
+            'raport_langkah_3_desc',
+            'raport_langkah_4_judul',
+            'raport_langkah_4_desc',
+            'raport_syarat',
+            'raport_faq_1_q',
+            'raport_faq_1_a',
+            'raport_faq_2_q',
+            'raport_faq_2_a',
+            'raport_faq_3_q',
+            'raport_faq_3_a',
+            'raport_faq_4_q',
+            'raport_faq_4_a',
+            'raport_kontak_wa',
+            'raport_kontak_nama',
+        ];
+
+        foreach ($keys as $key) {
+            if ($request->has($key)) {
+                \App\Models\PengaturanWebsite::updateOrCreate(
+                    ['key' => $key],
+                    ['value' => $request->input($key)]
+                );
+            }
+        }
+
+        return redirect()->route('admin.raport.index', ['tab' => 'panduan'])
+            ->with('success', 'Pengaturan halaman panduan raport berhasil disimpan.');
     }
 }

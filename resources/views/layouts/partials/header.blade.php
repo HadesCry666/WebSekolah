@@ -126,6 +126,10 @@
                             </li>
 
                             <li class="nav-item">
+                                <a class="nav-link {{ request()->routeIs('raport.*') ? 'active' : '' }}" href="{{ route('raport.panduan') }}">Raport</a>
+                            </li>
+
+                            <li class="nav-item">
                                 <a class="nav-link {{ request()->routeIs('pengaduan.*') ? 'active' : '' }}" href="{{ route('pengaduan.front') }}">Pengaduan</a>
                             </li>
 

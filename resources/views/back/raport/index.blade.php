@@ -41,6 +41,22 @@
 </div>
 @endif
 
+{{-- TAB NAVIGATION --}}
+<div class="d-flex align-items-center gap-2 mb-4 border-bottom pb-3 flex-wrap">
+    <a href="{{ route('admin.raport.index', ['tab' => 'kelola']) }}" 
+       class="ab {{ ($tab ?? 'kelola') == 'kelola' ? 'ab-primary' : 'ab-secondary' }} ab-sm" style="border-radius: 999px;">
+        <i class="bi bi-file-earmark-pdf"></i> 1. Kelola Berkas Raport
+    </a>
+    <a href="{{ route('admin.raport.index', ['tab' => 'panduan']) }}" 
+       class="ab {{ ($tab ?? 'kelola') == 'panduan' ? 'ab-primary' : 'ab-secondary' }} ab-sm" style="border-radius: 999px;">
+        <i class="bi bi-pencil-square"></i> 2. Edit Halaman & Panduan Web
+    </a>
+    <a href="{{ route('raport.panduan') }}" target="_blank" class="ab ab-secondary ab-sm ms-auto" style="border-radius: 999px;">
+        <i class="bi bi-eye"></i> Lihat Halaman Raport di Web
+    </a>
+</div>
+
+@if(($tab ?? 'kelola') === 'kelola')
 {{-- STAT CARDS --}}
 <div class="stat-grid" style="grid-template-columns: repeat(4, 1fr);">
     <div class="stat-card">
@@ -438,6 +454,193 @@
         </form>
     </div>
 </div>
+@elseif(($tab ?? 'kelola') === 'panduan')
+{{-- ================= TAB 2: PENGATURAN HALAMAN & PANDUAN WEBPAGE ================= --}}
+<form action="{{ route('admin.raport.panduan.update') }}" method="POST">
+    @csrf
+
+    {{-- Banner Atas & Tombol Akses --}}
+    <div class="ac mb-4">
+        <div class="ac-header">
+            <span class="ac-title">
+                <i class="bi bi-window-sidebar"></i> 1. Banner Atas & Tombol Akses Raport
+            </span>
+            <a href="{{ route('raport.panduan') }}" target="_blank" class="ab ab-sm ab-secondary">
+                <i class="bi bi-eye"></i> Tinjau di Web
+            </a>
+        </div>
+        <div class="ac-body">
+            <div class="row g-3">
+                <div class="col-md-4 mb-2">
+                    <label class="af-label">Teks Badge Kecil</label>
+                    <input type="text" name="raport_hero_badge" class="af-input" value="{{ old('raport_hero_badge', $panduanSettings['raport_hero_badge'] ?? '') }}" placeholder="e.g. Layanan E-Raport Digital">
+                </div>
+                <div class="col-md-8 mb-2">
+                    <label class="af-label">Judul Utama Halaman <span class="req">*</span></label>
+                    <input type="text" name="raport_hero_judul" class="af-input" value="{{ old('raport_hero_judul', $panduanSettings['raport_hero_judul'] ?? '') }}" required>
+                </div>
+                <div class="col-12 mb-2">
+                    <label class="af-label">Subjudul / Deskripsi Banner</label>
+                    <textarea name="raport_hero_subjudul" class="af-textarea" rows="2">{{ old('raport_hero_subjudul', $panduanSettings['raport_hero_subjudul'] ?? '') }}</textarea>
+                </div>
+                <div class="col-md-6 mb-2">
+                    <label class="af-label">Teks Tombol Login Siswa (Saat Belum Login)</label>
+                    <input type="text" name="raport_btn_login_text" class="af-input" value="{{ old('raport_btn_login_text', $panduanSettings['raport_btn_login_text'] ?? '') }}">
+                    <p class="af-hint">Ketika siswa sudah login, tombol ini otomatis berubah menjadi "Buka Raport Saya (Nama Siswa)".</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- Jadwal & Pengumuman Pembagian Raport --}}
+    <div class="ac mb-4">
+        <div class="ac-header">
+            <span class="ac-title">
+                <i class="bi bi-calendar-event-fill"></i> 2. Jadwal & Pengumuman Pembagian Raport
+            </span>
+        </div>
+        <div class="ac-body">
+            <div class="row g-3">
+                <div class="col-md-8 mb-2">
+                    <label class="af-label">Judul Jadwal / Pengumuman</label>
+                    <input type="text" name="raport_jadwal_title" class="af-input" value="{{ old('raport_jadwal_title', $panduanSettings['raport_jadwal_title'] ?? '') }}">
+                </div>
+                <div class="col-md-4 mb-2">
+                    <label class="af-label">Status Akses / Rilis</label>
+                    <input type="text" name="raport_jadwal_status" class="af-input" value="{{ old('raport_jadwal_status', $panduanSettings['raport_jadwal_status'] ?? '') }}" placeholder="e.g. Aktif / Terbuka atau Dijadwalkan">
+                </div>
+                <div class="col-12 mb-2">
+                    <label class="af-label">Keterangan Jadwal & Pengumuman</label>
+                    <textarea name="raport_jadwal_desc" class="af-textarea" rows="3">{{ old('raport_jadwal_desc', $panduanSettings['raport_jadwal_desc'] ?? '') }}</textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- 4 Langkah Tutorial Download Raport --}}
+    <div class="ac mb-4">
+        <div class="ac-header">
+            <span class="ac-title">
+                <i class="bi bi-123"></i> 3. Empat (4) Langkah Tutorial Download Raport
+            </span>
+        </div>
+        <div class="ac-body">
+            <div class="row g-3">
+                {{-- Langkah 1 --}}
+                <div class="col-md-6 mb-3 p-3 rounded" style="background: #f8fafc; border: 1px solid var(--border);">
+                    <div class="fw-bold text-success mb-2"><i class="bi bi-1-circle-fill me-1"></i> Langkah 1</div>
+                    <label class="af-label">Judul Langkah 1</label>
+                    <input type="text" name="raport_langkah_1_judul" class="af-input mb-2" value="{{ old('raport_langkah_1_judul', $panduanSettings['raport_langkah_1_judul'] ?? '') }}">
+                    <label class="af-label text-muted small">Keterangan Langkah 1</label>
+                    <textarea name="raport_langkah_1_desc" class="af-textarea" rows="2">{{ old('raport_langkah_1_desc', $panduanSettings['raport_langkah_1_desc'] ?? '') }}</textarea>
+                </div>
+
+                {{-- Langkah 2 --}}
+                <div class="col-md-6 mb-3 p-3 rounded" style="background: #f8fafc; border: 1px solid var(--border);">
+                    <div class="fw-bold text-success mb-2"><i class="bi bi-2-circle-fill me-1"></i> Langkah 2</div>
+                    <label class="af-label">Judul Langkah 2</label>
+                    <input type="text" name="raport_langkah_2_judul" class="af-input mb-2" value="{{ old('raport_langkah_2_judul', $panduanSettings['raport_langkah_2_judul'] ?? '') }}">
+                    <label class="af-label text-muted small">Keterangan Langkah 2</label>
+                    <textarea name="raport_langkah_2_desc" class="af-textarea" rows="2">{{ old('raport_langkah_2_desc', $panduanSettings['raport_langkah_2_desc'] ?? '') }}</textarea>
+                </div>
+
+                {{-- Langkah 3 --}}
+                <div class="col-md-6 mb-3 p-3 rounded" style="background: #f8fafc; border: 1px solid var(--border);">
+                    <div class="fw-bold text-success mb-2"><i class="bi bi-3-circle-fill me-1"></i> Langkah 3</div>
+                    <label class="af-label">Judul Langkah 3</label>
+                    <input type="text" name="raport_langkah_3_judul" class="af-input mb-2" value="{{ old('raport_langkah_3_judul', $panduanSettings['raport_langkah_3_judul'] ?? '') }}">
+                    <label class="af-label text-muted small">Keterangan Langkah 3</label>
+                    <textarea name="raport_langkah_3_desc" class="af-textarea" rows="2">{{ old('raport_langkah_3_desc', $panduanSettings['raport_langkah_3_desc'] ?? '') }}</textarea>
+                </div>
+
+                {{-- Langkah 4 --}}
+                <div class="col-md-6 mb-3 p-3 rounded" style="background: #f8fafc; border: 1px solid var(--border);">
+                    <div class="fw-bold text-success mb-2"><i class="bi bi-4-circle-fill me-1"></i> Langkah 4</div>
+                    <label class="af-label">Judul Langkah 4</label>
+                    <input type="text" name="raport_langkah_4_judul" class="af-input mb-2" value="{{ old('raport_langkah_4_judul', $panduanSettings['raport_langkah_4_judul'] ?? '') }}">
+                    <label class="af-label text-muted small">Keterangan Langkah 4</label>
+                    <textarea name="raport_langkah_4_desc" class="af-textarea" rows="2">{{ old('raport_langkah_4_desc', $panduanSettings['raport_langkah_4_desc'] ?? '') }}</textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- Syarat & Ketentuan Pengunduhan --}}
+    <div class="ac mb-4">
+        <div class="ac-header">
+            <span class="ac-title">
+                <i class="bi bi-card-checklist"></i> 4. Ketentuan & Syarat Pengunduhan
+            </span>
+        </div>
+        <div class="ac-body">
+            <label class="af-label">Poin-poin Ketentuan</label>
+            <textarea name="raport_syarat" class="af-textarea" rows="5" placeholder="Gunakan baris baru / enter untuk setiap butir ketentuan...">{{ old('raport_syarat', $panduanSettings['raport_syarat'] ?? '') }}</textarea>
+            <p class="af-hint">Setiap baris baru akan otomatis ditampilkan sebagai satu butir centang di halaman web.</p>
+        </div>
+    </div>
+
+    {{-- FAQ & Helpdesk --}}
+    <div class="ac mb-4">
+        <div class="ac-header">
+            <span class="ac-title">
+                <i class="bi bi-question-diamond-fill"></i> 5. Pertanyaan Umum (FAQ) & Narahubung Bantuan
+            </span>
+        </div>
+        <div class="ac-body">
+            <div class="row g-3">
+                <div class="col-12 mb-2">
+                    <label class="af-label">Pertanyaan 1</label>
+                    <input type="text" name="raport_faq_1_q" class="af-input mb-1" value="{{ old('raport_faq_1_q', $panduanSettings['raport_faq_1_q'] ?? '') }}">
+                    <label class="af-label text-muted small">Jawaban 1</label>
+                    <textarea name="raport_faq_1_a" class="af-textarea" rows="2">{{ old('raport_faq_1_a', $panduanSettings['raport_faq_1_a'] ?? '') }}</textarea>
+                </div>
+
+                <div class="col-12 mb-2">
+                    <label class="af-label">Pertanyaan 2</label>
+                    <input type="text" name="raport_faq_2_q" class="af-input mb-1" value="{{ old('raport_faq_2_q', $panduanSettings['raport_faq_2_q'] ?? '') }}">
+                    <label class="af-label text-muted small">Jawaban 2</label>
+                    <textarea name="raport_faq_2_a" class="af-textarea" rows="2">{{ old('raport_faq_2_a', $panduanSettings['raport_faq_2_a'] ?? '') }}</textarea>
+                </div>
+
+                <div class="col-12 mb-2">
+                    <label class="af-label">Pertanyaan 3</label>
+                    <input type="text" name="raport_faq_3_q" class="af-input mb-1" value="{{ old('raport_faq_3_q', $panduanSettings['raport_faq_3_q'] ?? '') }}">
+                    <label class="af-label text-muted small">Jawaban 3</label>
+                    <textarea name="raport_faq_3_a" class="af-textarea" rows="2">{{ old('raport_faq_3_a', $panduanSettings['raport_faq_3_a'] ?? '') }}</textarea>
+                </div>
+
+                <div class="col-12 mb-2">
+                    <label class="af-label">Pertanyaan 4</label>
+                    <input type="text" name="raport_faq_4_q" class="af-input mb-1" value="{{ old('raport_faq_4_q', $panduanSettings['raport_faq_4_q'] ?? '') }}">
+                    <label class="af-label text-muted small">Jawaban 4</label>
+                    <textarea name="raport_faq_4_a" class="af-textarea" rows="2">{{ old('raport_faq_4_a', $panduanSettings['raport_faq_4_a'] ?? '') }}</textarea>
+                </div>
+
+                <div class="col-md-6 mb-2">
+                    <label class="af-label">Nama Layanan / Kontak Helpdesk</label>
+                    <input type="text" name="raport_kontak_nama" class="af-input" value="{{ old('raport_kontak_nama', $panduanSettings['raport_kontak_nama'] ?? '') }}" placeholder="e.g. Layanan Tata Usaha & Bantuan">
+                </div>
+
+                <div class="col-md-6 mb-2">
+                    <label class="af-label">Nomor WhatsApp Bantuan</label>
+                    <input type="text" name="raport_kontak_wa" class="af-input" value="{{ old('raport_kontak_wa', $panduanSettings['raport_kontak_wa'] ?? '') }}" placeholder="e.g. 6287612346453">
+                    <p class="af-hint">Gunakan format angka dengan awalan kode negara (62).</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- Tombol Simpan Form --}}
+    <div class="d-flex justify-content-end gap-2 mb-5">
+        <a href="{{ route('admin.raport.index', ['tab' => 'kelola']) }}" class="ab ab-secondary">
+            Batal
+        </a>
+        <button type="submit" class="ab ab-primary px-4 py-2">
+            <i class="bi bi-check-lg"></i> Simpan Pengaturan Panduan Raport
+        </button>
+    </div>
+</form>
+@endif
 
 {{-- MODAL STYLES & JS SCRIPT --}}
 <style>
