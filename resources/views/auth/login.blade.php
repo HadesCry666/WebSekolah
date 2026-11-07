@@ -9,9 +9,9 @@
     @php
         $profilLogin = \App\Models\ProfilSekolah::first();
         $loginFavicon = ($profilLogin && $profilLogin->favicon) 
-            ? asset('storage/'.$profilLogin->favicon) 
+            ? image_url($profilLogin->favicon) 
             : (($profilLogin && $profilLogin->logo) 
-                ? asset('storage/'.$profilLogin->logo) 
+                ? image_url($profilLogin->logo) 
                 : asset('favicon.png'));
     @endphp
     <link rel="icon" type="image/png" href="{{ $loginFavicon }}">

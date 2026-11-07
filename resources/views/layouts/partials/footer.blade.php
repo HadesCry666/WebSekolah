@@ -1,7 +1,7 @@
 {{-- ================= FOOTER ================= --}}
 @php
     $profilFooter = \App\Models\ProfilSekolah::first();
-    $logoFooter = image_url($profilFooter?->logo, asset('storage/mentahan-logo.jpg'));
+    $logoFooter = image_url($profilFooter?->logo, asset('assets/img/logo.png'));
 @endphp
 
 <footer class="footer-main mt-5">
@@ -11,7 +11,7 @@
             <div class="col-lg-4 col-md-5">
                 <div class="footer-brand d-flex align-items-center gap-3 mb-3">
                     <div class="footer-logo-badge">
-                        <img src="{{ $logoFooter }}" alt="Logo SMP Sains Al-Qur'an Klakah" onerror="this.onerror=null;this.src='{{ asset('assets/img/stisla-fill.svg') }}';">
+                        <img src="{{ $logoFooter }}" alt="Logo SMP Sains Al-Qur'an Klakah" onerror="this.onerror=null;this.src='{{ asset('assets/img/logo.png') }}';">
                     </div>
                     <div>
                         <h5 class="footer-brand-title mb-0">SMP SAINS AL-QUR'AN</h5>
@@ -31,23 +31,23 @@
                         <div class="footer-contact-icon">
                             <i class="bi bi-telephone-fill"></i>
                         </div>
-                        <a href="tel:{{ preg_replace('/[^0-9+]/', '', $profilFooter->telepon ?? '0334881866') }}">{{ $profilFooter->telepon ?? '(0334) 881866' }}</a>
+                        <a href="tel:{{ preg_replace('/[^0-9+]/', '', $profilFooter->telepon ?? '+6282233671882') }}">{{ $profilFooter->telepon ?? '+62 822-3367-1882' }}</a>
                     </div>
                     <div class="footer-contact-item">
                         <div class="footer-contact-icon">
                             <i class="bi bi-envelope-fill"></i>
                         </div>
-                        <a href="mailto:{{ $profilFooter->email ?? 'info@smpsainsquran.sch.id' }}">{{ $profilFooter->email ?? 'info@smpsainsquran.sch.id' }}</a>
+                        <a href="mailto:{{ $profilFooter->email ?? 'saqusmp@gmail.com' }}">{{ $profilFooter->email ?? 'saqusmp@gmail.com' }}</a>
                     </div>
                 </div>
 
                 <div class="footer-social-wrap">
                     <div class="footer-social-label">Media Sosial</div>
                     <div class="footer-social-links">
-                        <a href="https://wa.me/{{ $profilFooter->whatsapp ?? '6287612346453' }}" class="footer-social-btn whatsapp" target="_blank" title="WhatsApp" aria-label="WhatsApp">
+                        <a href="https://wa.me/{{ $profilFooter->whatsapp ?? '6282233671882' }}" class="footer-social-btn whatsapp" target="_blank" title="WhatsApp" aria-label="WhatsApp">
                             <i class="bi bi-whatsapp"></i>
                         </a>
-                        <a href="{{ $profilFooter->instagram ?? 'https://www.instagram.com/smpsainsquranklakah/' }}" class="footer-social-btn instagram" target="_blank" title="Instagram" aria-label="Instagram">
+                        <a href="{{ $profilFooter->instagram ?? 'https://www.instagram.com/smpsainsquranklakah?utm_source=ig_web_button_share_sheet&psln=ZDNlZDc0MzIxNw==' }}" class="footer-social-btn instagram" target="_blank" title="Instagram" aria-label="Instagram">
                             <i class="bi bi-instagram"></i>
                         </a>
                         <a href="{{ $profilFooter->youtube ?? 'https://www.youtube.com/@smpsainsquranklakah' }}" class="footer-social-btn youtube" target="_blank" title="YouTube" aria-label="YouTube">

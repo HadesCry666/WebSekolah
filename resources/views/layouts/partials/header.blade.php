@@ -8,7 +8,7 @@
                 <div class="container d-flex flex-wrap justify-content-between align-items-center">
                     {{-- Logo kiri --}}
                     <div class="logo-wrap d-flex align-items-center gap-2">
-                        <img src="{{ image_url($profil?->logo, asset('storage/mentahan-logo.jpg')) }}" alt="Logo SMP" onerror="this.onerror=null;this.src='{{ asset('assets/img/stisla-fill.svg') }}';">
+                        <img src="{{ image_url($profil?->logo, asset('assets/img/logo.png')) }}" alt="Logo SMP" onerror="this.onerror=null;this.src='{{ asset('assets/img/logo.png') }}';">
                         <div>
                             <div class="logo-text-title">SMP SAINS AL-QUR'AN</div>
                             <div class="logo-text-title">KLAKAH</div>
@@ -23,7 +23,7 @@
                             </div>
                             <div>
                                 <div class="contact-label">Telepon</div>
-                                <div class="contact-value">{{ $profil->telepon ?? '(0334) 881866' }}</div>
+                                <div class="contact-value">{{ $profil->telepon ?? '+62 822-3367-1882' }}</div>
                             </div>
                         </div>
 
@@ -33,20 +33,20 @@
                             </div>
                             <div>
                                 <div class="contact-label">Alamat Email</div>
-                                <div class="contact-value">{{ $profil->email ?? 'info@smpsainsquran.sch.id' }}</div>
+                                <div class="contact-value">{{ $profil->email ?? 'saqusmp@gmail.com' }}</div>
                             </div>
                         </div>
 
                     <div class="d-flex align-items-center">
                         <div class="social-divider d-none d-lg-block"></div>
                         <div class="social-list">
-                            <a href="https://wa.me/{{ $profil->whatsapp ?? '6287612346453' }}" 
+                            <a href="https://wa.me/{{ $profil->whatsapp ?? '6282233671882' }}" 
                             class="text-success" 
                             target="_blank">
                                 <i class="bi bi-whatsapp"></i>
                             </a>
 
-                            <a href="{{ $profil->instagram ?? 'https://www.instagram.com/smpsainsquranklakah/' }}" 
+                            <a href="{{ $profil->instagram ?? 'https://www.instagram.com/smpsainsquranklakah?utm_source=ig_web_button_share_sheet&psln=ZDNlZDc0MzIxNw==' }}" 
                             class="text-danger" 
                             target="_blank">
                                 <i class="bi bi-instagram"></i>
@@ -68,10 +68,10 @@
                 <div class="container">
                     {{-- Logo + Nama Sekolah di Mobile --}}
                     <a class="navbar-brand d-lg-none d-flex align-items-center gap-2 py-1" href="{{ route('landing') }}">
-                        <img src="{{ image_url($profil?->logo, asset('storage/mentahan-logo.jpg')) }}" 
+                        <img src="{{ image_url($profil?->logo, asset('assets/img/logo.png')) }}" 
                              alt="Logo SMP" 
                              style="width: 38px; height: 38px; object-fit: contain;" 
-                             onerror="this.onerror=null;this.src='{{ asset('assets/img/stisla-fill.svg') }}';">
+                             onerror="this.onerror=null;this.src='{{ asset('assets/img/logo.png') }}';">
                         <div class="d-flex flex-column justify-content-center">
                             <span class="mobile-logo-title">SMP SAINS AL-QUR'AN</span>
                             <span class="mobile-logo-sub">KLAKAH - LUMAJANG</span>
