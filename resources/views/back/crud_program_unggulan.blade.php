@@ -202,7 +202,13 @@
 
                     <div class="af-group">
                         <label class="af-label">Ikon (Bootstrap Icons)</label>
-                        <input type="text" name="ikon" class="af-input" placeholder="e.g. bi-book, bi-lightbulb, bi-heart">
+                        <input type="text" name="ikon" class="af-input" placeholder="e.g. bi-journal-bookmark-fill, bi-rocket-takeoff-fill, bi-heart-fill, bi-translate">
+                        <div class="d-flex flex-wrap gap-1 mt-1">
+                            <span class="badge bg-light text-dark border" style="cursor:pointer; font-size: 0.72rem;" onclick="document.querySelector('#addModal input[name=ikon]').value='bi-journal-bookmark-fill'">📖 Tahfidz</span>
+                            <span class="badge bg-light text-dark border" style="cursor:pointer; font-size: 0.72rem;" onclick="document.querySelector('#addModal input[name=ikon]').value='bi-rocket-takeoff-fill'">🚀 Sains & Tech</span>
+                            <span class="badge bg-light text-dark border" style="cursor:pointer; font-size: 0.72rem;" onclick="document.querySelector('#addModal input[name=ikon]').value='bi-heart-fill'">❤️ Akhlak</span>
+                            <span class="badge bg-light text-dark border" style="cursor:pointer; font-size: 0.72rem;" onclick="document.querySelector('#addModal input[name=ikon]').value='bi-translate'">🌐 Bahasa</span>
+                        </div>
                     </div>
 
                     <div class="af-group">
@@ -263,7 +269,13 @@
 
                     <div class="af-group">
                         <label class="af-label">Ikon (Bootstrap Icons)</label>
-                        <input type="text" name="ikon" id="edit_ikon" class="af-input">
+                        <input type="text" name="ikon" id="edit_ikon" class="af-input" placeholder="e.g. bi-journal-bookmark-fill, bi-rocket-takeoff-fill, bi-heart-fill, bi-translate">
+                        <div class="d-flex flex-wrap gap-1 mt-1">
+                            <span class="badge bg-light text-dark border" style="cursor:pointer; font-size: 0.72rem;" onclick="document.getElementById('edit_ikon').value='bi-journal-bookmark-fill'">📖 Tahfidz</span>
+                            <span class="badge bg-light text-dark border" style="cursor:pointer; font-size: 0.72rem;" onclick="document.getElementById('edit_ikon').value='bi-rocket-takeoff-fill'">🚀 Sains & Tech</span>
+                            <span class="badge bg-light text-dark border" style="cursor:pointer; font-size: 0.72rem;" onclick="document.getElementById('edit_ikon').value='bi-heart-fill'">❤️ Akhlak</span>
+                            <span class="badge bg-light text-dark border" style="cursor:pointer; font-size: 0.72rem;" onclick="document.getElementById('edit_ikon').value='bi-translate'">🌐 Bahasa</span>
+                        </div>
                     </div>
 
                     <div class="af-group">

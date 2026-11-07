@@ -247,16 +247,63 @@
                 <p class="section-subtitle">Keunggulan akademik, keislaman, tahfiz, dan teknologi</p>
             </div>
             <div class="row g-4">
-                @foreach($programUnggulan as $prog)
+                @foreach($programUnggulan as $index => $prog)
+                @php
+                    $programStyles = [
+                        'tahfidz' => [
+                            'icon' => 'bi-journal-bookmark-fill',
+                            'color' => '#0d5c3a',
+                            'bg' => 'linear-gradient(135deg, #e8f5e9 0%, #dcfce7 100%)',
+                            'border' => 'rgba(13, 92, 58, 0.18)'
+                        ],
+                        'sains' => [
+                            'icon' => 'bi-rocket-takeoff-fill',
+                            'color' => '#0284c7',
+                            'bg' => 'linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%)',
+                            'border' => 'rgba(2, 132, 199, 0.18)'
+                        ],
+                        'akhlak' => [
+                            'icon' => 'bi-heart-fill',
+                            'color' => '#e11d48',
+                            'bg' => 'linear-gradient(135deg, #ffe4e6 0%, #fecdd3 100%)',
+                            'border' => 'rgba(225, 29, 72, 0.18)'
+                        ],
+                        'bahasa' => [
+                            'icon' => 'bi-translate',
+                            'color' => '#7c3aed',
+                            'bg' => 'linear-gradient(135deg, #ede9fe 0%, #ddd6fe 100%)',
+                            'border' => 'rgba(124, 58, 237, 0.18)'
+                        ],
+                    ];
+                    
+                    $progNameLower = strtolower($prog->nama ?? '');
+                    if (str_contains($progNameLower, 'tahfidz') || str_contains($progNameLower, 'qur')) {
+                        $style = $programStyles['tahfidz'];
+                    } elseif (str_contains($progNameLower, 'sains') || str_contains($progNameLower, 'teknologi')) {
+                        $style = $programStyles['sains'];
+                    } elseif (str_contains($progNameLower, 'akhlak') || str_contains($progNameLower, 'karakter')) {
+                        $style = $programStyles['akhlak'];
+                    } elseif (str_contains($progNameLower, 'bahasa') || str_contains($progNameLower, 'arab') || str_contains($progNameLower, 'inggris')) {
+                        $style = $programStyles['bahasa'];
+                    } else {
+                        $palettes = array_values($programStyles);
+                        $style = $palettes[$index % count($palettes)];
+                    }
+
+                    $iconClass = $prog->ikon;
+                    if (!$iconClass || in_array($iconClass, ['bi-star', 'bi-book', 'bi-lightbulb', 'bi-heart', 'bi-globe'])) {
+                        $iconClass = $style['icon'];
+                    }
+                @endphp
                 <div class="col-md-6 col-lg-3">
                     <div class="card card-soft h-100 text-center p-4 program-card">
                         <div class="mb-3">
-                            <div class="icon-circle-lg bg-primary-soft mx-auto">
-                                <i class="bi {{ $prog->ikon ?? 'bi-star' }} fs-1 text-primary"></i>
+                            <div class="program-icon-badge mx-auto" style="background: {{ $style['bg'] }}; color: {{ $style['color'] }}; border: 1px solid {{ $style['border'] }};">
+                                <i class="bi {{ $iconClass }}"></i>
                             </div>
                         </div>
-                        <h5 class="fw-bold">{{ $prog->nama }}</h5>
-                        <p class="text-muted small">{{ Str::limit($prog->deskripsi, 120) }}</p>
+                        <h5 class="fw-bold mb-2 text-dark">{{ $prog->nama }}</h5>
+                        <p class="text-muted small mb-0 lh-base">{{ Str::limit($prog->deskripsi, 120) }}</p>
                     </div>
                 </div>
                 @endforeach
@@ -554,7 +601,7 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="card border-0 shadow-lg rounded-4 p-4 text-dark bg-white">
-                        <h5 class="fw-bold text-navy mb-3"><i class="bi bi-stars text-primary me-2"></i>Pilar Keunggulan Pembelajaran</h5>
+                        <h5 class="fw-bold text-navy mb-3"><i class="bi bi-stars me-2" style="color: #16a34a;"></i>Pilar Keunggulan Pembelajaran</h5>
                         <ul class="list-unstyled mb-0 d-flex flex-column gap-3">
                             <li class="d-flex align-items-start gap-3">
                                 <div class="misi-bullet-icon flex-shrink-0 mt-1"><i class="bi bi-patch-check-fill"></i></div>
@@ -584,29 +631,34 @@
                     <p class="section-subtitle mb-0 text-truncate">Kegiatan pengembangan bakat siswa</p>
                 </div>
                 <div class="d-flex gap-2 flex-shrink-0">
-                    <button class="btn btn-outline-secondary btn-sm rounded-circle btn-ekskul-prev"><i class="bi bi-arrow-left"></i></button>
-                    <button class="btn btn-outline-secondary btn-sm rounded-circle btn-ekskul-next"><i class="bi bi-arrow-right"></i></button>
+                    <button class="btn btn-ekskul-nav btn-ekskul-prev" aria-label="Sebelumnya"><i class="bi bi-chevron-left"></i></button>
+                    <button class="btn btn-ekskul-nav btn-ekskul-next" aria-label="Selanjutnya"><i class="bi bi-chevron-right"></i></button>
                 </div>
             </div>
             <div class="ekskul-scroll" id="ekskulScroll">
                 @forelse($ekskul as $item)
                     <div class="ekskul-item">
-                        <div class="card card-soft h-100 text-center position-relative">
-                            <a href="{{ route('ekstrakulikuler.detail', $item->id) }}" class="stretched-link"></a>
-                            <img src="{{ image_url($item->gambar, asset('assets/img/dummy/ekskul-dummy.png')) }}"
-                                 onerror="this.onerror=null;this.src='{{ asset('assets/img/dummy/ekskul-dummy.png') }}';"
-                                 alt="{{ $item->judul }}">
-                            <div class="card-body bg-primary text-white">
-                                <h5 class="mb-0 fw-bold">{{ $item->judul ?? 'Ekstrakurikuler' }}</h5>
+                        <div class="card card-soft ekskul-card h-100 text-center position-relative">
+                            <a href="{{ route('ekstrakulikuler.detail', $item->id) }}" class="stretched-link" aria-label="{{ $item->judul }}"></a>
+                            <div class="ekskul-card-img-wrap">
+                                <img src="{{ image_url($item->gambar, asset('assets/img/dummy/ekskul-dummy.png')) }}"
+                                     onerror="this.onerror=null;this.src='{{ asset('assets/img/dummy/ekskul-dummy.png') }}';"
+                                     alt="{{ $item->judul }}">
+                            </div>
+                            <div class="card-body-ekskul">
+                                <span class="fw-bold">{{ $item->judul ?? 'Ekstrakurikuler' }}</span>
+                                <i class="bi bi-arrow-right-short fs-5 opacity-75"></i>
                             </div>
                         </div>
                     </div>
                 @empty
                     <div class="ekskul-item">
-                        <div class="card card-soft h-100 text-center">
-                            <img src="{{ asset('assets/img/dummy/ekskul-dummy.png') }}" alt="Belum Ada Data">
-                            <div class="card-body bg-primary text-white">
-                                <h5 class="mb-0">Belum ada data ekstrakurikuler</h5>
+                        <div class="card card-soft ekskul-card h-100 text-center">
+                            <div class="ekskul-card-img-wrap">
+                                <img src="{{ asset('assets/img/dummy/ekskul-dummy.png') }}" alt="Belum Ada Data">
+                            </div>
+                            <div class="card-body-ekskul">
+                                <span class="fw-bold">Belum ada data ekstrakurikuler</span>
                             </div>
                         </div>
                     </div>

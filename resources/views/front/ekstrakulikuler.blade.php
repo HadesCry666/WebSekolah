@@ -21,7 +21,7 @@
             </ol>
         </nav>
 
-        <a href="{{ route('landing') }}#section-ekskul" class="btn btn-outline-secondary btn-sm">
+        <a href="{{ route('landing') }}#section-ekskul" class="btn btn-outline-success btn-sm rounded-pill px-3">
             <i class="bi bi-arrow-left me-1"></i> Kembali ke daftar ekskul
         </a>
     </div>
