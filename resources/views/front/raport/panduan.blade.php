@@ -4,6 +4,14 @@
 
 @section('content')
 
+@php
+    $nomorWa = $settings['raport_kontak_wa'] ?? ($profil->whatsapp ?? '');
+    $cleanWa = preg_replace('/[^0-9]/', '', $nomorWa);
+    if (str_starts_with($cleanWa, '0')) {
+        $cleanWa = '62' . substr($cleanWa, 1);
+    }
+@endphp
+
 {{-- ================= HERO BANNER ================= --}}
 <section class="py-5 text-white position-relative" style="background: linear-gradient(135deg, #0d5c3a 0%, #15803d 50%, #166534 100%); overflow: hidden;">
     {{-- Background Pattern --}}
@@ -13,8 +21,9 @@
     <div class="container py-4 position-relative" style="z-index: 2;">
         <div class="row align-items-center g-4">
             <div class="col-lg-8 text-center text-lg-start">
-                <span class="badge bg-white bg-opacity-20 text-white px-3 py-2 rounded-pill mb-3" style="font-size: 0.85rem; font-weight: 600; letter-spacing: 0.5px;">
-                    <i class="bi bi-file-earmark-pdf-fill text-warning me-1"></i> {{ $settings['raport_hero_badge'] ?? 'Layanan E-Raport Digital' }}
+                <span class="badge px-3 py-2 rounded-pill mb-3 d-inline-flex align-items-center" style="background: rgba(255, 255, 255, 0.15); color: #ffffff; font-size: 0.85rem; font-weight: 600; border: 1px solid rgba(255,255,255,0.25);">
+                    <i class="bi bi-file-earmark-pdf-fill text-warning me-2 fs-6"></i>
+                    <span>{{ $settings['raport_hero_badge'] ?? 'Layanan E-Raport Digital' }}</span>
                 </span>
                 <h1 class="display-6 fw-bold mb-3 text-white" style="letter-spacing: -0.5px; line-height: 1.25;">
                     {{ $settings['raport_hero_judul'] ?? 'Panduan & Akses Raport Digital Siswa' }}
@@ -23,44 +32,23 @@
                     {{ $settings['raport_hero_subjudul'] ?? 'Layanan resmi informasi tata cara dan pengunduhan dokumen raport hasil belajar peserta didik SMP Sains Al-Qur\'an Klakah secara mudah, cepat, dan transparan.' }}
                 </p>
 
-                {{-- TOMBOL AKSI UTAMA --}}
-                <div class="d-flex flex-wrap gap-3 justify-content-center justify-content-lg-start align-items-center">
+                {{-- TOMBOL AKSI UTAMA (HANYA 1 BUTTON) --}}
+                <div class="d-flex justify-content-center justify-content-lg-start align-items-center">
                     @if($isSiswa)
-                        <a href="{{ route('siswa.raport.index') }}" class="btn btn-warning btn-lg fw-bold px-4 py-3 shadow-lg rounded-pill d-inline-flex align-items-center">
+                        <a href="{{ route('siswa.raport.index') }}" class="btn btn-warning btn-lg fw-bold px-5 py-3 shadow rounded-pill d-inline-flex align-items-center" style="font-size: 1.05rem;">
                             <i class="bi bi-folder-check fs-5 me-2"></i>
                             <span>Buka Raport Saya ({{ auth()->user()->name }})</span>
                         </a>
                     @else
-                        <a href="{{ route('login.index') }}" class="btn btn-warning btn-lg fw-bold px-4 py-3 shadow-lg rounded-pill d-inline-flex align-items-center">
+                        <a href="{{ route('login.index') }}" class="btn btn-warning btn-lg fw-bold px-5 py-3 shadow rounded-pill d-inline-flex align-items-center" style="font-size: 1.05rem;">
                             <i class="bi bi-box-arrow-in-right fs-5 me-2"></i>
                             <span>{{ $settings['raport_btn_login_text'] ?? 'Login Siswa & Unduh Raport' }}</span>
                         </a>
                     @endif
-
-                    <a href="#tutorial-langkah" class="btn btn-outline-light btn-lg fw-semibold px-4 py-3 rounded-pill d-inline-flex align-items-center">
-                        <i class="bi bi-play-circle fs-5 me-2"></i>
-                        <span>Lihat Tutorial Unduh</span>
-                    </a>
-
-                    @php
-                        $nomorWa = $settings['raport_kontak_wa'] ?? ($profil->whatsapp ?? '');
-                        $cleanWa = preg_replace('/[^0-9]/', '', $nomorWa);
-                        if (str_starts_with($cleanWa, '0')) {
-                            $cleanWa = '62' . substr($cleanWa, 1);
-                        }
-                    @endphp
-                    @if($cleanWa)
-                    <a href="https://wa.me/{{ $cleanWa }}?text=Assalamu%27alaikum%20Admin%20SMP%20Sains%20Al-Qur%27an%2C%20saya%20butuh%20bantuan%20terkait%20akses%20dan%20download%20raport%20siswa." 
-                       target="_blank" 
-                       class="btn btn-light btn-lg fw-semibold px-4 py-3 rounded-pill d-inline-flex align-items-center text-success">
-                        <i class="bi bi-whatsapp fs-5 me-2"></i>
-                        <span>Bantuan Helpdesk</span>
-                    </a>
-                    @endif
                 </div>
 
                 {{-- Hint kredensial login --}}
-                <div class="mt-4 d-inline-flex align-items-center gap-2 bg-white bg-opacity-10 px-3 py-2 rounded-pill text-white" style="font-size: 0.82rem;">
+                <div class="mt-4 d-inline-flex align-items-center gap-2 px-3 py-2 rounded-pill text-white" style="background: rgba(255, 255, 255, 0.12); font-size: 0.82rem; border: 1px solid rgba(255,255,255,0.18);">
                     <i class="bi bi-shield-lock-fill text-warning"></i>
                     <span>Kredensial Siswa: Masuk menggunakan <strong>NISN</strong> (Username) dan <strong>NIK</strong> (Password).</span>
                 </div>
@@ -111,22 +99,10 @@
                                 <i class="bi bi-broadcast me-1"></i> {{ $settings['raport_jadwal_status'] ?? 'Aktif / Terbuka' }}
                             </span>
                         </div>
-                        <p class="text-muted mb-0 small" style="max-width: 720px;">
+                        <p class="text-muted mb-0 small" style="max-width: 820px;">
                             {{ $settings['raport_jadwal_desc'] ?? 'Raport digital dapat diakses dan diunduh secara mandiri oleh siswa dan wali santri 24 jam non-stop setelah resmi dipublikasikan oleh pihak sekolah.' }}
                         </p>
                     </div>
-                </div>
-
-                <div>
-                    @if($isSiswa)
-                        <a href="{{ route('siswa.raport.index') }}" class="btn btn-success fw-semibold px-4 py-2 rounded-pill shadow-sm">
-                            <i class="bi bi-box-arrow-up-right me-1"></i> Buka Portal Siswa
-                        </a>
-                    @else
-                        <a href="{{ route('login.index') }}" class="btn btn-success fw-semibold px-4 py-2 rounded-pill shadow-sm">
-                            <i class="bi bi-box-arrow-in-right me-1"></i> Masuk Sekarang
-                        </a>
-                    @endif
                 </div>
             </div>
         </div>
@@ -210,19 +186,6 @@
                     </p>
                 </div>
             </div>
-        </div>
-
-        {{-- BUTTON PROMINEN DI BAWAH LANGKAH TUTORIAL --}}
-        <div class="text-center">
-            @if($isSiswa)
-                <a href="{{ route('siswa.raport.index') }}" class="btn btn-success btn-lg fw-bold px-5 py-3 rounded-pill shadow-sm">
-                    <i class="bi bi-folder-check me-2"></i> Buka Portal Raport Saya
-                </a>
-            @else
-                <a href="{{ route('login.index') }}" class="btn btn-success btn-lg fw-bold px-5 py-3 rounded-pill shadow-sm">
-                    <i class="bi bi-box-arrow-in-right me-2"></i> Mulai Download Raport Sekarang
-                </a>
-            @endif
         </div>
     </div>
 </section>
@@ -377,3 +340,4 @@
 </section>
 
 @endsection
+
