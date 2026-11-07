@@ -5,7 +5,7 @@
 {{-- HERO KURIKULUM --}}
 <section class="py-5 bg-light border-bottom">
     <div class="container text-center py-4">
-        <span class="badge bg-primary-subtle text-primary px-3 py-2 rounded-pill fw-semibold mb-3">
+        <span class="badge px-3 py-2 rounded-pill fw-semibold mb-3" style="background: rgba(13, 92, 58, 0.1); color: #0d5c3a; border: 1px solid rgba(13, 92, 58, 0.2);">
             <i class="bi {{ $pengantar->ikon ?? 'bi-book-half' }} me-1"></i> {{ $pengantar->poin_poin ?? 'Sistem Pendidikan Terpadu' }}
         </span>
         <h1 class="display-5 fw-bold text-navy mb-3">{{ $pengantar->judul ?? 'Kurikulum & Pembelajaran' }}</h1>
@@ -26,8 +26,8 @@
         <div class="row g-4">
             @forelse($pilars as $index => $pilar)
                 <div class="col-lg-4">
-                    <div class="card card-soft h-100 p-4 p-md-5 border-top border-4 {{ $index == 0 ? 'border-primary' : ($index == 1 ? 'border-info' : 'border-success') }}">
-                        <div class="icon-circle {{ $index == 1 ? 'bg-blue-soft' : 'bg-navy-soft' }} mb-4">
+                    <div class="card card-soft h-100 p-4 p-md-5" style="border-top: 4px solid #0d5c3a !important;">
+                        <div class="icon-circle bg-navy-soft mb-4">
                             <i class="bi {{ $pilar->ikon ?: 'bi-mortarboard-fill' }} fs-3 text-navy"></i>
                         </div>
                         <h3 class="h4 fw-bold text-navy mb-3">{{ $pilar->judul }}</h3>
@@ -38,7 +38,7 @@
                         <ul class="list-unstyled mb-0 d-flex flex-column gap-2 text-secondary small">
                             @foreach($pilar->poin_list as $point)
                             <li class="d-flex align-items-center gap-2">
-                                <i class="bi bi-check2 text-primary fw-bold"></i> {{ $point }}
+                                <i class="bi bi-check2 fw-bold" style="color: #0d5c3a;"></i> {{ $point }}
                             </li>
                             @endforeach
                         </ul>
@@ -91,9 +91,14 @@
                             <div class="row g-3">
                                 @forelse($mapelUmum as $mu)
                                 <div class="col-md-6">
-                                    <div class="p-3 rounded-3 bg-light border d-flex align-items-center gap-3">
-                                        <i class="bi {{ $mu->ikon ?: 'bi-calculator' }} fs-4 text-primary"></i>
-                                        <div><strong>{{ $mu->judul }}</strong> <div class="text-muted small">{{ $mu->deskripsi ?: '-' }}</div></div>
+                                    <div class="subject-item-box">
+                                        <div class="subject-icon-box">
+                                            <i class="bi {{ $mu->ikon ?: 'bi-calculator' }}"></i>
+                                        </div>
+                                        <div>
+                                            <strong class="d-block text-dark">{{ $mu->judul }}</strong>
+                                            <div class="text-muted small">{{ $mu->deskripsi ?: '-' }}</div>
+                                        </div>
                                     </div>
                                 </div>
                                 @empty
@@ -113,9 +118,14 @@
                             <div class="row g-3">
                                 @forelse($mapelIslam as $mi)
                                 <div class="col-md-6">
-                                    <div class="p-3 rounded-3 bg-light border d-flex align-items-center gap-3">
-                                        <i class="bi {{ $mi->ikon ?: 'bi-book' }} fs-4 text-success"></i>
-                                        <div><strong>{{ $mi->judul }}</strong> <div class="text-muted small">{{ $mi->deskripsi ?: '-' }}</div></div>
+                                    <div class="subject-item-box">
+                                        <div class="subject-icon-box">
+                                            <i class="bi {{ $mi->ikon ?: 'bi-book' }}"></i>
+                                        </div>
+                                        <div>
+                                            <strong class="d-block text-dark">{{ $mi->judul }}</strong>
+                                            <div class="text-muted small">{{ $mi->deskripsi ?: '-' }}</div>
+                                        </div>
                                     </div>
                                 </div>
                                 @empty
@@ -135,9 +145,14 @@
                             <div class="row g-3">
                                 @forelse($mapelSains as $ms)
                                 <div class="col-md-6">
-                                    <div class="p-3 rounded-3 bg-light border d-flex align-items-center gap-3">
-                                        <i class="bi {{ $ms->ikon ?: 'bi-laptop' }} fs-4 text-primary"></i>
-                                        <div><strong>{{ $ms->judul }}</strong> <div class="text-muted small">{{ $ms->deskripsi ?: '-' }}</div></div>
+                                    <div class="subject-item-box">
+                                        <div class="subject-icon-box">
+                                            <i class="bi {{ $ms->ikon ?: 'bi-laptop' }}"></i>
+                                        </div>
+                                        <div>
+                                            <strong class="d-block text-dark">{{ $ms->judul }}</strong>
+                                            <div class="text-muted small">{{ $ms->deskripsi ?: '-' }}</div>
+                                        </div>
                                     </div>
                                 </div>
                                 @empty
@@ -164,7 +179,7 @@
             @forelse($capaians as $index => $c)
             <div class="col-md-6 col-lg-3">
                 <div class="card card-soft text-center p-4 h-100">
-                    <div class="icon-circle {{ $index % 2 == 0 ? 'bg-navy-soft' : 'bg-blue-soft' }} mx-auto mb-3">
+                    <div class="icon-circle bg-navy-soft mx-auto mb-3">
                         <i class="bi {{ $c->ikon ?: 'bi-award' }} fs-4 text-navy"></i>
                     </div>
                     <h5 class="fw-bold text-navy mb-2">{{ $c->judul }}</h5>
