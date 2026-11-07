@@ -8,7 +8,7 @@
                 <div class="container d-flex flex-wrap justify-content-between align-items-center">
                     {{-- Logo kiri --}}
                     <div class="logo-wrap d-flex align-items-center gap-2">
-                        <img src="{{ ($profil && $profil->logo) ? asset('storage/'.$profil->logo) : asset('storage/mentahan-logo.jpg') }}" alt="Logo SMP" onerror="this.onerror=null;this.src='{{ asset('assets/img/stisla-fill.svg') }}';">
+                        <img src="{{ image_url($profil?->logo, asset('storage/mentahan-logo.jpg')) }}" alt="Logo SMP" onerror="this.onerror=null;this.src='{{ asset('assets/img/stisla-fill.svg') }}';">
                         <div>
                             <div class="logo-text-title">SMP SAINS AL-QUR'AN</div>
                             <div class="logo-text-title">KLAKAH</div>
@@ -68,7 +68,7 @@
                 <div class="container">
                     {{-- Logo + Nama Sekolah di Mobile --}}
                     <a class="navbar-brand d-lg-none d-flex align-items-center gap-2 py-1" href="{{ route('landing') }}">
-                        <img src="{{ ($profil && $profil->logo) ? asset('storage/'.$profil->logo) : asset('storage/mentahan-logo.jpg') }}" 
+                        <img src="{{ image_url($profil?->logo, asset('storage/mentahan-logo.jpg')) }}" 
                              alt="Logo SMP" 
                              style="width: 38px; height: 38px; object-fit: contain;" 
                              onerror="this.onerror=null;this.src='{{ asset('assets/img/stisla-fill.svg') }}';">

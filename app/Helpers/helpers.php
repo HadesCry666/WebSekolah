@@ -15,3 +15,4 @@ if (!function_exists('upload_image')) {
         return UploadHelper::uploadImage($file, $folder, $maxWidth, $maxHeight, $quality);
     }
 }
+

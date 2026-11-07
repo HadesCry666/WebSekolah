@@ -17,9 +17,9 @@
 
     @php
         $faviconUrl = ($profilMeta && $profilMeta->favicon) 
-            ? asset('storage/'.$profilMeta->favicon) 
+            ? image_url($profilMeta->favicon) 
             : (($profilMeta && $profilMeta->logo) 
-                ? asset('storage/'.$profilMeta->logo) 
+                ? image_url($profilMeta->logo) 
                 : asset('favicon.png'));
     @endphp
     <link rel="icon" type="image/png" href="{{ $faviconUrl }}">
