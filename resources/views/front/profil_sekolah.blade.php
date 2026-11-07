@@ -187,7 +187,10 @@
                         </li>
                         @endif
                     </ul>
-                    <div class="mt-3 d-flex gap-2">
+                    <div class="mt-3 d-flex flex-wrap gap-2">
+                        @if($profil && $profil->facebook)
+                        <a href="{{ $profil->facebook }}" target="_blank" class="btn btn-outline-primary btn-sm btn-pill"><i class="bi bi-facebook me-1"></i>Facebook</a>
+                        @endif
                         @if($profil && $profil->instagram)
                         <a href="{{ $profil->instagram }}" target="_blank" class="btn btn-outline-danger btn-sm btn-pill"><i class="bi bi-instagram me-1"></i>Instagram</a>
                         @endif

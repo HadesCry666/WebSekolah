@@ -50,6 +50,9 @@
                         <a href="{{ $profilFooter->instagram ?? 'https://www.instagram.com/smpsainsquranklakah?utm_source=ig_web_button_share_sheet&psln=ZDNlZDc0MzIxNw==' }}" class="footer-social-btn instagram" target="_blank" title="Instagram" aria-label="Instagram">
                             <i class="bi bi-instagram"></i>
                         </a>
+                        <a href="{{ $profilFooter->facebook ?? 'https://www.facebook.com/share/19yzmuuc6A/' }}" class="footer-social-btn facebook" target="_blank" title="Facebook" aria-label="Facebook">
+                            <i class="bi bi-facebook"></i>
+                        </a>
                         <a href="{{ $profilFooter->youtube ?? 'https://www.youtube.com/@smpsainsquranklakah' }}" class="footer-social-btn youtube" target="_blank" title="YouTube" aria-label="YouTube">
                             <i class="bi bi-youtube"></i>
                         </a>

@@ -732,6 +732,12 @@ header {
     box-shadow: 0 4px 12px rgba(220, 39, 67, 0.35);
 }
 
+.footer-social-btn.facebook:hover {
+    background: #1877f2;
+    border-color: #1877f2;
+    box-shadow: 0 4px 12px rgba(24, 119, 242, 0.35);
+}
+
 .footer-social-btn.youtube:hover {
     background: #ff0000;
     border-color: #ff0000;

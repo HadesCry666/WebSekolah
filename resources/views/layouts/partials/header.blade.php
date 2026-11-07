@@ -52,6 +52,13 @@
                                 <i class="bi bi-instagram"></i>
                             </a>
 
+                            <a href="{{ $profil->facebook ?? 'https://www.facebook.com/share/19yzmuuc6A/' }}" 
+                            class="text-primary" 
+                            target="_blank"
+                            title="Facebook">
+                                <i class="bi bi-facebook"></i>
+                            </a>
+
                             <a href="{{ $profil->youtube ?? 'https://www.youtube.com/@smpsainsquranklakah' }}" 
                             class="text-danger" 
                             target="_blank">
