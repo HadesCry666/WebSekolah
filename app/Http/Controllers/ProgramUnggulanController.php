@@ -29,7 +29,7 @@ class ProgramUnggulanController extends Controller
         $data['is_active'] = $request->boolean('is_active', true);
 
         if ($request->hasFile('gambar')) {
-            $data['gambar'] = $request->file('gambar')->store('program_unggulan', 'public');
+            $data['gambar'] = \App\Helpers\UploadHelper::uploadImage($request->file('gambar'), 'program_unggulan', 1000, 750);
         }
 
         ProgramUnggulan::create($data);
@@ -55,10 +55,8 @@ class ProgramUnggulanController extends Controller
         $data['is_active'] = $request->boolean('is_active', true);
 
         if ($request->hasFile('gambar')) {
-            if ($item->gambar && Storage::disk('public')->exists($item->gambar)) {
-                Storage::disk('public')->delete($item->gambar);
-            }
-            $data['gambar'] = $request->file('gambar')->store('program_unggulan', 'public');
+            \App\Helpers\UploadHelper::deleteImage($item->gambar);
+            $data['gambar'] = \App\Helpers\UploadHelper::uploadImage($request->file('gambar'), 'program_unggulan', 1000, 750);
         }
 
         $item->update($data);
@@ -71,9 +69,7 @@ class ProgramUnggulanController extends Controller
     {
         $item = ProgramUnggulan::findOrFail($id);
 
-        if ($item->gambar && Storage::disk('public')->exists($item->gambar)) {
-            Storage::disk('public')->delete($item->gambar);
-        }
+        \App\Helpers\UploadHelper::deleteImage($item->gambar);
 
         $item->delete();
 

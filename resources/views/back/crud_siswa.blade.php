@@ -203,7 +203,7 @@
                                     overflow: hidden;
                                 ">
                                     @if($s->foto)
-                                        <img src="{{ asset('storage/'.$s->foto) }}" style="width:100%; height:100%; object-fit:cover;">
+                                        <img src="{{ image_url($s->foto) }}" style="width:100%; height:100%; object-fit:cover;">
                                     @else
                                         {{ strtoupper(substr($s->nama, 0, 2)) }}
                                     @endif

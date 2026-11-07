@@ -24,7 +24,7 @@
             <div class="col-10 col-sm-6 col-md-4 col-lg-3">
                 <div class="card card-soft guru-card h-100 text-center border-success border-opacity-25 shadow-sm">
                     <a href="{{ route('tenaga-pendidik.detail', $g->id) }}" class="stretched-link"></a>
-                    <img src="{{ $g->foto ? asset('storage/'.$g->foto) : ($g->jenis_kelamin == 'Perempuan' ? asset('assets/img/dummy/guru-wanita.png') : asset('assets/img/dummy/guru-pria.png')) }}"
+                    <img src="{{ image_url($g->foto, $g->jenis_kelamin == 'Perempuan' ? asset('assets/img/dummy/guru-wanita.png') : asset('assets/img/dummy/guru-pria.png')) }}"
                          onerror="this.onerror=null;this.src='{{ asset('assets/img/dummy/guru-pria.png') }}';"
                          alt="{{ $g->nama }}">
                     <div class="card-body">
@@ -50,7 +50,7 @@
                 <div class="card card-soft guru-card h-100 text-center">
                        <a href="{{ route('tenaga-pendidik.detail', $g->id) }}" class="stretched-link"></a>
 
-                    <img src="{{ $g->foto ? asset('storage/'.$g->foto) : ($g->jenis_kelamin == 'Perempuan' ? asset('assets/img/dummy/guru-wanita.png') : asset('assets/img/dummy/guru-pria.png')) }}"
+                    <img src="{{ image_url($g->foto, $g->jenis_kelamin == 'Perempuan' ? asset('assets/img/dummy/guru-wanita.png') : asset('assets/img/dummy/guru-pria.png')) }}"
                          onerror="this.onerror=null;this.src='{{ asset('assets/img/dummy/guru-pria.png') }}';"
                          alt="{{ $g->nama }}">
                     <div class="card-body">
@@ -75,7 +75,7 @@
                 <div class="card card-soft guru-card h-100 text-center">
                        <a href="{{ route('tenaga-pendidik.detail', $g->id) }}" class="stretched-link"></a>
 
-                    <img src="{{ $g->foto ? asset('storage/'.$g->foto) : ($g->jenis_kelamin == 'Perempuan' ? asset('assets/img/dummy/guru-wanita.png') : asset('assets/img/dummy/guru-pria.png')) }}"
+                    <img src="{{ image_url($g->foto, $g->jenis_kelamin == 'Perempuan' ? asset('assets/img/dummy/guru-wanita.png') : asset('assets/img/dummy/guru-pria.png')) }}"
                          onerror="this.onerror=null;this.src='{{ asset('assets/img/dummy/guru-pria.png') }}';"
                          alt="{{ $g->nama }}">
                     <div class="card-body">
@@ -102,7 +102,7 @@
             <div class="col-6 col-md-3">
                 <div class="card card-soft guru-card h-100 text-center">
                        <a href="{{ route('tenaga-pendidik.detail', $g->id) }}" class="stretched-link"></a>
-                    <img src="{{ $g->foto ? asset('storage/'.$g->foto) : ($g->jenis_kelamin == 'Perempuan' ? asset('assets/img/dummy/guru-wanita.png') : asset('assets/img/dummy/guru-pria.png')) }}"
+                    <img src="{{ image_url($g->foto, $g->jenis_kelamin == 'Perempuan' ? asset('assets/img/dummy/guru-wanita.png') : asset('assets/img/dummy/guru-pria.png')) }}"
                          onerror="this.onerror=null;this.src='{{ asset('assets/img/dummy/guru-pria.png') }}';"
                          alt="{{ $g->nama }}">
                     <div class="card-body">

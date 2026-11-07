@@ -117,7 +117,7 @@
                         </td>
                         <td>
                             @if($item->gambar)
-                                <img src="{{ asset('storage/'.$item->gambar) }}" 
+                                <img src="{{ image_url($item->gambar) }}" 
                                      alt="{{ $item->judul }}" 
                                      style="width: 90px; height: 50px; object-fit: cover; border-radius: 8px; border: 1.5px solid var(--border);">
                             @else
@@ -383,9 +383,10 @@
 
         const preview = document.getElementById('edit_gambar_preview');
         if (item.gambar) {
+            const imgSrc = (item.gambar.startsWith('data:') || item.gambar.startsWith('http')) ? item.gambar : '{{ asset('storage') }}/' + item.gambar;
             preview.innerHTML = `
                 <div class="d-flex align-items-center gap-2" style="background: #f9fafb; padding: 8px 12px; border-radius: 8px; border: 1px solid var(--border);">
-                    <img src="{{ asset('storage') }}/${item.gambar}" alt="${item.judul}" 
+                    <img src="${imgSrc}" alt="${item.judul}" 
                          style="width: 80px; height: 45px; object-fit: cover; border-radius: 6px; border: 1px solid var(--border);">
                     <div>
                         <div style="font-size: 0.78rem; font-weight: 600; color: var(--text-primary);">Banner saat ini</div>

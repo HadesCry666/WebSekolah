@@ -16,7 +16,7 @@
             @foreach($foto as $item)
             <div class="col-6 col-md-4 col-lg-3">
                 <div class="galeri-thumb rounded overflow-hidden shadow-sm position-relative">
-                    <img src="{{ asset('storage/'.$item->file) }}" alt="{{ $item->judul }}" class="w-100" style="height:200px;object-fit:cover;">
+                    <img src="{{ image_url($item->file) }}" alt="{{ $item->judul }}" class="w-100" style="height:200px;object-fit:cover;">
                     <div class="galeri-overlay">
                         <h6 class="text-white mb-0 small px-2 text-center">{{ $item->judul }}</h6>
                     </div>

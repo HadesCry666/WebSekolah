@@ -42,7 +42,7 @@ class EkstrakurikulerController extends Controller
         ]);
 
         if ($request->hasFile('gambar')) {
-            $validated['gambar'] = $request->file('gambar')->store('ekskul', 'public');
+            $validated['gambar'] = \App\Helpers\UploadHelper::uploadImage($request->file('gambar'), 'ekskul', 1000, 750);
         }
 
         Ekstrakurikuler::create($validated);
@@ -62,11 +62,8 @@ class EkstrakurikulerController extends Controller
         ]);
 
         if ($request->hasFile('gambar')) {
-            if ($data->gambar && Storage::disk('public')->exists($data->gambar)) {
-                Storage::disk('public')->delete($data->gambar);
-            }
-
-            $validated['gambar'] = $request->file('gambar')->store('ekskul', 'public');
+            \App\Helpers\UploadHelper::deleteImage($data->gambar);
+            $validated['gambar'] = \App\Helpers\UploadHelper::uploadImage($request->file('gambar'), 'ekskul', 1000, 750);
         }
 
         $data->update($validated);
@@ -79,9 +76,7 @@ class EkstrakurikulerController extends Controller
     {
         $data = Ekstrakurikuler::findOrFail($id);
 
-        if ($data->gambar && Storage::disk('public')->exists($data->gambar)) {
-            Storage::disk('public')->delete($data->gambar);
-        }
+        \App\Helpers\UploadHelper::deleteImage($data->gambar);
 
         $data->delete();
 

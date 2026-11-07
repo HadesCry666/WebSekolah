@@ -27,7 +27,7 @@ class HeroSliderController extends Controller
             'is_active'   => 'nullable|boolean',
         ]);
 
-        $gambar = $request->file('gambar')->store('hero_sliders', 'public');
+        $gambar = \App\Helpers\UploadHelper::uploadImage($request->file('gambar'), 'hero_sliders', 1400, 800, 82);
 
         HeroSlider::create([
             'judul'       => $request->judul,
@@ -63,10 +63,8 @@ class HeroSliderController extends Controller
         $data['is_active'] = $request->boolean('is_active', true);
 
         if ($request->hasFile('gambar')) {
-            if ($item->gambar && Storage::disk('public')->exists($item->gambar)) {
-                Storage::disk('public')->delete($item->gambar);
-            }
-            $data['gambar'] = $request->file('gambar')->store('hero_sliders', 'public');
+            \App\Helpers\UploadHelper::deleteImage($item->gambar);
+            $data['gambar'] = \App\Helpers\UploadHelper::uploadImage($request->file('gambar'), 'hero_sliders', 1400, 800, 82);
         }
 
         $item->update($data);
@@ -79,9 +77,7 @@ class HeroSliderController extends Controller
     {
         $item = HeroSlider::findOrFail($id);
 
-        if ($item->gambar && Storage::disk('public')->exists($item->gambar)) {
-            Storage::disk('public')->delete($item->gambar);
-        }
+        \App\Helpers\UploadHelper::deleteImage($item->gambar);
 
         $item->delete();
 

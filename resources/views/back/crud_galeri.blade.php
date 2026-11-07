@@ -130,7 +130,7 @@
                         </td>
                         <td>
                             @if($item->tipe === 'foto' && $item->file)
-                                <img src="{{ asset('storage/'.$item->file) }}" 
+                                <img src="{{ image_url($item->file) }}" 
                                      alt="{{ $item->judul }}" 
                                      style="width: 70px; height: 50px; object-fit: cover; border-radius: 8px; border: 1.5px solid var(--border);">
                             @elseif($item->tipe === 'video')
@@ -405,9 +405,10 @@
 
         const preview = document.getElementById('edit_file_preview');
         if (item.file) {
+            const fileSrc = (item.file.startsWith('data:') || item.file.startsWith('http')) ? item.file : '{{ asset('storage') }}/' + item.file;
             preview.innerHTML = `
                 <div class="d-flex align-items-center gap-2" style="background: #f9fafb; padding: 8px 12px; border-radius: 8px; border: 1px solid var(--border);">
-                    <img src="{{ asset('storage') }}/${item.file}" alt="${item.judul}" 
+                    <img src="${fileSrc}" alt="${item.judul}" 
                          style="width: 60px; height: 45px; object-fit: cover; border-radius: 6px; border: 1px solid var(--border);">
                     <div>
                         <div style="font-size: 0.78rem; font-weight: 600; color: var(--text-primary);">Foto saat ini</div>

@@ -21,7 +21,7 @@
             <div class="carousel-inner">
                 @forelse($sliders as $idx => $slide)
                 <div class="carousel-item {{ $idx === 0 ? 'active' : '' }}">
-                    <img src="{{ $slide->gambar ? asset('storage/'.$slide->gambar) : asset('assets/img/dummy/banner-'.($idx+1).'.png') }}"
+                    <img src="{{ image_url($slide->gambar, asset('assets/img/dummy/banner-'.($idx+1).'.png')) }}"
                          class="d-block w-100"
                          alt="{{ $slide->judul ?? 'Slide' }}"
                          onerror="this.onerror=null;this.src='{{ asset('assets/img/dummy/banner-1.png') }}';">
@@ -117,9 +117,9 @@
                             @php
                                 $fotoKepsekUrl = null;
                                 if (isset($kepsek) && $kepsek && $kepsek->foto) {
-                                    $fotoKepsekUrl = asset('storage/'.$kepsek->foto);
+                                    $fotoKepsekUrl = image_url($kepsek->foto);
                                 } elseif ($profil && $profil->foto_kepsek) {
-                                    $fotoKepsekUrl = asset('storage/'.$profil->foto_kepsek);
+                                    $fotoKepsekUrl = image_url($profil->foto_kepsek);
                                 } else {
                                     $fotoKepsekUrl = asset('assets/img/dummy/kepsek.png');
                                 }
@@ -281,7 +281,7 @@
                 @forelse($artikel as $item)
                     <div class="info-item">
                         <div class="card card-soft info-card-hover h-100">
-                            <img src="{{ $item->gambar ? asset('storage/'.$item->gambar) : asset('assets/img/dummy/artikel-dummy.png') }}"
+                            <img src="{{ image_url($item->gambar, asset('assets/img/dummy/artikel-dummy.png')) }}"
                                  onerror="this.onerror=null;this.src='{{ asset('assets/img/dummy/artikel-dummy.png') }}';"
                                  alt="{{ $item->judul }}">
                             <div class="card-body d-flex flex-column">
@@ -379,7 +379,7 @@
                         <div class="guru-item">
                             <div class="card card-soft guru-card h-100 text-center position-relative">
                                 <a href="{{ route('tenaga-pendidik.detail', $g->id) }}" class="stretched-link"></a>
-                                <img src="{{ $g->foto ? asset('storage/'.$g->foto) : ($g->jenis_kelamin == 'Perempuan' ? asset('assets/img/dummy/guru-wanita.png') : asset('assets/img/dummy/guru-pria.png')) }}"
+                                <img src="{{ image_url($g->foto, $g->jenis_kelamin == 'Perempuan' ? asset('assets/img/dummy/guru-wanita.png') : asset('assets/img/dummy/guru-pria.png')) }}"
                                      onerror="this.onerror=null;this.src='{{ asset('assets/img/dummy/guru-pria.png') }}';"
                                      alt="{{ $g->nama }}" class="img-fluid">
                                 <div class="card-body">
@@ -399,7 +399,7 @@
                         <div class="guru-item">
                             <div class="card card-soft guru-card h-100 text-center position-relative">
                                 <a href="{{ route('tenaga-pendidik.detail', $g->id) }}" class="stretched-link"></a>
-                                <img src="{{ $g->foto ? asset('storage/'.$g->foto) : ($g->jenis_kelamin == 'Perempuan' ? asset('assets/img/dummy/guru-wanita.png') : asset('assets/img/dummy/guru-pria.png')) }}"
+                                <img src="{{ image_url($g->foto, $g->jenis_kelamin == 'Perempuan' ? asset('assets/img/dummy/guru-wanita.png') : asset('assets/img/dummy/guru-pria.png')) }}"
                                      onerror="this.onerror=null;this.src='{{ asset('assets/img/dummy/guru-pria.png') }}';"
                                      alt="{{ $g->nama }}" class="img-fluid">
                                 <div class="card-body">
@@ -419,7 +419,7 @@
                         <div class="guru-item">
                             <div class="card card-soft guru-card h-100 text-center position-relative">
                                 <a href="{{ route('tenaga-pendidik.detail', $g->id) }}" class="stretched-link"></a>
-                                <img src="{{ $g->foto ? asset('storage/'.$g->foto) : ($g->jenis_kelamin == 'Perempuan' ? asset('assets/img/dummy/guru-wanita.png') : asset('assets/img/dummy/guru-pria.png')) }}"
+                                <img src="{{ image_url($g->foto, $g->jenis_kelamin == 'Perempuan' ? asset('assets/img/dummy/guru-wanita.png') : asset('assets/img/dummy/guru-pria.png')) }}"
                                      onerror="this.onerror=null;this.src='{{ asset('assets/img/dummy/guru-pria.png') }}';"
                                      alt="{{ $g->nama }}" class="img-fluid">
                                 <div class="card-body">
@@ -449,7 +449,7 @@
                 <div class="col-md-4 col-lg-3">
                     <div class="card card-soft h-100 text-center p-3">
                         @if($fas->foto)
-                            <img src="{{ asset('storage/'.$fas->foto) }}" alt="{{ $fas->nama }}" class="rounded mb-3" style="height:150px;object-fit:cover;width:100%;">
+                            <img src="{{ image_url($fas->foto) }}" alt="{{ $fas->nama }}" class="rounded mb-3" style="height:150px;object-fit:cover;width:100%;">
                         @else
                             <div class="mb-3 py-4"><i class="bi {{ $fas->ikon ?? 'bi-building' }} fs-1 text-primary"></i></div>
                         @endif
@@ -483,7 +483,7 @@
                 <div class="col-6 col-md-3">
                     <div class="galeri-thumb rounded overflow-hidden shadow-sm">
                         @if($g->tipe == 'foto' && $g->file)
-                            <img src="{{ asset('storage/'.$g->file) }}" alt="{{ $g->judul }}" class="w-100" style="height:180px;object-fit:cover;">
+                            <img src="{{ image_url($g->file) }}" alt="{{ $g->judul }}" class="w-100" style="height:180px;object-fit:cover;">
                         @elseif($g->tipe == 'video' && $g->url_video)
                             <div class="ratio ratio-16x9">
                                 <iframe src="{{ $g->url_video }}" allowfullscreen loading="lazy"></iframe>
@@ -510,7 +510,7 @@
                 <div class="col-md-6 col-lg-4">
                     <div class="card card-soft h-100">
                         @if($p->foto)
-                            <img src="{{ asset('storage/'.$p->foto) }}" alt="{{ $p->nama }}" style="height:200px;object-fit:cover;">
+                            <img src="{{ image_url($p->foto) }}" alt="{{ $p->nama }}" style="height:200px;object-fit:cover;">
                         @endif
                         <div class="card-body">
                             <div class="d-flex gap-2 mb-2">
@@ -593,7 +593,7 @@
                     <div class="ekskul-item">
                         <div class="card card-soft h-100 text-center position-relative">
                             <a href="{{ route('ekstrakulikuler.detail', $item->id) }}" class="stretched-link"></a>
-                            <img src="{{ $item->gambar ? asset('storage/'.$item->gambar) : asset('assets/img/dummy/ekskul-dummy.png') }}"
+                            <img src="{{ image_url($item->gambar, asset('assets/img/dummy/ekskul-dummy.png')) }}"
                                  onerror="this.onerror=null;this.src='{{ asset('assets/img/dummy/ekskul-dummy.png') }}';"
                                  alt="{{ $item->judul }}">
                             <div class="card-body bg-primary text-white">

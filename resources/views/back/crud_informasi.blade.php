@@ -129,7 +129,7 @@
                         </td>
                         <td>
                             @if($row->gambar)
-                                <img src="{{ asset('storage/'.$row->gambar) }}" 
+                                <img src="{{ image_url($row->gambar) }}" 
                                      alt="{{ $row->judul }}" 
                                      style="width: 70px; height: 50px; object-fit: cover; border-radius: 8px; border: 1.5px solid var(--border);">
                             @else
@@ -342,9 +342,10 @@
 
         const preview = document.getElementById('edit_gambar_preview');
         if (row.gambar) {
+            const imgSrc = (row.gambar.startsWith('data:') || row.gambar.startsWith('http')) ? row.gambar : '{{ asset('storage') }}/' + row.gambar;
             preview.innerHTML = `
                 <div class="d-flex align-items-center gap-2" style="background: #f9fafb; padding: 8px 12px; border-radius: 8px; border: 1px solid var(--border);">
-                    <img src="{{ asset('storage') }}/${row.gambar}" alt="${row.judul}" 
+                    <img src="${imgSrc}" alt="${row.judul}" 
                          style="width: 60px; height: 45px; object-fit: cover; border-radius: 6px; border: 1px solid var(--border);">
                     <div>
                         <div style="font-size: 0.78rem; font-weight: 600; color: var(--text-primary);">Gambar saat ini</div>

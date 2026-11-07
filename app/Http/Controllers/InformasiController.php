@@ -28,7 +28,7 @@ class InformasiController extends Controller
 
         $pathGambar = null;
         if ($request->hasFile('gambar')) {
-            $pathGambar = $request->file('gambar')->store('artikel', 'public');
+            $pathGambar = \App\Helpers\UploadHelper::uploadImage($request->file('gambar'), 'artikel', 1200, 800);
         }
 
         Artikel::create([
@@ -61,12 +61,8 @@ class InformasiController extends Controller
         ];
 
         if ($request->hasFile('gambar')) {
-            // hapus gambar lama kalau ada
-            if ($item->gambar && Storage::disk('public')->exists($item->gambar)) {
-                Storage::disk('public')->delete($item->gambar);
-            }
-
-            $dataUpdate['gambar'] = $request->file('gambar')->store('artikel', 'public');
+            \App\Helpers\UploadHelper::deleteImage($item->gambar);
+            $dataUpdate['gambar'] = \App\Helpers\UploadHelper::uploadImage($request->file('gambar'), 'artikel', 1200, 800);
         }
 
         $item->update($dataUpdate);
@@ -80,9 +76,7 @@ class InformasiController extends Controller
     {
         $item = Artikel::findOrFail($id);
 
-        if ($item->gambar && Storage::disk('public')->exists($item->gambar)) {
-            Storage::disk('public')->delete($item->gambar);
-        }
+        \App\Helpers\UploadHelper::deleteImage($item->gambar);
 
         $item->delete();
 

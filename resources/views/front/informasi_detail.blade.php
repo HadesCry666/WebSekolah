@@ -28,7 +28,7 @@
 
                 @if($item->gambar)
                     <div class="mb-4">
-                        <img src="{{ asset('storage/'.$item->gambar) }}"
+                        <img src="{{ image_url($item->gambar) }}"
                              class="img-fluid rounded-4 shadow-sm w-100">
                     </div>
                 @endif

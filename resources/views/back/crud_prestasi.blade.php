@@ -117,7 +117,7 @@
                         </td>
                         <td>
                             @if($item->foto)
-                                <img src="{{ asset('storage/'.$item->foto) }}" 
+                                <img src="{{ image_url($item->foto) }}" 
                                      alt="{{ $item->nama }}" 
                                      style="width: 65px; height: 48px; object-fit: cover; border-radius: 8px; border: 1.5px solid var(--border);">
                             @else
@@ -373,9 +373,10 @@
 
         const preview = document.getElementById('edit_foto_preview');
         if (item.foto) {
+            const fotoSrc = (item.foto.startsWith('data:') || item.foto.startsWith('http')) ? item.foto : '{{ asset('storage') }}/' + item.foto;
             preview.innerHTML = `
                 <div class="d-flex align-items-center gap-2" style="background: #f9fafb; padding: 8px 12px; border-radius: 8px; border: 1px solid var(--border);">
-                    <img src="{{ asset('storage') }}/${item.foto}" alt="${item.nama}" 
+                    <img src="${fotoSrc}" alt="${item.nama}" 
                          style="width: 60px; height: 45px; object-fit: cover; border-radius: 6px; border: 1px solid var(--border);">
                     <div>
                         <div style="font-size: 0.78rem; font-weight: 600; color: var(--text-primary);">Foto saat ini</div>

@@ -75,7 +75,7 @@ class SiswaController extends Controller
         ]);
 
         if ($request->hasFile('foto')) {
-            $data['foto'] = $request->file('foto')->store('siswa', 'public');
+            $data['foto'] = \App\Helpers\UploadHelper::uploadImage($request->file('foto'), 'siswa', 600, 600);
         }
 
         Siswa::create($data);
@@ -108,9 +108,8 @@ class SiswaController extends Controller
         ]);
 
         if ($request->hasFile('foto')) {
-            // Hapus foto lama
-            if ($siswa->foto) Storage::disk('public')->delete($siswa->foto);
-            $data['foto'] = $request->file('foto')->store('siswa', 'public');
+            \App\Helpers\UploadHelper::deleteImage($siswa->foto);
+            $data['foto'] = \App\Helpers\UploadHelper::uploadImage($request->file('foto'), 'siswa', 600, 600);
         }
 
         $siswa->update($data);
@@ -125,7 +124,7 @@ class SiswaController extends Controller
     public function destroy($id)
     {
         $siswa = Siswa::findOrFail($id);
-        if ($siswa->foto) Storage::disk('public')->delete($siswa->foto);
+        \App\Helpers\UploadHelper::deleteImage($siswa->foto);
         $siswa->delete();
 
         return redirect()->route('admin.siswa.index')

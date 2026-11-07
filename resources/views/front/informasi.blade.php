@@ -19,7 +19,7 @@
                 <div class="col-md-4">
                     <div class="card card-soft h-100">
                         <img
-                            src="{{ $item->gambar ? asset('storage/'.$item->gambar) : asset('assets/img/dummy/artikel-dummy.png') }}"
+                            src="{{ image_url($item->gambar, asset('assets/img/dummy/artikel-dummy.png')) }}"
                             onerror="this.onerror=null;this.src='{{ asset('assets/img/dummy/artikel-dummy.png') }}';"
                             alt="{{ $item->judul }}"
                             class="card-img-top">

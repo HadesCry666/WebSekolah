@@ -10,7 +10,7 @@
             <div class="col-lg-5">
                 <div class="rounded-4 overflow-hidden shadow-lg">
                     <img
-                        src="{{ ($profil && $profil->gambar) ? asset('storage/'.$profil->gambar) : asset('assets/img/dummy/sekolah.png') }}"
+                        src="{{ image_url($profil?->gambar, asset('assets/img/dummy/sekolah.png')) }}"
                         onerror="this.onerror=null;this.src='{{ asset('assets/img/dummy/sekolah.png') }}';"
                         alt="Foto Sekolah" class="img-fluid w-100" style="max-height:380px;object-fit:cover;">
                 </div>
@@ -135,9 +135,9 @@
         @php
             $fotoKepsekUrl = null;
             if (isset($kepsek) && $kepsek && $kepsek->foto) {
-                $fotoKepsekUrl = asset('storage/'.$kepsek->foto);
+                $fotoKepsekUrl = image_url($kepsek->foto);
             } elseif ($profil && $profil->foto_kepsek) {
-                $fotoKepsekUrl = asset('storage/'.$profil->foto_kepsek);
+                $fotoKepsekUrl = image_url($profil->foto_kepsek);
             } else {
                 $fotoKepsekUrl = asset('assets/img/dummy/guru-pria.png');
             }

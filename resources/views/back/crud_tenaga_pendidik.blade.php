@@ -162,7 +162,7 @@
                             <div class="d-flex align-items-center gap-2">
                                 {{-- Avatar Foto --}}
                                 @if($row->foto)
-                                    <img src="{{ asset('storage/' . $row->foto) }}" 
+                                    <img src="{{ image_url($row->foto) }}" 
                                          alt="{{ $row->nama }}" 
                                          style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--border); flex-shrink: 0;"
                                          onerror="this.onerror=null; this.src='{{ asset('assets/img/dummy/guru-pria.png') }}';">
@@ -547,9 +547,10 @@
         // Foto preview
         const fotoPreview = document.getElementById('edit_foto_preview');
         if (row.foto) {
+            const fotoSrc = (row.foto.startsWith('data:') || row.foto.startsWith('http')) ? row.foto : '{{ asset('storage') }}/' + row.foto;
             fotoPreview.innerHTML = `
                 <div class="d-flex align-items-center gap-2" style="background: #f9fafb; padding: 8px 12px; border-radius: 8px; border: 1px solid var(--border);">
-                    <img src="{{ asset('storage') }}/${row.foto}" alt="${row.nama}" 
+                    <img src="${fotoSrc}" alt="${row.nama}" 
                          style="width: 44px; height: 44px; object-fit: cover; border-radius: 6px; border: 1px solid var(--border);"
                          onerror="this.onerror=null; this.src='{{ asset('assets/img/dummy/guru-pria.png') }}';">
                     <div>

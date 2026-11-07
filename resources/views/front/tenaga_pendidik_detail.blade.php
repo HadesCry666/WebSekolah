@@ -18,9 +18,7 @@
                 <div class="col-md-4 text-center">
                     <div class="guru-photo-wrapper mx-auto">
                         <img
-                            src="{{ $guru->foto 
-                                ? asset('storage/'.$guru->foto) 
-                                : ($guru->jenis_kelamin == 'Perempuan' ? asset('assets/img/dummy/guru-wanita.png') : asset('assets/img/dummy/guru-pria.png')) }}"
+                            src="{{ image_url($guru->foto, $guru->jenis_kelamin == 'Perempuan' ? asset('assets/img/dummy/guru-wanita.png') : asset('assets/img/dummy/guru-pria.png')) }}"
                             onerror="this.onerror=null;this.src='{{ asset('assets/img/dummy/guru-pria.png') }}';"
                             alt="{{ $guru->nama }}"
                             class="guru-photo">

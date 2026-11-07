@@ -29,7 +29,7 @@ class FasilitasController extends Controller
         $data['is_active'] = $request->boolean('is_active', true);
 
         if ($request->hasFile('foto')) {
-            $data['foto'] = $request->file('foto')->store('fasilitas', 'public');
+            $data['foto'] = \App\Helpers\UploadHelper::uploadImage($request->file('foto'), 'fasilitas', 1000, 750);
         }
 
         Fasilitas::create($data);
@@ -55,10 +55,8 @@ class FasilitasController extends Controller
         $data['is_active'] = $request->boolean('is_active', true);
 
         if ($request->hasFile('foto')) {
-            if ($item->foto && Storage::disk('public')->exists($item->foto)) {
-                Storage::disk('public')->delete($item->foto);
-            }
-            $data['foto'] = $request->file('foto')->store('fasilitas', 'public');
+            \App\Helpers\UploadHelper::deleteImage($item->foto);
+            $data['foto'] = \App\Helpers\UploadHelper::uploadImage($request->file('foto'), 'fasilitas', 1000, 750);
         }
 
         $item->update($data);
@@ -71,9 +69,7 @@ class FasilitasController extends Controller
     {
         $item = Fasilitas::findOrFail($id);
 
-        if ($item->foto && Storage::disk('public')->exists($item->foto)) {
-            Storage::disk('public')->delete($item->foto);
-        }
+        \App\Helpers\UploadHelper::deleteImage($item->foto);
 
         $item->delete();
 

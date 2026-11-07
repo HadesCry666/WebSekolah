@@ -26,4 +26,8 @@ class Tenaga_pendidik extends Model
 
     public $timestamps = true;
 
+    public function getFotoUrlAttribute(): ?string
+    {
+        return \App\Helpers\UploadHelper::url($this->foto);
+    }
 }

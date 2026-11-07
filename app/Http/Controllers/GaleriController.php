@@ -31,7 +31,7 @@ class GaleriController extends Controller
         $data['is_active'] = $request->boolean('is_active', true);
 
         if ($request->hasFile('file')) {
-            $data['file'] = $request->file('file')->store('galeri', 'public');
+            $data['file'] = \App\Helpers\UploadHelper::uploadImage($request->file('file'), 'galeri', 1200, 900);
         }
 
         Galeri::create($data);
@@ -58,10 +58,8 @@ class GaleriController extends Controller
         $data['is_active'] = $request->boolean('is_active', true);
 
         if ($request->hasFile('file')) {
-            if ($item->file && Storage::disk('public')->exists($item->file)) {
-                Storage::disk('public')->delete($item->file);
-            }
-            $data['file'] = $request->file('file')->store('galeri', 'public');
+            \App\Helpers\UploadHelper::deleteImage($item->file);
+            $data['file'] = \App\Helpers\UploadHelper::uploadImage($request->file('file'), 'galeri', 1200, 900);
         }
 
         $item->update($data);
@@ -74,9 +72,7 @@ class GaleriController extends Controller
     {
         $item = Galeri::findOrFail($id);
 
-        if ($item->file && Storage::disk('public')->exists($item->file)) {
-            Storage::disk('public')->delete($item->file);
-        }
+        \App\Helpers\UploadHelper::deleteImage($item->file);
 
         $item->delete();
 

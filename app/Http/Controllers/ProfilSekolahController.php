@@ -79,16 +79,9 @@ class ProfilSekolahController extends Controller
 
         foreach ($imageFields as $field) {
             if ($request->hasFile($field)) {
-                try {
-                    // Delete old file
-                    if ($profil->$field && Storage::disk('public')->exists($profil->$field)) {
-                        Storage::disk('public')->delete($profil->$field);
-                    }
-                    $validated[$field] = $request->file($field)->store($storeFolders[$field], 'public');
-                } catch (\Throwable $e) {
-                    \Log::warning("Upload {$field} gagal: " . $e->getMessage());
-                    unset($validated[$field]);
-                }
+                \App\Helpers\UploadHelper::deleteImage($profil->$field);
+                $maxSize = in_array($field, ['logo', 'favicon', 'foto_kepsek']) ? 500 : 1200;
+                $validated[$field] = \App\Helpers\UploadHelper::uploadImage($request->file($field), $storeFolders[$field], $maxSize, $maxSize);
             } else {
                 unset($validated[$field]);
             }

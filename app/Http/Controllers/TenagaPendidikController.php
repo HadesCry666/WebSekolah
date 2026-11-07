@@ -113,12 +113,7 @@ class TenagaPendidikController extends Controller
         // HANDLE FOTO (JIKA ADA)
         $fotoPath = null;
         if ($request->hasFile('foto')) {
-            try {
-                $fotoPath = $request->file('foto')->store('guru', 'public');
-            } catch (\Throwable $e) {
-                \Log::warning('Upload foto guru gagal: ' . $e->getMessage());
-                $fotoPath = null;
-            }
+            $fotoPath = \App\Helpers\UploadHelper::uploadImage($request->file('foto'), 'guru', 600, 600);
         }
 
         // SIMPAN KE DATABASE
@@ -179,14 +174,8 @@ class TenagaPendidikController extends Controller
         ];
 
         if ($request->hasFile('foto')) {
-            try {
-                if ($guru->foto && Storage::disk('public')->exists($guru->foto)) {
-                    Storage::disk('public')->delete($guru->foto);
-                }
-                $dataUpdate['foto'] = $request->file('foto')->store('guru', 'public');
-            } catch (\Throwable $e) {
-                \Log::warning('Update foto guru gagal: ' . $e->getMessage());
-            }
+            \App\Helpers\UploadHelper::deleteImage($guru->foto);
+            $dataUpdate['foto'] = \App\Helpers\UploadHelper::uploadImage($request->file('foto'), 'guru', 600, 600);
         }
 
         $guru->update($dataUpdate);
@@ -199,14 +188,7 @@ class TenagaPendidikController extends Controller
     {
         $guru = Tenaga_pendidik::findOrFail($id);
 
-        try {
-            if ($guru->foto && Storage::disk('public')->exists($guru->foto)) {
-                Storage::disk('public')->delete($guru->foto);
-            }
-        } catch (\Throwable $e) {
-            \Log::warning('Hapus foto guru gagal: ' . $e->getMessage());
-        }
-
+        \App\Helpers\UploadHelper::deleteImage($guru->foto);
         $guru->delete();
 
         return redirect()->route('admin.tenaga-pendidik.index')

@@ -148,7 +148,7 @@
                 <div class="d-flex align-items-center gap-3">
                     <div style="width: 48px; height: 48px; border-radius: 50%; overflow: hidden; background: #ffffff; border: 2px solid #0d5c3a; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
                         @if($kepsekData && $kepsekData->foto)
-                            <img src="{{ asset('storage/'.$kepsekData->foto) }}" style="width:100%; height:100%; object-fit:cover;">
+                            <img src="{{ image_url($kepsekData->foto) }}" style="width:100%; height:100%; object-fit:cover;">
                         @else
                             <i class="bi bi-person-fill fs-3 text-secondary"></i>
                         @endif
@@ -229,21 +229,21 @@
                 <div class="col-md-4 mb-3">
                     <label class="af-label">Logo Sekolah</label>
                     @if($profil->logo)
-                        <div class="mb-2"><img src="{{ asset('storage/'.$profil->logo) }}" height="50" class="rounded"></div>
+                        <div class="mb-2"><img src="{{ image_url($profil->logo) }}" height="50" class="rounded"></div>
                     @endif
                     <input type="file" name="logo" class="af-file" accept="image/*">
                 </div>
                 <div class="col-md-4 mb-3">
                     <label class="af-label">Foto Gedung Utama Sekolah</label>
                     @if($profil->gambar)
-                        <div class="mb-2"><img src="{{ asset('storage/'.$profil->gambar) }}" height="50" class="rounded"></div>
+                        <div class="mb-2"><img src="{{ image_url($profil->gambar) }}" height="50" class="rounded"></div>
                     @endif
                     <input type="file" name="gambar" class="af-file" accept="image/*">
                 </div>
                 <div class="col-md-4 mb-3">
                     <label class="af-label">Favicon Tab Browser</label>
                     @if($profil->favicon)
-                        <div class="mb-2"><img src="{{ asset('storage/'.$profil->favicon) }}" height="30"></div>
+                        <div class="mb-2"><img src="{{ image_url($profil->favicon) }}" height="30"></div>
                     @endif
                     <input type="file" name="favicon" class="af-file" accept="image/*">
                 </div>
