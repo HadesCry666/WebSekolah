@@ -22,13 +22,16 @@
                         <small class="text-muted"><i class="bi bi-calendar3 me-1"></i>{{ $item->tanggal_publikasi->format('d M Y') }}</small>
                     </div>
                     @if($item->lampiran)
-                    <a href="{{ asset('storage/'.$item->lampiran) }}" target="_blank" class="btn btn-outline-primary btn-sm btn-pill">
+                    <a href="{{ asset('storage/'.$item->lampiran) }}" target="_blank" class="btn btn-theme-outline btn-sm btn-pill">
                         <i class="bi bi-paperclip me-1"></i>Lampiran
                     </a>
                     @endif
                 </div>
                 <p class="text-muted mt-2 mb-0">{{ Str::limit(strip_tags($item->isi), 200) }}</p>
-                <a href="{{ route('pengumuman.detail', $item->id) }}" class="text-primary small mt-2 d-inline-block">Baca selengkapnya →</a>
+                <a href="{{ route('pengumuman.detail', $item->id) }}" class="link-baca-selengkapnya small mt-2 d-inline-block fw-semibold">
+                    <span>Baca selengkapnya</span>
+                    <i class="bi bi-arrow-right ms-1"></i>
+                </a>
             </div>
         </div>
         @empty

@@ -32,8 +32,9 @@
                                 {{ Str::limit($item->deskripsi_berita, 120) }}
                             </p>
                             <a href="{{ route('informasi.detail', $item->id) }}"
-                               class="stretched-link text-primary small">
-                                Baca selengkapnya
+                               class="stretched-link link-baca-selengkapnya small fw-semibold">
+                                <span>Baca selengkapnya</span>
+                                <i class="bi bi-arrow-right ms-1"></i>
                             </a>
                         </div>
                         <div class="card-footer small text-muted">

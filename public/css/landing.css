@@ -355,36 +355,124 @@ header {
     line-height: 1.7;
 }
 
-/* ================= PROGRAM CARD ================= */
+/* ================= PROGRAM CARD (STYLE SEPERTI FOTO DENGAN TEMA HIJAU) ================= */
 .program-card {
+    position: relative;
     border-radius: 20px;
-    border: 1px solid rgba(13, 92, 58, 0.08);
+    border: 1.5px solid rgba(13, 92, 58, 0.12);
     background: #ffffff;
-    border-bottom: 3px solid transparent;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 34px 22px 26px 22px;
+    margin-top: 14px;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s ease;
+    box-shadow: 0 4px 18px rgba(13, 92, 58, 0.05);
 }
 
 .program-card:hover {
-    border-bottom-color: #0d5c3a;
     transform: translateY(-8px);
-    box-shadow: 0 18px 40px rgba(13, 92, 58, 0.12);
+    border-color: rgba(13, 92, 58, 0.35);
+    box-shadow: 0 16px 36px rgba(13, 92, 58, 0.12);
 }
 
-.program-icon-badge {
-    width: 80px;
-    height: 80px;
-    border-radius: 24px;
+.program-step-badge {
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #0d5c3a 0%, #166534 100%);
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 0.82rem;
+    padding: 3px 16px;
+    border-radius: 999px;
+    box-shadow: 0 4px 10px rgba(13, 92, 58, 0.28);
+    letter-spacing: 0.5px;
+    z-index: 2;
+    transition: background 0.25s ease, transform 0.25s ease;
+}
+
+.program-card:hover .program-step-badge {
+    background: linear-gradient(135deg, #15803d 0%, #0d5c3a 100%);
+    transform: translateX(-50%) scale(1.06);
+}
+
+.program-icon-circle {
+    width: 76px;
+    height: 76px;
+    border-radius: 50%;
+    background: #eaf6ed;
+    color: #0d5c3a;
+    border: 1.5px solid rgba(13, 92, 58, 0.15);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 2.1rem;
-    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+    margin: 6px auto 18px auto;
+    font-size: 1.95rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.program-card:hover .program-icon-badge {
-    transform: scale(1.1) rotate(5deg);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+.program-card:hover .program-icon-circle {
+    background: linear-gradient(135deg, #0d5c3a 0%, #15803d 100%);
+    color: #ffffff;
+    border-color: #0d5c3a;
+    transform: scale(1.08);
+    box-shadow: 0 8px 20px rgba(13, 92, 58, 0.2);
+}
+
+/* ================= THEME BUTTONS & LINKS ================= */
+.btn-theme-outline {
+    color: #0d5c3a !important;
+    border: 1.5px solid #0d5c3a !important;
+    background: transparent !important;
+    border-radius: 999px !important;
+    font-weight: 600 !important;
+    padding: 7px 20px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    transition: all 0.25s ease !important;
+    text-decoration: none !important;
+    font-size: 0.88rem !important;
+}
+
+.btn-theme-outline:hover {
+    background: #0d5c3a !important;
+    color: #ffffff !important;
+    border-color: #0d5c3a !important;
+    box-shadow: 0 6px 16px rgba(13, 92, 58, 0.28) !important;
+    transform: translateY(-2px) !important;
+}
+
+.btn-theme-outline i {
+    transition: transform 0.25s ease;
+}
+
+.btn-theme-outline:hover i {
+    transform: translateX(3px);
+}
+
+.link-baca-selengkapnya {
+    color: #0d5c3a !important;
+    font-weight: 600 !important;
+    text-decoration: none !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+    transition: all 0.2s ease !important;
+}
+
+.card:hover .link-baca-selengkapnya,
+.link-baca-selengkapnya:hover {
+    color: #15803d !important;
+    text-decoration: none !important;
+}
+
+.link-baca-selengkapnya i {
+    transition: transform 0.2s ease;
+}
+
+.card:hover .link-baca-selengkapnya i,
+.link-baca-selengkapnya:hover i {
+    transform: translateX(4px);
 }
 
 /* ================= INFO SLIDER ================= */

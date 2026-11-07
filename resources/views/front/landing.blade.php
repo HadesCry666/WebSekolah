@@ -249,59 +249,31 @@
             <div class="row g-4">
                 @foreach($programUnggulan as $index => $prog)
                 @php
-                    $programStyles = [
-                        'tahfidz' => [
-                            'icon' => 'bi-journal-bookmark-fill',
-                            'color' => '#0d5c3a',
-                            'bg' => 'linear-gradient(135deg, #e8f5e9 0%, #dcfce7 100%)',
-                            'border' => 'rgba(13, 92, 58, 0.18)'
-                        ],
-                        'sains' => [
-                            'icon' => 'bi-rocket-takeoff-fill',
-                            'color' => '#0284c7',
-                            'bg' => 'linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%)',
-                            'border' => 'rgba(2, 132, 199, 0.18)'
-                        ],
-                        'akhlak' => [
-                            'icon' => 'bi-heart-fill',
-                            'color' => '#e11d48',
-                            'bg' => 'linear-gradient(135deg, #ffe4e6 0%, #fecdd3 100%)',
-                            'border' => 'rgba(225, 29, 72, 0.18)'
-                        ],
-                        'bahasa' => [
-                            'icon' => 'bi-translate',
-                            'color' => '#7c3aed',
-                            'bg' => 'linear-gradient(135deg, #ede9fe 0%, #ddd6fe 100%)',
-                            'border' => 'rgba(124, 58, 237, 0.18)'
-                        ],
-                    ];
-                    
                     $progNameLower = strtolower($prog->nama ?? '');
                     if (str_contains($progNameLower, 'tahfidz') || str_contains($progNameLower, 'qur')) {
-                        $style = $programStyles['tahfidz'];
+                        $defaultIcon = 'bi-journal-bookmark';
                     } elseif (str_contains($progNameLower, 'sains') || str_contains($progNameLower, 'teknologi')) {
-                        $style = $programStyles['sains'];
+                        $defaultIcon = 'bi-lightbulb';
                     } elseif (str_contains($progNameLower, 'akhlak') || str_contains($progNameLower, 'karakter')) {
-                        $style = $programStyles['akhlak'];
+                        $defaultIcon = 'bi-heart';
                     } elseif (str_contains($progNameLower, 'bahasa') || str_contains($progNameLower, 'arab') || str_contains($progNameLower, 'inggris')) {
-                        $style = $programStyles['bahasa'];
+                        $defaultIcon = 'bi-translate';
                     } else {
-                        $palettes = array_values($programStyles);
-                        $style = $palettes[$index % count($palettes)];
+                        $defaultIcon = 'bi-star';
                     }
 
-                    $iconClass = $prog->ikon;
-                    if (!$iconClass || in_array($iconClass, ['bi-star', 'bi-book', 'bi-lightbulb', 'bi-heart', 'bi-globe'])) {
-                        $iconClass = $style['icon'];
-                    }
+                    $iconClass = $prog->ikon ?: $defaultIcon;
                 @endphp
                 <div class="col-md-6 col-lg-3">
-                    <div class="card card-soft h-100 text-center p-4 program-card">
-                        <div class="mb-3">
-                            <div class="program-icon-badge mx-auto" style="background: {{ $style['bg'] }}; color: {{ $style['color'] }}; border: 1px solid {{ $style['border'] }};">
-                                <i class="bi {{ $iconClass }}"></i>
-                            </div>
+                    <div class="card card-soft h-100 text-center program-card">
+                        {{-- Badge Nomor Urut di Atas Kartu seperti pada Foto Referensi --}}
+                        <span class="program-step-badge">{{ sprintf('%02d', $index + 1) }}</span>
+
+                        {{-- Lingkaran Ikon Tema Hijau --}}
+                        <div class="program-icon-circle">
+                            <i class="bi {{ $iconClass }}"></i>
                         </div>
+
                         <h5 class="fw-bold mb-2 text-dark">{{ $prog->nama }}</h5>
                         <p class="text-muted small mb-0 lh-base">{{ Str::limit($prog->deskripsi, 120) }}</p>
                     </div>
@@ -320,7 +292,7 @@
                     <h2 class="section-title mb-1">Informasi, Berita & Prestasi</h2>
                     <p class="section-subtitle mb-0 text-truncate">Informasi, berita & prestasi siswa</p>
                 </div>
-                <a href="{{ route('informasi.index') }}" class="btn btn-outline-primary btn-pill flex-shrink-0">
+                <a href="{{ route('informasi.index') }}" class="btn btn-theme-outline btn-pill flex-shrink-0">
                     Selengkapnya <i class="bi bi-arrow-right ms-1"></i>
                 </a>
             </div>
@@ -339,8 +311,9 @@
                                 <p class="card-text text-muted small flex-grow-1">
                                     {{ Str::limit($item->deskripsi_berita, 120) }}
                                 </p>
-                                <a href="{{ route('informasi.detail', $item->id) }}" class="stretched-link text-primary small">
-                                    Baca selengkapnya
+                                <a href="{{ route('informasi.detail', $item->id) }}" class="stretched-link link-baca-selengkapnya small">
+                                    <span>Baca selengkapnya</span>
+                                    <i class="bi bi-arrow-right ms-1"></i>
                                 </a>
                             </div>
                         </div>
@@ -361,8 +334,8 @@
                 @if($pengumuman->count())
                 <div class="col-lg-6">
                     <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h2 class="section-title mb-0"><i class="bi bi-megaphone me-2 text-primary"></i>Pengumuman</h2>
-                        <a href="{{ route('pengumuman.index') }}" class="btn btn-outline-primary btn-sm btn-pill">Semua</a>
+                        <h2 class="section-title mb-0"><i class="bi bi-megaphone me-2 text-success"></i>Pengumuman</h2>
+                        <a href="{{ route('pengumuman.index') }}" class="btn btn-theme-outline btn-sm btn-pill">Semua</a>
                     </div>
                     <div class="list-group">
                         @foreach($pengumuman as $p)
@@ -390,7 +363,7 @@
                         <div class="list-group-item border-0 rounded mb-2 shadow-sm">
                             <div class="d-flex align-items-center gap-3">
                                 <div class="agenda-date-box text-center">
-                                    <div class="fw-bold fs-4 text-primary">{{ $ag->tanggal_mulai->format('d') }}</div>
+                                    <div class="fw-bold fs-4 text-success">{{ $ag->tanggal_mulai->format('d') }}</div>
                                     <div class="small text-muted">{{ $ag->tanggal_mulai->translatedFormat('M Y') }}</div>
                                 </div>
                                 <div>
@@ -416,7 +389,7 @@
                     <h2 class="section-title mb-1">Tenaga Pendidik</h2>
                     <p class="section-subtitle mb-0 text-truncate">Guru dan staf SMP Sains Al-Qur'an Klakah</p>
                 </div>
-                <a href="{{ route('tenaga-pendidik.index') }}" class="btn btn-outline-primary btn-pill flex-shrink-0">
+                <a href="{{ route('tenaga-pendidik.index') }}" class="btn btn-theme-outline btn-pill flex-shrink-0">
                     Selengkapnya <i class="bi bi-arrow-right ms-1"></i>
                 </a>
             </div>
@@ -498,7 +471,7 @@
                         @if($fas->foto)
                             <img src="{{ image_url($fas->foto) }}" alt="{{ $fas->nama }}" class="rounded mb-3" style="height:150px;object-fit:cover;width:100%;">
                         @else
-                            <div class="mb-3 py-4"><i class="bi {{ $fas->ikon ?? 'bi-building' }} fs-1 text-primary"></i></div>
+                            <div class="mb-3 py-4"><i class="bi {{ $fas->ikon ?? 'bi-building' }} fs-1 text-success"></i></div>
                         @endif
                         <h6 class="fw-bold mb-1">{{ $fas->nama }}</h6>
                         @if($fas->deskripsi)
@@ -521,7 +494,7 @@
                     <h2 class="section-title mb-1">Galeri</h2>
                     <p class="section-subtitle mb-0 text-truncate">Dokumentasi kegiatan sekolah</p>
                 </div>
-                <a href="{{ route('galeri.index') }}" class="btn btn-outline-primary btn-pill flex-shrink-0">
+                <a href="{{ route('galeri.index') }}" class="btn btn-theme-outline btn-pill flex-shrink-0">
                     Lihat Semua <i class="bi bi-arrow-right ms-1"></i>
                 </a>
             </div>
@@ -561,7 +534,7 @@
                         @endif
                         <div class="card-body">
                             <div class="d-flex gap-2 mb-2">
-                                @if($p->kategori)<span class="badge bg-primary">{{ ucfirst($p->kategori) }}</span>@endif
+                                @if($p->kategori)<span class="badge" style="background: #0d5c3a;">{{ ucfirst($p->kategori) }}</span>@endif
                                 @if($p->tingkat)<span class="badge bg-success">{{ ucfirst($p->tingkat) }}</span>@endif
                             </div>
                             <h6 class="fw-bold">{{ $p->nama }}</h6>
