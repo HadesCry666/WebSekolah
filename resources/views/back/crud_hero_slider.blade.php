@@ -220,7 +220,7 @@
 
                     <div class="af-group">
                         <label class="af-label">Badge Text (Label Kecil di Atas)</label>
-                        <input type="text" name="badge_teks" class="af-input" placeholder="e.g. PPDB Online / Penerimaan Baru">
+                        <input type="text" name="badge_teks" class="af-input" placeholder="e.g. Kurikulum Terpadu / Program Unggulan">
                     </div>
 
                     <div class="af-group">
