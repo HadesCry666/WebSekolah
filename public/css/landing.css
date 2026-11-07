@@ -355,14 +355,13 @@ header {
     line-height: 1.7;
 }
 
-/* ================= PROGRAM CARD (STYLE SEPERTI FOTO DENGAN TEMA HIJAU) ================= */
+/* ================= PROGRAM CARD (TEMA HIJAU) ================= */
 .program-card {
     position: relative;
     border-radius: 20px;
     border: 1.5px solid rgba(13, 92, 58, 0.12);
     background: #ffffff;
-    padding: 34px 22px 26px 22px;
-    margin-top: 14px;
+    padding: 32px 22px 28px 22px;
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s ease;
     box-shadow: 0 4px 18px rgba(13, 92, 58, 0.05);
 }
@@ -371,28 +370,6 @@ header {
     transform: translateY(-8px);
     border-color: rgba(13, 92, 58, 0.35);
     box-shadow: 0 16px 36px rgba(13, 92, 58, 0.12);
-}
-
-.program-step-badge {
-    position: absolute;
-    top: -14px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: linear-gradient(135deg, #0d5c3a 0%, #166534 100%);
-    color: #ffffff;
-    font-weight: 700;
-    font-size: 0.82rem;
-    padding: 3px 16px;
-    border-radius: 999px;
-    box-shadow: 0 4px 10px rgba(13, 92, 58, 0.28);
-    letter-spacing: 0.5px;
-    z-index: 2;
-    transition: background 0.25s ease, transform 0.25s ease;
-}
-
-.program-card:hover .program-step-badge {
-    background: linear-gradient(135deg, #15803d 0%, #0d5c3a 100%);
-    transform: translateX(-50%) scale(1.06);
 }
 
 .program-icon-circle {
@@ -405,8 +382,8 @@ header {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 6px auto 18px auto;
-    font-size: 1.95rem;
+    margin: 4px auto 18px auto;
+    font-size: 2rem;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 

@@ -266,9 +266,6 @@
                 @endphp
                 <div class="col-md-6 col-lg-3">
                     <div class="card card-soft h-100 text-center program-card">
-                        {{-- Badge Nomor Urut di Atas Kartu seperti pada Foto Referensi --}}
-                        <span class="program-step-badge">{{ sprintf('%02d', $index + 1) }}</span>
-
                         {{-- Lingkaran Ikon Tema Hijau --}}
                         <div class="program-icon-circle">
                             <i class="bi {{ $iconClass }}"></i>
