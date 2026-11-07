@@ -310,34 +310,5 @@
     </div>
 </section>
 
-{{-- ================= CTA BOX BAWAH ================= --}}
-<section class="py-5 text-white position-relative" style="background: linear-gradient(135deg, #0d5c3a 0%, #15803d 100%);">
-    <div class="container text-center py-3">
-        <h3 class="fw-bold mb-3">Siap Mengakses Raport Digital Anda?</h3>
-        <p class="text-white-50 mx-auto mb-4" style="max-width: 600px;">
-            Akses dokumen hasil evaluasi belajar siswa kapan pun dan di mana pun melalui portal digital SMP Sains Al-Qur'an Klakah.
-        </p>
-        <div class="d-flex flex-wrap gap-3 justify-content-center">
-            @if($isSiswa)
-                <a href="{{ route('siswa.raport.index') }}" class="btn btn-warning btn-lg fw-bold px-4 py-3 rounded-pill shadow">
-                    <i class="bi bi-folder-check me-2"></i> Buka Portal Raport Saya
-                </a>
-            @else
-                <a href="{{ route('login.index') }}" class="btn btn-warning btn-lg fw-bold px-4 py-3 rounded-pill shadow">
-                    <i class="bi bi-box-arrow-in-right me-2"></i> {{ $settings['raport_btn_login_text'] ?? 'Login Siswa & Unduh Raport' }}
-                </a>
-            @endif
-
-            @if($cleanWa)
-            <a href="https://wa.me/{{ $cleanWa }}?text=Assalamu%27alaikum%20Admin%2C%20saya%20ingin%20bertanya%20mengenai%20raport%20digital." 
-               target="_blank" 
-               class="btn btn-outline-light btn-lg fw-semibold px-4 py-3 rounded-pill">
-                <i class="bi bi-whatsapp me-2"></i> Hubungi Helpdesk
-            </a>
-            @endif
-        </div>
-    </div>
-</section>
-
 @endsection
 
